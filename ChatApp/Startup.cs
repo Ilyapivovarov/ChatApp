@@ -1,7 +1,8 @@
+using System;
+using ChatApp.SignalRHubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,10 +26,13 @@ namespace ChatApp
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            IHostApplicationLifetime hostApplicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -49,6 +53,7 @@ namespace ChatApp
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
@@ -62,6 +67,20 @@ namespace ChatApp
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
+            });
+
+            hostApplicationLifetime.ApplicationStarted.Register(() =>
+            {
+                var serviceProvider = app.ApplicationServices;
+                var chatHub = (IHubContext<ChatHub>) serviceProvider.GetService(typeof(IHubContext<ChatHub>));
+
+                var timer = new System.Timers.Timer(1000);
+                timer.Enabled = true;
+                timer.Elapsed += delegate(object sender, System.Timers.ElapsedEventArgs e)
+                {
+                    chatHub?.Clients.All.SendAsync("setTime", DateTime.Now.ToString("dddd d MMMM yyyy HH:mm:ss"));
+                };
+                timer.Start();
             });
         }
     }
