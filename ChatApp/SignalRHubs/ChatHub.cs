@@ -1,13 +1,23 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using ChatApp.AppData.Models;
 using Microsoft.AspNetCore.SignalR;
 
 namespace ChatApp.SignalRHubs
 {
-    public class ChatHub : Hub
+    public interface IChatClient
     {
-        public async Task SendConnectionId(string connectionId)
+        Task ReceiveMessage(ChatMessage message);
+    }
+
+    
+    public class ChatHub : Hub<IChatClient>
+    {
+        public async Task Send(ChatMessage message)
         {
-            await Clients.All.SendAsync("setClientMessage", "A connection with ID '" + connectionId + "' has just connected");
+            
+            await Clients.All.ReceiveMessage(message);
         }
     }
 }

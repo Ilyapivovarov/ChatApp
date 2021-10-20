@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AppContext = ChatApp.AppData.AppContext;
 
 namespace ChatApp
 {
@@ -22,12 +24,17 @@ namespace ChatApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppContext>(builder =>
+            {
+                builder.UseInMemoryDatabase("ChatAppDb");
+            });
+            
+            services.AddSignalR();
+            
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
-
-            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,20 +74,6 @@ namespace ChatApp
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
-            });
-
-            hostApplicationLifetime.ApplicationStarted.Register(() =>
-            {
-                var serviceProvider = app.ApplicationServices;
-                var chatHub = (IHubContext<ChatHub>) serviceProvider.GetService(typeof(IHubContext<ChatHub>));
-
-                var timer = new System.Timers.Timer(1000);
-                timer.Enabled = true;
-                timer.Elapsed += delegate(object sender, System.Timers.ElapsedEventArgs e)
-                {
-                    chatHub?.Clients.All.SendAsync("setTime", DateTime.Now.ToString("dddd d MMMM yyyy HH:mm:ss"));
-                };
-                timer.Start();
             });
         }
     }
