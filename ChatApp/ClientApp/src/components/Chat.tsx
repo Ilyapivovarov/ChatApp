@@ -3,10 +3,7 @@ import * as signalR from "@microsoft/signalr";
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {ChatMessage} from "../types/ChatMessage";
 import Dialog from "./Dialog,tsx";
-
-interface TextBox {
-    sendMessage : any,
-}
+import axios from "axios";
 
 const hubConnection = new signalR.HubConnectionBuilder()
     .withUrl("/chat")
@@ -20,8 +17,7 @@ hubConnection.start();
 const Chat: React.FC = () => {
 
     const [messages , setMessages] = useState<ChatMessage[]>([]);
-
-
+    
     hubConnection.on("receiveMessage", (message : ChatMessage) => {
         setMessages(messages => {
             
@@ -35,24 +31,12 @@ const Chat: React.FC = () => {
             return [...messages, message]
         })
     });
-   
     
-    const sendMessage = () => {
-        let msg = new ChatMessage();
-        msg.id = Date.now().valueOf()
-        msg.message = "asf";
-        msg.author = "fas";
-
-     //   hubConnection.invoke<ChatMessage>("receiveMessage", msg)
-    }
-
-   
-
-    // Builds the SignalR connection, mapping it to /chat
-   
-    const TextBox: React.FC<TextBox> = (prop) => {
+    const TextBox: React.FC = () => {
         let text = "";
         let author = ""
+        
+        const [errorMsg, setErrorMsg] = useState<string>("");
         
         const Handler = (e: React.ChangeEvent<HTMLInputElement>) => {
             text = e.target.value
@@ -65,33 +49,45 @@ const Chat: React.FC = () => {
         const submitForm = () => {
             let msg = new ChatMessage();
             msg.id = Date.now().valueOf()
+            
+            if (text.length == 0 || author.length == 0)
+                return (
+                    console.log("!!!!")
+                );
+                
             msg.message = text;
             msg.author = author;
-
-            //prop.sendMessage()
-
-           /// hubConnection.invoke<ChatMessage>("receiveMessage", msg)
+            
+            axios.post<ChatMessage>("/chat/send", msg)
+                .then(x => console.log(x))
+                .catch(error => console.log(error))
         };
         
         return <>
-            <Form >
-                <FormGroup>
+
+            <Dialog messages={messages} author={author}/>
+         
+          
+            <Form required={true}>
+                <FormGroup >
                     <Label for="exampleEmail">Email</Label>
-                    <Input id="exampleEmail" placeholder="with a placeholder" onChange={AuthorHandler} />
+                    <Input required={true} id="exampleEmail" placeholder="with a placeholder" onChange={AuthorHandler} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="exampleText" >Text Area</Label>
-                    <Input type="textarea" name="text" id="exampleText" onChange={Handler}/>
+                    <Input required={true} type="textarea" name="text" id="exampleText" onChange={Handler}/>
                 </FormGroup>
+                <div style={{width: "100%", textAlign: "right"}}>
+                    <Button onClick={submitForm}>Submit</Button>
+                </div>
             </Form>
-
-            <Button onClick={submitForm}>Submit</Button>
-            <Dialog messages={messages} author={author}/>
+            
+            
         </>
     }
     
     return <>
-        <TextBox sendMessage={sendMessage}/>
+        <TextBox />
     </>;
 };
 
