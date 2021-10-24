@@ -11,9 +11,6 @@ const hubConnection = new signalR.HubConnectionBuilder()
 
 hubConnection.start();
 
-
-
-
 const Chat: React.FC = () => {
 
     const [messages , setMessages] = useState<ChatMessage[]>([]);
@@ -66,8 +63,6 @@ const Chat: React.FC = () => {
         return <>
 
             <Dialog messages={messages} author={author}/>
-         
-          
             <Form required={true}>
                 <FormGroup >
                     <Label for="exampleEmail">Email</Label>
