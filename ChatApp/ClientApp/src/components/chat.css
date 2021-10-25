@@ -1,27 +1,4 @@
-.dialog {
-    display: flex;
-    flex-direction: row;
-    height: 50vh;
-}
-.dialog-content {
-    flex: 1;
-    overflow-y: scroll;
-}
-li {
-    list-style-type: none
-}
-
-.message{
-    background: lightgreen;
-    border-radius: 7px;
-    padding: 6px;
-    margin: 10px;
-}
-
-.input {
-    margin-left: 40%;
-}
-
-.output {
-    margin-right: 40%;
+.form-group{
+    margin: 5px;
+    padding: 5px;
 }

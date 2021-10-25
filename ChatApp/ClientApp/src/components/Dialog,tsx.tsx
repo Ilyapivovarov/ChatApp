@@ -1,15 +1,14 @@
 import React from "react";
-import {Table} from "reactstrap";
 import {ChatMessage} from "../types/ChatMessage";
-import "./chat.css"
+import "./dialog.css"
 
 interface DialogProps {
     author: string,
     messages: Array<ChatMessage>
 }
 
-
 const Dialog: React.FC<DialogProps> = (props: DialogProps) => {
+    
     const MyMessage: React.FC<ChatMessage> = (prop: ChatMessage) => (
         <div className={"message output"} style={{background: "lightgreen"}} key={prop.id}>
             <div>{prop.message}</div>
