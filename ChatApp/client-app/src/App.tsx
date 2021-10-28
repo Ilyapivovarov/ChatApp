@@ -4,6 +4,8 @@ import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
 import ChatRoomPage from "./pages/ChatRoomPage/ChatRoomPage";
 import SignInPage from "./pages/SingInPage/SignInPage";
+import {Routs} from "./router/types/Routs";
+
 
 import './App.css';
 
@@ -11,9 +13,9 @@ const App : React.FC = () => {
   return (
       <Layout>
        <Switch>
-                <Route exact path="/" component={HomePage} />
-           <Route exact path="/" component={ChatRoomPage} />
-           <Route exact path="/" component={SignInPage} />
+           <Route exact path={Routs.Home}  component={HomePage} />
+           <Route path={Routs.ChatRoom} component={ChatRoomPage} />
+           <Route path={Routs.SingIn} component={SignInPage} />
        </Switch>
       </Layout>
   )
