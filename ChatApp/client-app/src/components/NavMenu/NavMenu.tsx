@@ -23,7 +23,7 @@ const NavMenu: React.FC = () => {
                                 <NavLink tag={Link} className="text-dark" to={Routs.Home}>Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to={Routs.ChatRoom}>Join to chat room</NavLink>
+                                <NavLink tag={Link} className="text-dark" to="/chat-room/1">Join to chat room</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to={Routs.SingIn}>Sign in</NavLink>
