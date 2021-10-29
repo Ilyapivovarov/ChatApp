@@ -12,7 +12,7 @@ const App: React.FC = () => {
     return (
         <Layout>
             <Switch>
-                <Route exact path={RouteTemplates.Home} component={HomePage}/>
+                <Route exact path={RouteTemplates.Home} component={HomePage} />
                 <Route path={RouteTemplates.ChatRoom} component={ChatRoomPage}/>
                 <Route path={RouteTemplates.SingIn} component={SignInPage}/>
             </Switch>

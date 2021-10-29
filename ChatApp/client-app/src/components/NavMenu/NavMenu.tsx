@@ -1,13 +1,17 @@
-import React from 'react';
+import {FC, useEffect, useState} from 'react';
 import {Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import {Routs} from "../../router/types/Routs";
+import {RouteTemplates} from "../../router/types/Routs";
+import {useUserSelector} from "../../hooks/useAuth";
 
 import './NavMenu.css';
+import {useDispatch} from "react-redux";
+import {signInUser} from "../../store/action-creators/user";
 
-const NavMenu: React.FC = () => {
+const NavMenu: FC = () => {
     
-    const [flag, setFlag] = React.useState<boolean>();
+    const [flag, setFlag] = useState<boolean>();
+    const {isAuthorized, userName} = useUserSelector(state => state.users)
     
     return (
         <header>
@@ -20,13 +24,13 @@ const NavMenu: React.FC = () => {
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={flag} navbar>
                         <ul className="navbar-nav flex-grow">
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to={Routs.Home}>Home</NavLink>
+                                <NavLink tag={Link} className="text-dark" to={RouteTemplates.Home}>Home</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/chat-room/1">Join to chat room</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to={Routs.SingIn}>Sign in</NavLink>
+                                <NavLink tag={Link} className="text-dark" to={RouteTemplates.SingIn}>Sign in</NavLink>
                             </NavItem>
                         </ul>
                     </Collapse>
