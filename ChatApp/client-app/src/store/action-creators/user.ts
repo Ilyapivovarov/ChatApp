@@ -14,3 +14,10 @@ export const signInUser = (userName: string) => {
         }
     }
 }
+
+export const singOutUser = () => {
+    return async (dispatch: Dispatch<UserAction>) => {
+        localStorage.removeItem("user")
+        dispatch({type: UserActionType.SIGN_IN_USER_SUCCESS, payload: ""});
+    }
+}
