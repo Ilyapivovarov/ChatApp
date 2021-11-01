@@ -1,5 +1,5 @@
-import React from "react";
-import { Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
+import React, {useEffect} from "react";
+import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {RouteTemplates} from "../../router/types/Routs";
 import {useUserSelector} from "../../hooks/useAuth";
@@ -7,11 +7,13 @@ import {useActions} from "../../hooks/useActions";
 
 import './NavMenu.css';
 
-const AuthItem: React.FC = () => {
-    const {isAuthorized, userName} = useUserSelector(state => state.users)
+interface AuthItemProps {
+    isAuthorized : boolean;
+}
+
+const AuthItem: React.FC<AuthItemProps> = (prop) => {
     const {singOutUser} = useActions();
-    
-    if (!isAuthorized)
+    if (!prop.isAuthorized)
         return (
             <NavItem>
                 <NavLink tag={Link} className="text-dark" to={RouteTemplates.SingIn}>Sign in</NavLink>
@@ -19,23 +21,27 @@ const AuthItem: React.FC = () => {
         )
 
     return (
-        <>
-            <NavItem>
-                <div>{userName}</div>
-            </NavItem>
-            <NavItem>
-                <NavLink className="text-dark" onClick={() => singOutUser()} >Sing out</NavLink>
-            </NavItem>
-        </>
+        <NavItem>
+            <NavLink className="text-dark" style={{cursor: "pointer"}} onClick={() => singOutUser()}>Sing out</NavLink>
+        </NavItem>
     )
 }
 
 const NavMenu: React.FC = () => {
+    const {authUser} = useActions();
+    const {userName, isAuthorized} = useUserSelector(x => x.users);
+    useEffect(() => {
+       const x = () => (
+           authUser()
+       )
+       x();
+    }, [userName])
     return (
         <div>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>
                 <Container>
                     <NavbarBrand tag={Link} to="/">ChatApp</NavbarBrand>
+                    <NavbarBrand>{userName}</NavbarBrand>
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
                         <ul className="navbar-nav flex-grow">
                             <NavItem>
@@ -44,7 +50,7 @@ const NavMenu: React.FC = () => {
                             <NavItem>
                                 <NavLink tag={Link} className="text-dark" to="/chat-room/1">Join to chat room</NavLink>
                             </NavItem>
-                            <AuthItem/>
+                            <AuthItem isAuthorized={isAuthorized}/>
                         </ul>
                     </Collapse>
                 </Container>
