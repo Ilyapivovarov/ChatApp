@@ -27,34 +27,35 @@ namespace ChatApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             services.AddDbContext<AppDbContext>(builder =>
             {
                 builder.UseNpgsql(ServicesLocator.GetConnectionString(Env.IsDevelopment()));
             });
-            
+
             services.AddSignalR();
-            
+
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "client-app/build"; });
+            services.AddSpaStaticFiles(configuration => 
+                { configuration.RootPath = "client-app/build"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+        public void Configure(IApplicationBuilder app,
             IHostApplicationLifetime hostApplicationLifetime)
         {
             Console.WriteLine("Run Configure");
-            
-            if (env.IsDevelopment())
+
+            if (Env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                // The default HSTS value is 30 days. You may want to change this for production scenarios,
+                // see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -76,7 +77,7 @@ namespace ChatApp
             {
                 spa.Options.SourcePath = "client-app";
 
-                if (env.IsDevelopment())
+                if (Env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }

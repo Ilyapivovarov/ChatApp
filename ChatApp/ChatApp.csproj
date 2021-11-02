@@ -30,6 +30,12 @@
       <_ContentIncludedByDefault Remove="client-app\public\manifest.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\Logger" />
+      <Folder Include="Services\Repositories\Base" />
+      <Folder Include="Services\Repositories\Iterfaces" />
+    </ItemGroup>
+
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
         <Exec Command="node --version" ContinueOnError="true">
