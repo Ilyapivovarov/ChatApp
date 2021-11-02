@@ -28,8 +28,6 @@ namespace ChatApp.Controllers
         [Route("sign-on")]
         public async Task<IActionResult> SignOnUser([FromBody] SignOn signOn)
         {
-            // Добавить сохранение в бд
-
             return Ok();
         }
         

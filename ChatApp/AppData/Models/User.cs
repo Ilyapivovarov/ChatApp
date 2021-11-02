@@ -11,7 +11,5 @@ namespace ChatApp.AppData.Models
         
         [Required]
         public string Password { get; set; }
-        
-        public List<ChatRoom> ChatRooms { get; set; } = new();
     }
 }
