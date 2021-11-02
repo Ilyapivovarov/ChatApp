@@ -1,0 +1,32 @@
+version:  "3.9"
+
+networks:
+  chat-app-network:
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24
+services:
+  db:
+    container_name: postgres_sa
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sa
+    ports:
+      - "5432:5432"
+    networks:
+        chat-app-network:
+          ipv4_address: 10.10.0.20
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    networks:
+        chat-app-network:
+          ipv4_address: 10.10.0.21
