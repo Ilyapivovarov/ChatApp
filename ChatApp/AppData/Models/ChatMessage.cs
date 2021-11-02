@@ -1,14 +1,14 @@
-using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using ChatApp.AppData.Models.Base;
 
 namespace ChatApp.AppData.Models
 {
-    public class ChatMessage
+    public class ChatMessage : DbModelBase
     {
-        public Guid Id => Guid.NewGuid(); 
-        
         public string Message { get; set; }
 
-        public string Author { get; set; }
+        public User Author { get; set; }
+
+        public ChatRoom ChatRoom { get; set; } = new();
     }
 }

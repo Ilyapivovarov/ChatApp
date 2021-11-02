@@ -1,4 +1,6 @@
 using System;
+using ChatApp.AppData;
+using ChatApp.Services;
 using ChatApp.SignalRHubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,25 +10,27 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AppContext = ChatApp.AppData.AppContext;
 
 namespace ChatApp
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppContext>(builder =>
+            
+            services.AddDbContext<AppDbContext>(builder =>
             {
-                builder.UseInMemoryDatabase("ChatAppDb");
+                builder.UseNpgsql(ServicesLocator.GetConnectionString(Env.IsDevelopment()));
             });
             
             services.AddSignalR();
@@ -41,6 +45,8 @@ namespace ChatApp
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             IHostApplicationLifetime hostApplicationLifetime)
         {
+            Console.WriteLine("Run Configure");
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
