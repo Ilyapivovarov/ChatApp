@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
@@ -7,7 +7,6 @@ import SignInPage from "./pages/SingInPage/SignInPage";
 import {RouteTemplates} from "./router/types/Routs";
 
 import './App.css';
-import {useActions} from "./hooks/useActions";
 
 const App: React.FC = () => {
     return (
