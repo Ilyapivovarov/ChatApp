@@ -1,0 +1,10 @@
+.sign-in-wrapper{
+    margin: 20vh;
+}
+
+.sign-in-wrapper {
+    padding-left: 25vh;
+} 
+.name-input{
+    max-width: 250px;
+}
