@@ -1,7 +1,15 @@
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
 namespace ChatApp.Services
 {
-    public static class ServicesLocator
+    public static class Services
     {
+        public static ILogger Logger { get; set; }
+        
+        public static IServiceProvider Locator { get; set; }
+        
         public static string GetConnectionString(bool isDev)
         {
             const string devConStr = "Host=localhost;Port=5432;Database=chat-app-dev;Username=postgres;Password=sa";

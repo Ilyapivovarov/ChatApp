@@ -8,7 +8,5 @@ namespace ChatApp.AppData.Models
         public string Message { get; set; }
 
         public User Author { get; set; }
-
-        public ChatRoom ChatRoom { get; set; } = new();
     }
 }

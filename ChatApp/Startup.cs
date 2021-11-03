@@ -29,11 +29,11 @@ namespace ChatApp
         {
             services.AddDbContext<AppDbContext>(builder =>
             {
-                builder.UseNpgsql(ServicesLocator.GetConnectionString(Env.IsDevelopment()));
+                builder.UseNpgsql(Services.Services.GetConnectionString(Env.IsDevelopment()));
             });
 
             services.AddSignalR();
-
+            
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory

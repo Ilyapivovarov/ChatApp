@@ -32,8 +32,6 @@
 
     <ItemGroup>
       <Folder Include="Services\Logger" />
-      <Folder Include="Services\Repositories\Base" />
-      <Folder Include="Services\Repositories\Iterfaces" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
