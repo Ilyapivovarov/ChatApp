@@ -2,7 +2,7 @@ namespace ChatApp.AppData.Dto
 {
     public record Message
     {
-        public Account Author { get; set; }
+        public int AuthorId { get; set; }
         
         public string MessageBody { get; set; }
     }
