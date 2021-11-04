@@ -25,15 +25,15 @@ namespace ChatApp.Controllers
         }
         
         [HttpPost]
-        [Route("sign-on")]
-        public async Task<IActionResult> SignOnUser([FromBody] SignOn signOn)
+        [Route("sign-up")]
+        public async Task<IActionResult> SignUpUser([FromBody] SignUp signOn)
         {
             return Ok();
         }
         
         [HttpPost]
         [Route("sign-on")]
-        public async Task<IActionResult> SignInUser([FromBody] SignOn signOn)
+        public async Task<IActionResult> SignInUser([FromBody] SignIn signOn)
         {
             // Добавить сохранение в бд
 
