@@ -40,8 +40,8 @@ namespace ChatApp.ChatAppServices.Repositories
             return LoadData(db =>
             {
                 return db.Users
-                    .FirstOrDefault(x => x.Password.Equals(signIn.Password, StringComparison.Ordinal)
-                                         && x.UserName.Equals(signIn.UserName, StringComparison.OrdinalIgnoreCase));
+                    .FirstOrDefault(x => x.Password == signIn.Password
+                                         && x.UserName == signIn.UserName);
             }, "Error while loading user from database");
         }
 

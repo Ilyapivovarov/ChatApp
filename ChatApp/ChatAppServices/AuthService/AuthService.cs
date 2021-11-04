@@ -30,7 +30,7 @@ namespace ChatApp.ChatAppServices.AuthService
         
         private string GenerateJwt(User user)
         {
-            var authOpt = ChatAppServices.Services.Locator.GetRequiredService<IOptions<AuthOptions>>();
+            var authOpt = Services.Locator.GetRequiredService< IOptionsSnapshot<AuthOptions>>();
             var authParams = authOpt.Value;
 
             var securityKey = authParams.GetSymmetricSecurityKey();

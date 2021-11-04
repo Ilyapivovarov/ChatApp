@@ -13,27 +13,20 @@ namespace ChatApp.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly AppDbContext _appContext;
-
-        public UserController(AppDbContext appContext)
-        {
-            _appContext = appContext;
-        }
-
         [HttpGet]
         [Route("test")]
         public ActionResult<User[]> RunTest()
         {
-            return Ok(_appContext.Users);
+            return Ok(Services.Locator.GetRequiredService<AppDbContext>().Users);
         }
-        
+
         [HttpPost]
         [Route("sign-up")]
         public async Task<IActionResult> SignUpUser([FromBody] SignUp signOn)
         {
             return Ok();
         }
-        
+
         [HttpPost]
         [Route("sign-on")]
         public ActionResult SignInUser([FromBody] SignIn signIn)
@@ -43,7 +36,7 @@ namespace ChatApp.Controllers
             {
                 return Ok(new {access_token = token});
             }
-            
+
             return Unauthorized();
         }
     }

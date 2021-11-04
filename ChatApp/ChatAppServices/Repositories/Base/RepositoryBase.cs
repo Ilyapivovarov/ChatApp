@@ -11,12 +11,13 @@ namespace ChatApp.ChatAppServices.Repositories.Base
         {
             try
             {
-                var db = ChatAppServices.Services.Locator.GetRequiredService<AppDbContext>();
+                var db = Services.Locator.GetService<AppDbContext>();
+                
                 return loaFunc(db);
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                ChatAppServices.Services.Logger.LogError(error);
+                Services.Logger.LogError(error, e.Message);
                 return default;
             }
         }
@@ -25,7 +26,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
         {
             try
             {
-                var db = ChatAppServices.Services.Locator.GetRequiredService<AppDbContext>();
+                var db = Services.Locator.GetRequiredService<AppDbContext>();
                 writeAction(db);
                 db.SaveChanges();
 
@@ -33,7 +34,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             }
             catch (Exception)
             {
-                ChatAppServices.Services.Logger.LogError(error);
+                Services.Logger.LogError(error);
                 return false;
             }
         }

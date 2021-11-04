@@ -31,9 +31,12 @@ namespace ChatApp
             {
                 builder.UseNpgsql(ChatAppServices.Services.GetConnectionString(_env.IsDevelopment()));
             });
-
+            
             services.AddSignalR();
             services.AddControllersWithViews();
+            
+            var authOptions = _configuration.GetSection("Auth");
+            services.Configure<AuthOptions>(authOptions);
             
             var authOpt = _configuration.GetSection("Auth").Get<AuthOptions>();
             services.UseJwt(authOpt);
@@ -86,7 +89,7 @@ namespace ChatApp
                 }
             });
 
-            Services.Locator = app.ApplicationServices;
+            Services.Locator = app.ApplicationServices.CreateScope().ServiceProvider;
         }
     }
 }
