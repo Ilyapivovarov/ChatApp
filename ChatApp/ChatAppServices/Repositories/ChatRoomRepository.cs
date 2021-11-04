@@ -1,11 +1,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ChatApp.AppData.Models;
-using ChatApp.Services.Repositories.Base;
-using ChatApp.Services.Repositories.Interfaces;
+using ChatApp.ChatAppServices.Repositories.Base;
+using ChatApp.ChatAppServices.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace ChatApp.Services.Repositories
+namespace ChatApp.ChatAppServices.Repositories
 {
     public class ChatRoomRepository : RepositoryBase, IChatRoomRepository
     {
@@ -29,7 +29,7 @@ namespace ChatApp.Services.Repositories
 
                     if (user == null || chatRoom == null)
                     {
-                        Services.Logger.LogInformation("Not found user or chat room");
+                        ChatAppServices.Services.Logger.LogInformation("Not found user or chat room");
                         return;
                     }
 

@@ -1,8 +1,7 @@
 using System;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace ChatApp.Services
+namespace ChatApp.ChatAppServices
 {
     public static class Services
     {

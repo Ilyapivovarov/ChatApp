@@ -3,11 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
-using ChatApp.Services.Repositories.Base;
-using ChatApp.Services.Repositories.Interfaces;
+using ChatApp.ChatAppServices.Repositories.Base;
+using ChatApp.ChatAppServices.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace ChatApp.Services.Repositories
+namespace ChatApp.ChatAppServices.Repositories
 {
     public sealed class UserRepository : RepositoryBase, IUserRepository
     {
@@ -17,7 +17,7 @@ namespace ChatApp.Services.Repositories
             {
                 return WriteData(db =>
                 {
-                    Services.Logger.LogTrace($"{nameof(TrySignUpUserAsync)} not implement");
+                    ChatAppServices.Services.Logger.LogTrace($"{nameof(TrySignUpUserAsync)} not implement");
                 }, "Error while writing user in database");
             });
         }
@@ -33,6 +33,16 @@ namespace ChatApp.Services.Repositories
                                              && x.UserName.Equals(signIn.UserName, StringComparison.Ordinal));
                 }, "Error while loading user from database");
             });
+        }
+
+        public User SignInUser(SignIn signIn)
+        {
+            return LoadData(db =>
+            {
+                return db.Users
+                    .FirstOrDefault(x => x.Password.Equals(signIn.Password, StringComparison.Ordinal)
+                                         && x.UserName.Equals(signIn.UserName, StringComparison.Ordinal));
+            }, "Error while loading user from database");
         }
 
         public async Task<User> GetUserByIdAsync(int userId)

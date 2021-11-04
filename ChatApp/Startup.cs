@@ -1,10 +1,10 @@
 using System;
 using ChatApp.AppData;
-using ChatApp.Services;
+using ChatApp.Extensions;
+using ChatApp.Security.AuthModule;
 using ChatApp.SignalRHubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,47 +15,43 @@ namespace ChatApp
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _env;
+
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
-            Env = env;
+            _configuration = configuration;
+            _env = env;
         }
 
-        public IConfiguration Configuration { get; }
-        public IWebHostEnvironment Env { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(builder =>
             {
-                builder.UseNpgsql(Services.Services.GetConnectionString(Env.IsDevelopment()));
+                builder.UseNpgsql(ChatAppServices.Services.GetConnectionString(_env.IsDevelopment()));
             });
 
             services.AddSignalR();
-            
             services.AddControllersWithViews();
-
-            // In production, the React files will be served from this directory
+            
+            var authOpt = _configuration.GetSection("Auth").Get<AuthOptions>();
+            services.UseJwt(authOpt);
+            
             services.AddSpaStaticFiles(configuration => 
                 { configuration.RootPath = "client-app/build"; });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app,
-            IHostApplicationLifetime hostApplicationLifetime)
+        public void Configure(IApplicationBuilder app)
         {
             Console.WriteLine("Run Configure");
 
-            if (Env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios,
-                // see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -64,6 +60,9 @@ namespace ChatApp
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -77,7 +76,7 @@ namespace ChatApp
             {
                 spa.Options.SourcePath = "client-app";
 
-                if (Env.IsDevelopment())
+                if (_env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }

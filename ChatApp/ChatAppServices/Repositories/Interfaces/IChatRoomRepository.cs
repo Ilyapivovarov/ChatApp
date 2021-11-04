@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using ChatApp.AppData.Models;
 
-namespace ChatApp.Services.Repositories.Interfaces
+namespace ChatApp.ChatAppServices.Repositories.Interfaces
 {
     public interface IChatRoomRepository
     {

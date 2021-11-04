@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using ChatApp.AppData.Models;
-using ChatApp.Services.Repositories.Base;
-using ChatApp.Services.Repositories.Interfaces;
+using ChatApp.ChatAppServices.Repositories.Base;
+using ChatApp.ChatAppServices.Repositories.Interfaces;
 
-namespace ChatApp.Services.Repositories
+namespace ChatApp.ChatAppServices.Repositories
 {
     public class ChatMessageRepository : RepositoryBase, IChatMessageRepository
     {

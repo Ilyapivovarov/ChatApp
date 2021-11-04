@@ -2,7 +2,10 @@ using ChatApp.AppData;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
+using ChatApp.ChatAppServices;
+using ChatApp.ChatAppServices.AuthService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatApp.Controllers
 {
@@ -33,11 +36,15 @@ namespace ChatApp.Controllers
         
         [HttpPost]
         [Route("sign-on")]
-        public async Task<IActionResult> SignInUser([FromBody] SignIn signOn)
+        public ActionResult SignInUser([FromBody] SignIn signIn)
         {
-            // Добавить сохранение в бд
-
-            return Ok();
+            if (Services.Locator.GetRequiredService<IAuthService>()
+                .TryAuthUser(signIn, out var token))
+            {
+                return Ok(new {access_token = token});
+            }
+            
+            return Unauthorized();
         }
     }
 }

@@ -3,7 +3,7 @@ using ChatApp.AppData;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace ChatApp.Services.Repositories.Base
+namespace ChatApp.ChatAppServices.Repositories.Base
 {
     public class RepositoryBase
     {
@@ -11,12 +11,12 @@ namespace ChatApp.Services.Repositories.Base
         {
             try
             {
-                var db = Services.Locator.GetRequiredService<AppDbContext>();
+                var db = ChatAppServices.Services.Locator.GetRequiredService<AppDbContext>();
                 return loaFunc(db);
             }
             catch(Exception)
             {
-                Services.Logger.LogError(error);
+                ChatAppServices.Services.Logger.LogError(error);
                 return default;
             }
         }
@@ -25,7 +25,7 @@ namespace ChatApp.Services.Repositories.Base
         {
             try
             {
-                var db = Services.Locator.GetRequiredService<AppDbContext>();
+                var db = ChatAppServices.Services.Locator.GetRequiredService<AppDbContext>();
                 writeAction(db);
                 db.SaveChanges();
 
@@ -33,7 +33,7 @@ namespace ChatApp.Services.Repositories.Base
             }
             catch (Exception)
             {
-                Services.Logger.LogError(error);
+                ChatAppServices.Services.Logger.LogError(error);
                 return false;
             }
         }
