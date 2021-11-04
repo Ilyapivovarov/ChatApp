@@ -16,7 +16,7 @@ namespace ChatApp.ChatAppServices.AuthService
     {
         public bool TryAuthUser(SignIn signIn, out string token)
         {
-            var user = ChatAppServices.Services.Locator.GetRequiredService<IUserRepository>()
+            var user = Services.Locator.GetRequiredService<IUserRepository>()
                 .SignInUser(signIn);
             if (user != null)
             {

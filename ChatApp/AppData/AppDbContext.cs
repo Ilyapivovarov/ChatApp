@@ -1,3 +1,4 @@
+using System.Linq;
 using ChatApp.AppData.Models;
 using Microsoft.EntityFrameworkCore;
 

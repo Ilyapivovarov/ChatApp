@@ -41,7 +41,7 @@ namespace ChatApp.ChatAppServices.Repositories
             {
                 return db.Users
                     .FirstOrDefault(x => x.Password.Equals(signIn.Password, StringComparison.Ordinal)
-                                         && x.UserName.Equals(signIn.UserName, StringComparison.Ordinal));
+                                         && x.UserName.Equals(signIn.UserName, StringComparison.OrdinalIgnoreCase));
             }, "Error while loading user from database");
         }
 

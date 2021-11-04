@@ -1,10 +1,16 @@
 using System;
+using ChatApp.ChatAppServices.Logger;
 using Microsoft.Extensions.Logging;
 
 namespace ChatApp.ChatAppServices
 {
     public static class Services
     {
+        static Services()
+        {
+            Logger = new DefaultLogger();
+        }
+        
         public static ILogger Logger { get; set; }
         
         public static IServiceProvider Locator { get; set; }

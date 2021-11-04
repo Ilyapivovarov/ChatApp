@@ -33,14 +33,14 @@ namespace ChatApp.Extensions
 
         public static void UseChatAppModules(this IServiceCollection service)
         {
-            service.AddScoped<IAuthService, AuthService>();
+            service.AddTransient<IAuthService, AuthService>();
         }
         
         public static void UseChatAppRepositories(this IServiceCollection service)
         {
-            service.AddScoped<IUserRepository, UserRepository>();
-            service.AddScoped<IChatMessageRepository, ChatMessageRepository>();
-            service.AddScoped<IChatRoomRepository, ChatRoomRepository>();
+            service.AddTransient<IUserRepository, UserRepository>();
+            service.AddTransient<IChatMessageRepository, ChatMessageRepository>();
+            service.AddTransient<IChatRoomRepository, ChatRoomRepository>();
         }
     }
 }

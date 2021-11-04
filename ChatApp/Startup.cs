@@ -1,5 +1,6 @@
 using System;
 using ChatApp.AppData;
+using ChatApp.ChatAppServices;
 using ChatApp.Extensions;
 using ChatApp.Security.AuthModule;
 using ChatApp.SignalRHubs;
@@ -37,6 +38,9 @@ namespace ChatApp
             var authOpt = _configuration.GetSection("Auth").Get<AuthOptions>();
             services.UseJwt(authOpt);
             
+            services.UseChatAppModules();
+            services.UseChatAppRepositories();
+
             services.AddSpaStaticFiles(configuration => 
                 { configuration.RootPath = "client-app/build"; });
         }
@@ -81,6 +85,8 @@ namespace ChatApp
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            Services.Locator = app.ApplicationServices;
         }
     }
 }

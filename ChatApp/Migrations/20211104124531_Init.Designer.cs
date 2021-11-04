@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChatApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211102140250_AddChatRoomProperty")]
-    partial class AddChatRoomProperty
+    [Migration("20211104124531_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,12 +53,12 @@ namespace ChatApp.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("UserId")
+                    b.Property<int?>("RoomAdminId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("RoomAdminId");
 
                     b.ToTable("ChatRooms");
                 });
@@ -70,6 +70,9 @@ namespace ChatApp.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int?>("ChatRoomId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
@@ -80,6 +83,8 @@ namespace ChatApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChatRoomId");
+
                     b.ToTable("Users");
                 });
 
@@ -89,25 +94,34 @@ namespace ChatApp.Migrations
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("ChatApp.AppData.Models.ChatRoom", "ChatRoom")
-                        .WithMany()
+                    b.HasOne("ChatApp.AppData.Models.ChatRoom", null)
+                        .WithMany("ChatMessages")
                         .HasForeignKey("ChatRoomId");
 
                     b.Navigation("Author");
-
-                    b.Navigation("ChatRoom");
                 });
 
             modelBuilder.Entity("ChatApp.AppData.Models.ChatRoom", b =>
                 {
-                    b.HasOne("ChatApp.AppData.Models.User", null)
-                        .WithMany("ChatRooms")
-                        .HasForeignKey("UserId");
+                    b.HasOne("ChatApp.AppData.Models.User", "RoomAdmin")
+                        .WithMany()
+                        .HasForeignKey("RoomAdminId");
+
+                    b.Navigation("RoomAdmin");
                 });
 
             modelBuilder.Entity("ChatApp.AppData.Models.User", b =>
                 {
-                    b.Navigation("ChatRooms");
+                    b.HasOne("ChatApp.AppData.Models.ChatRoom", null)
+                        .WithMany("Users")
+                        .HasForeignKey("ChatRoomId");
+                });
+
+            modelBuilder.Entity("ChatApp.AppData.Models.ChatRoom", b =>
+                {
+                    b.Navigation("ChatMessages");
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

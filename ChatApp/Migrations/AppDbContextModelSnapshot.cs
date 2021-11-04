@@ -51,7 +51,12 @@ namespace ChatApp.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int?>("RoomAdminId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RoomAdminId");
 
                     b.ToTable("ChatRooms");
                 });
@@ -92,6 +97,15 @@ namespace ChatApp.Migrations
                         .HasForeignKey("ChatRoomId");
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("ChatApp.AppData.Models.ChatRoom", b =>
+                {
+                    b.HasOne("ChatApp.AppData.Models.User", "RoomAdmin")
+                        .WithMany()
+                        .HasForeignKey("RoomAdminId");
+
+                    b.Navigation("RoomAdmin");
                 });
 
             modelBuilder.Entity("ChatApp.AppData.Models.User", b =>
