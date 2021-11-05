@@ -29,7 +29,7 @@ namespace ChatApp
         {
             services.AddDbContext<AppDbContext>(builder =>
             {
-                builder.UseNpgsql(ChatAppServices.Services.GetConnectionString(_env.IsDevelopment()));
+                builder.UseNpgsql(Services.GetConnectionString(_env.IsDevelopment()));
             });
             
             services.AddSignalR();
@@ -37,9 +37,7 @@ namespace ChatApp
             
             var authOptions = _configuration.GetSection("Auth");
             services.Configure<AuthOptions>(authOptions);
-            
-            var authOpt = _configuration.GetSection("Auth").Get<AuthOptions>();
-            services.UseJwt(authOpt);
+            services.UseJwt(authOptions.Get<AuthOptions>());
             
             services.UseChatAppModules();
             services.UseChatAppRepositories();
@@ -50,8 +48,6 @@ namespace ChatApp
 
         public void Configure(IApplicationBuilder app)
         {
-            Console.WriteLine("Run Configure");
-
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -75,8 +71,8 @@ namespace ChatApp
             {
                 endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    "default",
+                    "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
