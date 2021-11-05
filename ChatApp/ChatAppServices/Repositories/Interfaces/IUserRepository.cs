@@ -13,5 +13,7 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
         public User SignInUser(SignIn signIn);
         
         public Task<User> GetUserByIdAsync(int userId);
+
+        public Task<bool> IsUsernameUnused(string userName);
     }
 }

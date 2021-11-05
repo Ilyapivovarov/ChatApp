@@ -4,6 +4,7 @@ using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.AuthService;
+using ChatApp.ChatAppServices.Repositories;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,14 +26,18 @@ namespace ChatApp.Controllers
         [Route("sign-up")]
         public async Task<ActionResult> SignUpUser([FromBody] SignUp signUp)
         {
-            // TODO При возникновении ошибки возвращать строку с сообщением
-            if (await Services.Locator.GetRequiredService<IUserRepository>()
-                .TrySignUpUserAsync(signUp))
+            var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
+            if (await userRepository.IsUsernameUnused(signUp.UserName))
+            {
+                return BadRequest("Username is used");
+            }
+            
+            if (await userRepository.TrySignUpUserAsync(signUp))
             {
                 return Ok();
             }
 
-            return BadRequest();
+            return BadRequest("Error while creating user");
         }
 
         [HttpPost]

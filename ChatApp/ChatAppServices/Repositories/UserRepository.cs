@@ -16,9 +16,6 @@ namespace ChatApp.ChatAppServices.Repositories
             {
                 return WriteData(db =>
                 {
-                    if (db.Users.Any(x => x.UserName == signUp.UserName))
-                        return false;
-                    
                     var user = new User
                     {
                         UserName = signUp.UserName,
@@ -26,7 +23,6 @@ namespace ChatApp.ChatAppServices.Repositories
                     };
                     db.Users.Add(user);
                     
-                    return true;
                 }, "Error while writing user in database");
             });
         }
@@ -60,6 +56,15 @@ namespace ChatApp.ChatAppServices.Repositories
             {
                 return LoadData(db => db.Users.FirstOrDefault(x => x.Id == userId),
                     $"Error while searching user with {userId}");
+            });
+        }
+
+        public async Task<bool> IsUsernameUnused(string userName)
+        {
+            return await Task.Run(() =>
+            {
+                return LoadData(db => db.Users.Any(x => x.UserName == userName),
+                    $"Error while founding user with username {userName}");
             });
         }
     }
