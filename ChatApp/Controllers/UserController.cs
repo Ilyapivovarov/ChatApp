@@ -1,3 +1,4 @@
+using System.Net;
 using ChatApp.AppData;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
@@ -6,6 +7,7 @@ using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.AuthService;
 using ChatApp.ChatAppServices.Repositories;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +22,14 @@ namespace ChatApp.Controllers
         public ActionResult<User[]> RunTest()
         {
             return Ok(Services.Locator.GetRequiredService<AppDbContext>().Users);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("test-auth-protections")]
+        public ActionResult TestProtection()
+        {
+            return Ok();
         }
 
         [HttpPost]
