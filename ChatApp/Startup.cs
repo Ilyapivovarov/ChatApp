@@ -29,7 +29,7 @@ namespace ChatApp
         {
             services.AddDbContext<AppDbContext>(builder =>
             {
-                builder.UseNpgsql(ChatAppServices.Services.GetConnectionString(_env.IsDevelopment()));
+                builder.UseNpgsql(Services.GetConnectionString(_env.IsDevelopment()));
             });
             
             services.AddSignalR();
