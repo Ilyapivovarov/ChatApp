@@ -1,11 +1,12 @@
+using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using ChatApp.AppData;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.AuthService;
-using ChatApp.ChatAppServices.Repositories;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,8 @@ namespace ChatApp.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
+        private int UserId => int.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
+        
         [HttpGet]
         [Route("test")]
         public ActionResult<User[]> RunTest()
@@ -29,7 +32,7 @@ namespace ChatApp.Controllers
         [Route("test-auth-protections")]
         public ActionResult TestProtection()
         {
-            return Ok();
+            return Ok(UserId);
         }
 
         [HttpPost]
