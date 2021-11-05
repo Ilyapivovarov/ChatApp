@@ -5,19 +5,28 @@ using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Base;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace ChatApp.ChatAppServices.Repositories
 {
     public sealed class UserRepository : RepositoryBase, IUserRepository
     {
-        public async Task<bool> TrySignUpUserAsync(SignUp signOn)
+        public async Task<bool> TrySignUpUserAsync(SignUp signUp)
         {
             return await Task.Run(() =>
             {
                 return WriteData(db =>
                 {
-                    ChatAppServices.Services.Logger.LogTrace($"{nameof(TrySignUpUserAsync)} not implement");
+                    if (db.Users.Any(x => x.UserName == signUp.UserName))
+                        return false;
+                    
+                    var user = new User
+                    {
+                        UserName = signUp.UserName,
+                        Password = signUp.Password,
+                    };
+                    db.Users.Add(user);
+                    
+                    return true;
                 }, "Error while writing user in database");
             });
         }

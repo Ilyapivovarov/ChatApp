@@ -4,6 +4,7 @@ using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.AuthService;
+using ChatApp.ChatAppServices.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,9 +23,16 @@ namespace ChatApp.Controllers
 
         [HttpPost]
         [Route("sign-up")]
-        public async Task<IActionResult> SignUpUser([FromBody] SignUp signOn)
+        public async Task<ActionResult> SignUpUser([FromBody] SignUp signUp)
         {
-            return Ok();
+            // TODO При возникновении ошибки возвращать строку с сообщением
+            if (await Services.Locator.GetRequiredService<IUserRepository>()
+                .TrySignUpUserAsync(signUp))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         [HttpPost]

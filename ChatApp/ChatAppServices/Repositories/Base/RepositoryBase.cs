@@ -22,6 +22,23 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             }
         }
 
+        public bool WriteData(Func<AppDbContext, bool> writeAction, string error)
+        {
+            try
+            {
+                var db = Services.Locator.GetRequiredService<AppDbContext>();
+                var result = writeAction(db);
+                db.SaveChanges();
+
+                return result;
+            }
+            catch (Exception)
+            {
+                Services.Logger.LogError(error);
+                return false;
+            }
+        }
+        
         public bool WriteData(Action<AppDbContext> writeAction, string error)
         {
             try
