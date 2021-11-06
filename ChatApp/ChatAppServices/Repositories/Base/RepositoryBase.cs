@@ -21,8 +21,8 @@ namespace ChatApp.ChatAppServices.Repositories.Base
                 return default;
             }
         }
-        
-        public bool WriteData(Action<AppDbContext> writeAction, string error)
+
+        protected bool WriteData(Action<AppDbContext> writeAction, string error)
         {
             try
             {

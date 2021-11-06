@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using ChatApp.AppData.Models.Base;
 
 namespace ChatApp.AppData.Models

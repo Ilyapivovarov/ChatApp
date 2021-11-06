@@ -5,6 +5,6 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
 {
     public interface IChatMessageRepository
     {
-        public Task<bool> TrySaveMessageAsync(ChatMessage message);
+        public Task<bool> TrySaveMessageAsync(int id, ChatMessage message);
     }
 }
