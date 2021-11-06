@@ -38,5 +38,22 @@ namespace ChatApp.ChatAppServices.Repositories.Base
                 return false;
             }
         }
+        
+        protected T WriteAndReturnData<T>(Func<AppDbContext, T> writeAction, string error)
+        {
+            try
+            {
+                var db = Services.Locator.GetRequiredService<AppDbContext>();
+                var data = writeAction(db);
+                db.SaveChanges();
+
+                return data;
+            }
+            catch (Exception)
+            {
+                Services.Logger.LogError(error);
+                return default;
+            }
+        }
     }
 }

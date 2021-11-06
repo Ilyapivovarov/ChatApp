@@ -45,16 +45,36 @@ namespace ChatApp.Controllers
         } 
 
         [HttpPost]
-        [Route("send-message/{id:int}")]
-        public async Task<ActionResult> SendMessage(int id, [FromBody]ChatMessage message)
+        [Route("send-message/{roomId:int}")]
+        public async Task<ActionResult> SendMessage(int roomId, [FromBody]ChatMessage message)
         {
-            await _chatHub.Clients.Group(id.ToString())
+            await _chatHub.Clients.Group(roomId.ToString())
                 .ReceiveMessage(message);
 
             await Services.Locator.GetRequiredService<IChatMessageRepository>()
-                .TrySaveMessageAsync(id, message);
+                .TrySaveMessageAsync(roomId, message);
             
             return Ok();
+        }
+
+        [HttpPost("{chatRoomName}")]
+        [Route("create-chat-room/{chatRoomName}")]
+        [Authorize]
+        public async Task<ActionResult> CreateChatRoom(string chatRoomName)
+        {
+            var user = await Services.Locator.GetRequiredService<IUserRepository>()
+                .GetUserByIdAsync(UserId);
+            if (user != null)
+            {
+                var chatRoom = await Services.Locator.GetRequiredService<IChatRoomRepository>()
+                    .CreateChatRoom(user);
+                if (chatRoom != null)
+                {
+                    return Ok(chatRoom);
+                }
+            }
+            
+            return BadRequest();
         }
     }
 }

@@ -18,12 +18,35 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<bool> TrySaveChatRoomAsync(ChatRoom chatRoom)
+        public async Task<bool> TryCreateChatRoomAsync(User creator)
         {
             return await Task.Run(() =>
             {
+                var chatRoom = new ChatRoom()
+                {
+                    RoomAdmin = creator
+                };
+                
                 return WriteData(db => db.ChatRooms.Add(chatRoom),
                     "Error while creating chat room");
+            });
+        }
+
+        public async Task<ChatRoom> CreateChatRoom(User creator)
+        {
+            return await Task.Run(() =>
+            {
+                return WriteAndReturnData(db =>
+                {
+                    var chatRoom = new ChatRoom
+                    {
+                        RoomAdmin = creator
+                    };
+
+                    db.ChatRooms.Add(chatRoom);
+
+                    return chatRoom;
+                }, "Error while creating chat room");
             });
         }
 
@@ -34,8 +57,12 @@ namespace ChatApp.ChatAppServices.Repositories
                 return WriteData(db =>
                 {
                     var user = db.Users.FirstOrDefault(x => x.Id == userId);
-                    chatRoom.Users.Add(user);
-                    db.Update(chatRoom);
+                    if (user != null)
+                    {
+                        chatRoom.Users.Add(user);
+                        db.Update(chatRoom);
+                    }
+                    
                 }, "Error while adding user in chat room");
             });
         }
