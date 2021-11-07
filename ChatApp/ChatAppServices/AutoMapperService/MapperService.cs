@@ -12,7 +12,14 @@ namespace ChatApp.ChatAppServices.AutoMapperService
 
         public MapperService()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<User, Account>());
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<User, Account>();
+                cfg.CreateMap<ChatRoom, Room>();
+                cfg.CreateMap<ChatMessage, Message>()
+                    .ForMember(dest => dest.MessageBody,
+                        opt => opt.MapFrom(src => src.Message));
+            });
             _mapper = new Mapper(config);
         }
         

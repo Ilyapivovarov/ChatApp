@@ -5,6 +5,6 @@ namespace ChatApp.AppData.Models.Base
     public abstract class DbModelBase
     {
         [Key]
-        public int Id { get; protected set; }
+        public int Id { get; set; }
     }
 }
