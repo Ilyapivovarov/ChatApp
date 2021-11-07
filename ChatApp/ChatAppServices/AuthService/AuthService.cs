@@ -5,6 +5,7 @@ using System.Security.Claims;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using ChatApp.Common.CustomClaims;
 using ChatApp.Security.AuthModule;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -38,8 +39,8 @@ namespace ChatApp.ChatAppServices.AuthService
 
             var claims = new List<Claim>
             {
-                new(JwtRegisteredClaimNames.Email, user.UserName),
-                new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new(CustomClaimTypes.Username, user.UserName),
+                new(CustomClaimTypes.Id, user.Id.ToString()),
             };
 
             var token = new JwtSecurityToken(

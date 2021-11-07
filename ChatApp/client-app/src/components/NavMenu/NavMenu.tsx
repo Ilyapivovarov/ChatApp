@@ -31,17 +31,17 @@ const NavMenu: React.FC = () => {
     const {authUser} = useActions();
     const {userName, isAuthorized} = useUserSelector(x => x.users);
     useEffect(() => {
-       const x = () => (
-           authUser()
-       )
-       x();
+        const x = () => (
+            authUser()
+        )
+        x();
     }, [userName])
     return (
         <div>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>
                 <Container>
                     <NavbarBrand tag={Link} to="/">ChatApp</NavbarBrand>
-                    <NavbarBrand>{userName}</NavbarBrand>
+                    <NavbarBrand>{userName?.username}</NavbarBrand>
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
                         <ul className="navbar-nav flex-grow">
                             <NavItem>

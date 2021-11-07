@@ -5,14 +5,14 @@ export enum UserActionType {
 }
 
 export interface UserState {
-    userName: string | null ,
+    userName: CurrentUser | null ,
     isAuthorized: boolean,
     error: null | string,
 }
 
 interface SingInUserSuccess {
     type: UserActionType.SIGN_IN_USER_SUCCESS,
-    payload: string
+    payload: CurrentUser
 }
  
 interface SingInUserError {
@@ -22,6 +22,17 @@ interface SingInUserError {
 
 interface SignOutUser {
     type: UserActionType.SING_OUT_USER,
+}
+
+export interface SignIn {
+    username: string,
+    password: string
+}
+
+export interface CurrentUser {
+    id:string
+    username: string,
+    
 }
 
 export type UserAction = SingInUserSuccess | SingInUserError | SignOutUser

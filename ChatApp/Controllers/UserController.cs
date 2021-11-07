@@ -8,6 +8,7 @@ using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.AuthService;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using ChatApp.Common.CustomClaims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +19,7 @@ namespace ChatApp.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private int UserId => int.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
+        private int UserId => int.Parse(User.Claims.Single(c => c.Type == CustomClaimTypes.Id).Value);
         
         [HttpGet]
         [Route("test")]
@@ -54,7 +55,7 @@ namespace ChatApp.Controllers
         }
 
         [HttpPost]
-        [Route("sign-on")]
+        [Route("sign-in")]
         public ActionResult SignInUser([FromBody] SignIn signIn)
         {
             if (Services.Locator.GetRequiredService<IAuthService>()
