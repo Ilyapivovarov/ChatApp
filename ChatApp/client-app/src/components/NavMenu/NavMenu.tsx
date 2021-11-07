@@ -31,11 +31,8 @@ const NavMenu: React.FC = () => {
     const {authUser} = useActions();
     const {userName, isAuthorized} = useUserSelector(x => x.users);
     useEffect(() => {
-        const x = () => (
-            authUser()
-        )
-        x();
-    }, [userName])
+        authUser();
+    },[] )
     return (
         <div>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>
