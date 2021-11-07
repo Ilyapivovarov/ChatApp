@@ -23,7 +23,7 @@ namespace ChatApp.ChatAppServices.Repositories
             {
                 var chatRoom = new ChatRoom()
                 {
-                    RoomAdmin = creator
+                    Admin = creator
                 };
                 
                 return WriteData(db => db.ChatRooms.Add(chatRoom),
@@ -39,7 +39,7 @@ namespace ChatApp.ChatAppServices.Repositories
                 {
                     var chatRoom = new ChatRoom
                     {
-                        RoomAdmin = creator
+                        Admin = creator
                     };
 
                     db.ChatRooms.Add(chatRoom);
@@ -58,7 +58,7 @@ namespace ChatApp.ChatAppServices.Repositories
                     var user = db.Users.FirstOrDefault(x => x.Id == userId);
                     if (user != null)
                     {
-                        chatRoom.Users.Add(user);
+                        chatRoom.Members.Add(user);
                         db.Update(chatRoom);
                     }
                     

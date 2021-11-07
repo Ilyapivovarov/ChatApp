@@ -16,7 +16,7 @@ namespace ChatApp.ChatAppServices.Repositories
                 return WriteData(db =>
                     {
                         var room = db.ChatRooms.FirstOrDefault(x => x.Id == id);
-                        var author = db.Users.FirstOrDefault(x => x.Id == message.AuthorId);
+                        var author = db.Users.FirstOrDefault(x => x.Id == message.Author.Id);
                         if (author != null)
                         {
                             var chatMessage = new ChatMessage
@@ -25,7 +25,7 @@ namespace ChatApp.ChatAppServices.Repositories
                                 Author = author
                             };
 
-                            room?.ChatMessages.Add(chatMessage);
+                            room?.Messages.Add(chatMessage);
                         }
                     },
                     "Error while saving message");

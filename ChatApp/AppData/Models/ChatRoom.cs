@@ -7,10 +7,10 @@ namespace ChatApp.AppData.Models
     public class ChatRoom : DbModelBase
     {
         [Required]
-        public User RoomAdmin { get; set; }
+        public User Admin { get; set; }
         
-        public List<User> Users { get; set; } = new();
+        public List<User> Members { get; set; } = new();
         
-        public List<ChatMessage> ChatMessages { get; set; } = new();
+        public List<ChatMessage> Messages { get; set; } = new();
     }
 }

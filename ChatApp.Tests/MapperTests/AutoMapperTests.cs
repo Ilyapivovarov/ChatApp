@@ -40,8 +40,8 @@ namespace ChatApp.Tests.MapperTests
             };
             var chatRoom = new ChatRoom
             {
-                RoomAdmin = admin,
-                Users = new List<User>
+                Admin = admin,
+                Members = new List<User>
                 {
                     new()
                     {
@@ -62,7 +62,7 @@ namespace ChatApp.Tests.MapperTests
                         UserName = "guest2"
                     },
                 },
-                ChatMessages = new List<ChatMessage>
+                Messages = new List<ChatMessage>
                 {
                     new ChatMessage
                     {
@@ -75,7 +75,7 @@ namespace ChatApp.Tests.MapperTests
 
             var room = Services.GetRequiredService<IMapperService>().Map<ChatRoom, Room>(chatRoom);
             
-            Assert.True(room.Admin.UserName == chatRoom.RoomAdmin.UserName);
+            Assert.True(room.Admin.UserName == chatRoom.Admin.UserName);
         }
     }
 }
