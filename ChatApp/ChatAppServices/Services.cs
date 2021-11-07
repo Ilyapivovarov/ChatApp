@@ -1,6 +1,10 @@
 using System;
+using AutoMapper;
+using ChatApp.AppData.Dto;
+using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Logger;
 using Microsoft.Extensions.Logging;
+using IConfigurationProvider = Microsoft.Extensions.Configuration.IConfigurationProvider;
 
 namespace ChatApp.ChatAppServices
 {
@@ -11,7 +15,7 @@ namespace ChatApp.ChatAppServices
             Logger = new DefaultLogger();
         }
         
-        public static ILogger Logger { get; set; }
+        public static ILogger Logger { get; }
         
         public static IServiceProvider Locator { get; set; }
         
