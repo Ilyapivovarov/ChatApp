@@ -4,10 +4,12 @@ namespace ChatApp.AppData.Dto
 {
     public record Room
     {
-        public Account RoomAdmin { get; set; }
+        public int Id { get; set; }
         
-        public List<Account> Users { get; set; }
+        public Account Admin { get; set; }
         
-        public List<Message> ChatMessages { get; set; }
+        public List<Account> Members { get; set; }
+        
+        public List<Message> Messages { get; set; }
     }
 }

@@ -14,7 +14,6 @@ export enum RoomActionTypes {
 
 export interface FetchCurrentRoom {
     type: RoomActionTypes.FETCH_ROOM,
-    payload: boolean,
 }
 
 export interface LoadCurrentRoomSuccess {
