@@ -1,6 +1,6 @@
-import { SignIn, UserAction, UserActionType,} from "../types/userTypes";
+import {SignIn, UserAction, UserActionType,} from "../types/userTypes";
 import {Dispatch} from "redux";
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import jwt_decode from "jwt-decode";
 import {Account, JwtToken} from "../../types/dataTypes";
 
@@ -17,16 +17,18 @@ export const authUser = () => {
 
 export const signInUser = (signIn: SignIn) => {
     return async (dispatch: Dispatch<UserAction>) => {
-        axios.post("User/sign-in", signIn)
-            .then((x: AxiosResponse<JwtToken>) => {
-                localStorage.setItem("access_token", x.data.access_token);
-                let decoded = jwt_decode<Account>(x.data.access_token);
+        try {
+            const response =  await axios.post<JwtToken>("User/sign-in", signIn);
+
+            if (response.data.access_token != null){
+                localStorage.setItem("access_token", response.data.access_token);
+                let decoded = jwt_decode<Account>(response.data.access_token);
                 dispatch({type: UserActionType.SIGN_IN_USER_SUCCESS, payload: decoded})
-            })
-            .catch(e => dispatch({
-                        type: UserActionType.SIGN_IN_USER_ERROR,
-                        payload: "Error"
-                    }))
+            }
+        }
+        catch {
+            dispatch({type: UserActionType.SIGN_IN_USER_ERROR, payload: "Error"})
+        }
     }
 }
 

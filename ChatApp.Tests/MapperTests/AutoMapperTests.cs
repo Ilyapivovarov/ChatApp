@@ -75,7 +75,7 @@ namespace ChatApp.Tests.MapperTests
 
             var room = Services.GetRequiredService<IMapperService>().Map<ChatRoom, Room>(chatRoom);
             
-            Assert.True(room.RoomAdmin.UserName == chatRoom.RoomAdmin.UserName);
+            Assert.True(room.Admin.UserName == chatRoom.RoomAdmin.UserName);
         }
     }
 }

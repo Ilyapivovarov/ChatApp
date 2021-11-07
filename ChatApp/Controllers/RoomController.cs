@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ChatApp.Controllers
 {
     [ApiController]
-    [Route("chat-room")]
+    [Route("[controller]")]
     public class RoomController : ControllerBase
     {
         [HttpGet("{id:int}")]
