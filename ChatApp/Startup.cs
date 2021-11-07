@@ -1,4 +1,3 @@
-using System;
 using ChatApp.AppData;
 using ChatApp.ChatAppServices;
 using ChatApp.Extensions;

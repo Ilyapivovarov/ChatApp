@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Base;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace ChatApp.ChatAppServices.Repositories
 {

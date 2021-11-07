@@ -1,10 +1,6 @@
 using System;
-using AutoMapper;
-using ChatApp.AppData.Dto;
-using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Logger;
 using Microsoft.Extensions.Logging;
-using IConfigurationProvider = Microsoft.Extensions.Configuration.IConfigurationProvider;
 
 namespace ChatApp.ChatAppServices
 {
