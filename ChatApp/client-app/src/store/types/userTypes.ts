@@ -29,6 +29,7 @@ export interface SignIn {
     password: string
 }
 
+// TODO УБРАТЬ!!!
 export interface CurrentUser {
     id:string
     username: string,
