@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using AutoMapper;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
@@ -17,6 +19,11 @@ namespace ChatApp.ChatAppServices.AutoMapperService
         public TValue Map<TSource, TValue>(TSource value)
         {
             return _mapper.Map<TSource, TValue>(value);
+        }
+        
+        public IEnumerable<TValue> Map<TValue>(IEnumerable value)
+        {
+            return _mapper.Map<IEnumerable, IEnumerable<TValue>>(value);
         }
     }
 }
