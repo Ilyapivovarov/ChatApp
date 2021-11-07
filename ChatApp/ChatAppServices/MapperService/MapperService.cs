@@ -4,7 +4,7 @@ using AutoMapper;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 
-namespace ChatApp.ChatAppServices.AutoMapperService
+namespace ChatApp.ChatAppServices.MapperService
 {
     public class MapperService : IMapperService
     {

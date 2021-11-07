@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
-using ChatApp.ChatAppServices.AutoMapperService;
+using ChatApp.ChatAppServices.MapperService;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 

@@ -1,5 +1,5 @@
 using ChatApp.ChatAppServices.AuthService;
-using ChatApp.ChatAppServices.AutoMapperService;
+using ChatApp.ChatAppServices.MapperService;
 using ChatApp.ChatAppServices.Repositories;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Security.AuthModule;

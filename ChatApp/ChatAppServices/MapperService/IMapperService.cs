@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ChatApp.ChatAppServices.AutoMapperService
+namespace ChatApp.ChatAppServices.MapperService
 {
     public interface IMapperService
     {
