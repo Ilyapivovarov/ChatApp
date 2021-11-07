@@ -30,7 +30,7 @@ namespace ChatApp.Controllers
         [HttpGet]
         [Authorize]
         [Route("test-auth-protections")]
-        public ActionResult TestProtection()
+        public ActionResult<int> TestProtection()
         {
             return Ok(UserId);
         }

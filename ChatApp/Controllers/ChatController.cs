@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
@@ -46,7 +47,8 @@ namespace ChatApp.Controllers
 
         [HttpPost]
         [Route("send-message/{roomId:int}")]
-        public async Task<ActionResult> SendMessage(int roomId, [FromBody]ChatMessage message)
+        [Authorize]
+        public async Task<ActionResult> SendMessage(int roomId, [FromBody]Message message)
         {
             await _chatHub.Clients.Group(roomId.ToString())
                 .ReceiveMessage(message);

@@ -11,7 +11,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
         {
             try
             {
-                var db = Services.Locator.GetService<AppDbContext>();
+                var db = Services.Locator.GetRequiredService<AppDbContext>();
                 
                 return loaFunc(db);
             }

@@ -18,7 +18,8 @@ namespace ChatApp.ChatAppServices.MapperService
                 cfg.CreateMap<ChatRoom, Room>();
                 cfg.CreateMap<ChatMessage, Message>()
                     .ForMember(dest => dest.MessageBody,
-                        opt => opt.MapFrom(src => src.Message));
+                        opt => opt.MapFrom(src => src.Message))
+                    .ReverseMap();
             });
             _mapper = new Mapper(config);
         }
