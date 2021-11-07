@@ -16,8 +16,6 @@ namespace ChatApp
 {
     public class Startup
     {
-        //TODO Добавить автомаппер для маппинга объетов бд в объекты дто 
-
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _env;
 
@@ -43,6 +41,7 @@ namespace ChatApp
             
             services.UseChatAppModules();
             services.UseChatAppRepositories();
+            services.UseChatAppServices();
 
             services.AddSpaStaticFiles(configuration => 
                 { configuration.RootPath = "client-app/build"; });

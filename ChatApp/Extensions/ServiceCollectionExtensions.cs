@@ -1,4 +1,5 @@
 using ChatApp.ChatAppServices.AuthService;
+using ChatApp.ChatAppServices.AutoMapperService;
 using ChatApp.ChatAppServices.Repositories;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Security.AuthModule;
@@ -41,6 +42,11 @@ namespace ChatApp.Extensions
             service.AddTransient<IUserRepository, UserRepository>();
             service.AddTransient<IChatMessageRepository, ChatMessageRepository>();
             service.AddTransient<IChatRoomRepository, ChatRoomRepository>();
+        }
+        
+        public static void UseChatAppServices(this IServiceCollection service)
+        {
+            service.AddTransient<IMapperService, MapperService>();
         }
     }
 }
