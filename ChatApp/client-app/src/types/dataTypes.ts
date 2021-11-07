@@ -13,3 +13,7 @@ export interface Room {
     members: Account[],
     messages: Message[]
 }
+
+export interface JwtToken {
+    access_token: string
+}

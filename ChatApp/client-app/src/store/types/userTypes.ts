@@ -1,3 +1,5 @@
+import {Account} from "../../types/dataTypes";
+
 export enum UserActionType {
     SIGN_IN_USER_SUCCESS = "SIGN_IN_USER_SUCCESS",
     SIGN_IN_USER_ERROR = "SIGN_IN_USER_ERROR",
@@ -5,14 +7,14 @@ export enum UserActionType {
 }
 
 export interface UserState {
-    userName: CurrentUser | null ,
+    userName: Account | null ,
     isAuthorized: boolean,
     error: null | string,
 }
 
 interface SingInUserSuccess {
     type: UserActionType.SIGN_IN_USER_SUCCESS,
-    payload: CurrentUser
+    payload: Account
 }
  
 interface SingInUserError {
@@ -27,13 +29,6 @@ interface SignOutUser {
 export interface SignIn {
     username: string,
     password: string
-}
-
-// TODO УБРАТЬ!!!
-export interface CurrentUser {
-    id:string
-    username: string,
-    
 }
 
 export type UserAction = SingInUserSuccess | SingInUserError | SignOutUser
