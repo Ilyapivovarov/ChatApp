@@ -11,7 +11,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
         {
             return WriteData(db =>
             {
-                if (!db.Users.Any())
+                if (!db.Users.Any() && !db.ChatRooms.Any())
                 {
                     var defaultUser = new User
                     {
@@ -20,13 +20,10 @@ namespace ChatApp.ChatAppServices.Repositories.Base
                     };
 
                     db.Users.Add(defaultUser);
-                }
-
-                if (!db.ChatRooms.Any())
-                {
+                    
                     var room = new ChatRoom()
                     {
-                        Admin = db.Users.First(x => x.Id == 1),
+                        Admin = defaultUser
                     };
 
                     db.ChatRooms.Add(room);
