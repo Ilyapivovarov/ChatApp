@@ -3,18 +3,33 @@ import {useUserSelector} from "../../hooks/useAuth";
 import {useRoomActionCreator} from "../../hooks/useRoom";
 
 const ChatRoomPage: React.FC = () => {
-    
     const {fetchRoom} = useRoomActionCreator();
+    const {room, loading, error} = useUserSelector(x => x.rooms);
 
     useEffect(() => {
         fetchRoom(1);
-    }, [])
+    }, []);
 
-    const {room} = useUserSelector(x => x.rooms);
+    console.log(room)
     
+    if (loading) {
+        return (
+            <div>
+                <h1>Loading</h1>
+            </div>
+        )
+    }
+
+    if (room) {
+        return (
+            <div>
+                <h1>{room.admin.userName}</h1>
+            </div>
+        )
+    }
     return (
         <div>
-            <h1>Chat room page {room?.admin?.id}</h1>
+            <h1>{error}</h1>
         </div>
     );
 };

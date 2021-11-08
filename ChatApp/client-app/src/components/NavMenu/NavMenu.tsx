@@ -29,16 +29,18 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
 
 const NavMenu: React.FC = () => {
     const {authUser} = useActions();
-    const {userName, isAuthorized} = useUserSelector(x => x.users);
+    const {account, isAuthorized} = useUserSelector(x => x.users);
     useEffect(() => {
         authUser();
     },[] )
+
+    console.info(account)
     return (
         <div>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>
                 <Container>
                     <NavbarBrand tag={Link} to="/">ChatApp</NavbarBrand>
-                    <NavbarBrand>{userName?.username}</NavbarBrand>
+                    <NavbarBrand>{account?.userName}</NavbarBrand>
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
                         <ul className="navbar-nav flex-grow">
                             <NavItem>

@@ -1,19 +1,19 @@
 export interface Account {
-    id: number | null,
-    username: string | null,
+    id: number,
+    userName: string,
 }
 
 export interface Message {
-    author: Account | null
-    body: string | null,
+    author: Account
+    body: string,
 }
 
 export interface Room {
-    admin: Account | null,
-    members: Account[] | null,
-    messages: Message[] | null
+    admin: Account,
+    members: Account[],
+    messages: Message[]
 }
 
 export interface JwtToken {
-    access_token: string | null
+    access_token: string
 }
