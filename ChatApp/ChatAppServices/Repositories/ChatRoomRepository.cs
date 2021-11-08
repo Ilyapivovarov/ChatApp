@@ -65,5 +65,16 @@ namespace ChatApp.ChatAppServices.Repositories
                 }, "Error while adding user in chat room");
             });
         }
+
+        public async Task<ChatRoom> GetRoomThatHasUser(int userId)
+        {
+            return await Task.Run(() =>
+            {
+                return LoadData(db =>
+                {
+                    return db.ChatRooms.FirstOrDefault(x => x.Members.Select(x => x.Id).Contains(userId));
+                }, $"Error while getting room that has user with id {userId}");
+            });
+        }
     }
 }

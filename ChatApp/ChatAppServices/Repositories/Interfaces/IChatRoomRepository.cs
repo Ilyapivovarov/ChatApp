@@ -9,6 +9,8 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
         public Task<bool> TryCreateChatRoomAsync(User chatRoom);
         public Task<ChatRoom> CreateChatRoom(User chatRoom);
         public Task<bool> TryAddUserInRoomAsync(ChatRoom chatRoom, int userId);
-        
+
+        public Task<ChatRoom> GetRoomThatHasUser(int userId);
+
     }
 }
