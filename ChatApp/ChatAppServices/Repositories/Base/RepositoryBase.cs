@@ -32,9 +32,9 @@ namespace ChatApp.ChatAppServices.Repositories.Base
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Services.Logger.LogError(error);
+                Services.Logger.LogError(error, e.Message);
                 return false;
             }
         }
@@ -49,9 +49,9 @@ namespace ChatApp.ChatAppServices.Repositories.Base
 
                 return data;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Services.Logger.LogError(error);
+                Services.Logger.LogError(e, error);
                 return default;
             }
         }

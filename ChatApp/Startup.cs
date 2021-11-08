@@ -1,5 +1,6 @@
 using ChatApp.AppData;
 using ChatApp.ChatAppServices;
+using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Extensions;
 using ChatApp.Security.AuthModule;
 using ChatApp.SignalRHubs;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace ChatApp
 {
@@ -86,6 +88,8 @@ namespace ChatApp
             });
 
             Services.Locator = app.ApplicationServices.CreateScope().ServiceProvider;
+            if (!Services.Locator.GetRequiredService<IDefaultDataRepository>().InitDefaultDataAsync())
+                Services.Logger.LogTrace("Error while init default data");
         }
     }
 }

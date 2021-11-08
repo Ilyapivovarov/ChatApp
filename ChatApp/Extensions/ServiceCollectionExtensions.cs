@@ -1,6 +1,7 @@
 using ChatApp.ChatAppServices.AuthService;
 using ChatApp.ChatAppServices.MapperService;
 using ChatApp.ChatAppServices.Repositories;
+using ChatApp.ChatAppServices.Repositories.Base;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Security.AuthModule;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,6 +43,7 @@ namespace ChatApp.Extensions
             service.AddTransient<IUserRepository, UserRepository>();
             service.AddTransient<IChatMessageRepository, ChatMessageRepository>();
             service.AddTransient<IChatRoomRepository, ChatRoomRepository>();
+            service.AddTransient<IDefaultDataRepository, DefaultDataRepository>();
         }
         
         public static void UseChatAppServices(this IServiceCollection service)
