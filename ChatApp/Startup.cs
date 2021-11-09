@@ -83,7 +83,7 @@ namespace ChatApp
 
                 if (_env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseReactDevelopmentServer("start");
                 }
             });
 
