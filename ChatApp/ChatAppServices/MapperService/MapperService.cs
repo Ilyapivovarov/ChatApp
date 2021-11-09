@@ -23,7 +23,7 @@ namespace ChatApp.ChatAppServices.MapperService
                     .ForMember(dst => dst.Messages,
                         opt => opt.MapFrom(src => src.Messages));
                 cfg.CreateMap<ChatMessage, Message>()
-                    .ForMember(dest => dest.MessageBody,
+                    .ForMember(dest => dest.Body,
                         opt => opt.MapFrom(src => src.Message));
             });
             _mapper = new Mapper(config);

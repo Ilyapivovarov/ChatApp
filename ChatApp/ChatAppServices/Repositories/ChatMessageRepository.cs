@@ -21,7 +21,7 @@ namespace ChatApp.ChatAppServices.Repositories
                         {
                             var chatMessage = new ChatMessage
                             {
-                                Message = message.MessageBody,
+                                Message = message.Body,
                                 Author = author
                             };
 

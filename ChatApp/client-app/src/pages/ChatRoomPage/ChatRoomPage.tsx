@@ -13,6 +13,8 @@ const hubConnection = new signalR.HubConnectionBuilder()
     .withUrl("/chat")
     .build();
 
+hubConnection.start();
+
 const ChatRoomPage: React.FC = () => {
     const { id } = useParams<{id: string}>();
     const {fetchRoom} = useRoomActionCreator();
@@ -23,16 +25,20 @@ const ChatRoomPage: React.FC = () => {
 
     const [messages, setMessages] = useState<Message[]>([]);
 
+    
+    
     hubConnection.on("receiveMessage", (message: Message) => {
         setMessages(messages => {
             let a = messages.filter(x => x.id == message.id)
-            if (a.length > 0)
+            if(a.length > 0)
                 return messages;
             console.log(message, messages, [...messages, message])
             return [...messages, message]
         })
     });
-    
+
+
+    console.log(messages)
     if (loading){
         return (
             <Loader />
@@ -40,7 +46,7 @@ const ChatRoomPage: React.FC = () => {
     }
     
     if (room) {
-        console.log(messages)
+        
         return (
             <div>
                 <MessageView messages={[]} />

@@ -72,11 +72,11 @@ namespace ChatApp.Controllers
         [Route("send-message/{id:int}")]
         public async Task<ActionResult> SendMessage(int id, [FromBody] Message message)
         {
-            await _chatHub.Clients.Group(id.ToString())
+            await _chatHub.Clients.All
                 .ReceiveMessage(message);
 
-            await Services.Locator.GetRequiredService<IChatMessageRepository>()
-                .TrySaveMessageAsync(id, message);
+            // await Services.Locator.GetRequiredService<IChatMessageRepository>()
+            //     .TrySaveMessageAsync(id, message);
             
             return Ok();
         }
