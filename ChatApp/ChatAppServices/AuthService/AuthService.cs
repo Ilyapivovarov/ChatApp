@@ -39,7 +39,7 @@ namespace ChatApp.ChatAppServices.AuthService
 
             var claims = new List<Claim>
             {
-                new(CustomClaimTypes.Username, user.UserName),
+                new(CustomClaimTypes.UserName, user.UserName),
                 new(CustomClaimTypes.Id, user.Id.ToString()),
             };
 
