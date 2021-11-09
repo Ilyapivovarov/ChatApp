@@ -7,7 +7,7 @@ export enum UserActionType {
 }
 
 export interface UserState {
-    account: Account | null ,
+    currentUser: Account | null ,
     isAuthorized: boolean,
     error: null | string,
 }
