@@ -17,3 +17,9 @@ export interface Room {
 export interface JwtToken {
     access_token: string
 }
+
+export interface DecodeJwtToken {
+    id: number
+    userName: string,
+    exp: number
+}

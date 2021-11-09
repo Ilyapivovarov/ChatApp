@@ -33,8 +33,6 @@ const NavMenu: React.FC = () => {
     useEffect(() => {
         authUser();
     },[] )
-
-    console.info(account)
     return (
         <div>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>

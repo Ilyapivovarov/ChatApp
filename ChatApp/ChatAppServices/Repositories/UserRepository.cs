@@ -10,7 +10,7 @@ namespace ChatApp.ChatAppServices.Repositories
 {
     public sealed class UserRepository : RepositoryBase, IUserRepository
     {
-        public async Task<bool> TrySignUpUserAsync(SignUp signUp)
+        public async Task<bool> TrySignUpUserAsync(SignOn signUp)
         {
             return await Task.Run(() =>
             {

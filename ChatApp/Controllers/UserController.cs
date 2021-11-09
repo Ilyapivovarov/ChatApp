@@ -38,7 +38,7 @@ namespace ChatApp.Controllers
 
         [HttpPost]
         [Route("sign-up")]
-        public async Task<ActionResult> SignUpUser([FromBody] SignUp signUp)
+        public async Task<ActionResult> SignUpUser([FromBody] SignOn signUp)
         {
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
             if (await userRepository.IsUsernameUnused(signUp.UserName))
