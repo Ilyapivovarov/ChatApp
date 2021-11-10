@@ -1,11 +1,14 @@
 .dialog {
     display: flex;
     flex-direction: row;
-    height: 50vh;
+    height: 70vh;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
 }
 .dialog-content {
     flex: 1;
     overflow-y: scroll;
+    padding: 20px;
 }
 li {
     list-style-type: none

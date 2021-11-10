@@ -2,8 +2,10 @@ import React from 'react';
 import {Message} from "../../types/dataTypes";
 import {useUserSelector} from "../../hooks/useAuth";
 
+import "./MessageView.css"
+
 interface DialogProps {
-    messages: Array<Message>
+    messages: Message[]
 }
 
 const MessageView: React.FC<DialogProps> = (props: DialogProps) => {
@@ -26,7 +28,6 @@ const MessageView: React.FC<DialogProps> = (props: DialogProps) => {
 
     return <div className="dialog">
         <div className="dialog-content">
-            <span>Chat</span>
             <ul>
                 {
                     props.messages.map((item, i) => {
