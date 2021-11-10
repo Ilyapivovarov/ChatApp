@@ -18,27 +18,27 @@ export interface SignOnSate {
 
 export interface EnterUserNameAction {
     type: SignOnActionTypes.EnterUserName,
-    payload: SignOn,
+    payload: string,
 }
 
 export interface EnterPasswordAction {
     type: SignOnActionTypes.EnterPassword,
-    payload: SignOn,
+    payload: string,
 }
 
 export interface EnterConfirmPasswordAction {
     type: SignOnActionTypes.EnterConfirmPassword,
-    payload: SignOn,
+    payload: string,
 }
 
 export interface SubmitFormSuccessAction {
     type: SignOnActionTypes.SubmitFormSuccess,
-    payload: SignOn,
+    payload: boolean,
 }
 
 export interface SubmitFormErrorAction {
     type: SignOnActionTypes.SubmitFormError,
-    payload: SignOn,
+    payload: boolean,
 }
 
 export type SignOnActions = EnterUserNameAction | EnterPasswordAction | EnterConfirmPasswordAction

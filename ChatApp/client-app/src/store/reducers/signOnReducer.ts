@@ -8,18 +8,19 @@ const initSate: SignOnSate = {
     error: null
 }
 
-const checkState = (state: SignOnSate = initSate): boolean => {
+const checkState = (state: SignOnSate): boolean => {
     if (state.userName != null)
         if (state.password == state.confirmPassword)
             return true;
     return false;
 }
 
-export const singOnReducer = (state: SignOnSate, action: SignOnActions): SignOnSate => {
+export const singOnReducer = (state: SignOnSate = initSate, action: SignOnActions): SignOnSate => {
+    console.log(state)
     switch (action.type) {
         case SignOnActionTypes.EnterUserName: {
             return {
-                userName: action.payload.userName,
+                userName: action.payload,
                 error: null,
                 password: state.password,
                 confirmPassword: state.password,
@@ -31,7 +32,7 @@ export const singOnReducer = (state: SignOnSate, action: SignOnActions): SignOnS
                 return {
                     userName: state.userName,
                     error: null,
-                    password: action.payload.password,
+                    password: action.payload,
                     confirmPassword: state.password,
                     isValid: true
                 };
@@ -40,7 +41,7 @@ export const singOnReducer = (state: SignOnSate, action: SignOnActions): SignOnS
                 userName: state.userName,
                 error: "Error password",
                 password: state.password,
-                confirmPassword: state.password,
+                confirmPassword: action.payload,
                 isValid: false
             };
         }
@@ -50,7 +51,7 @@ export const singOnReducer = (state: SignOnSate, action: SignOnActions): SignOnS
                     userName: state.userName,
                     error: null,
                     password: state.password,
-                    confirmPassword: action.payload.confirmPassword,
+                    confirmPassword: action.payload,
                     isValid: true
                 };
 
@@ -58,7 +59,7 @@ export const singOnReducer = (state: SignOnSate, action: SignOnActions): SignOnS
                 userName: state.userName,
                 error: "Error password",
                 password: state.password,
-                confirmPassword: state.confirmPassword,
+                confirmPassword: action.payload,
                 isValid: false
             };
         }
@@ -68,8 +69,8 @@ export const singOnReducer = (state: SignOnSate, action: SignOnActions): SignOnS
         }
         case SignOnActionTypes.SubmitFormError: {
             return {
-                password: action.payload.password, confirmPassword: action.payload.confirmPassword,
-                isValid: false, error: "SignOnActionTypes.SubmitFormError", userName: action.payload.userName
+                password: state.password, confirmPassword: state.confirmPassword,
+                isValid: false, error: "SignOnActionTypes.SubmitFormError", userName: state.userName
             }
         }
         default: {

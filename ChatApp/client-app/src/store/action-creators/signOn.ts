@@ -7,32 +7,30 @@ export interface SignOn {
     confirmPassword: string
 }
 
-export const enterUsername = (singOn: SignOn) => {
+export const enterUsername = (userName: string) => {
     return async (dispatch: Dispatch<SignOnActions>) => {
-        if (singOn.userName == null || singOn.userName == "")
-            return dispatch({type: SignOnActionTypes.SubmitFormError, payload: singOn})
+        if (userName == null || userName == "")
+            return dispatch({type: SignOnActionTypes.SubmitFormError, payload: false})
 
-        return dispatch({type: SignOnActionTypes.EnterUserName, payload: singOn})
+        return dispatch({type: SignOnActionTypes.EnterUserName, payload: userName})
     }
 }
 
-export const enterPassword = (singOn: SignOn) => {
+export const enterPassword = (password : string) => {
     return async (dispatch: Dispatch<SignOnActions>) => {
-        if (singOn.password == null || singOn.password == ""
-            || singOn.password != singOn.confirmPassword)
-            return dispatch({type: SignOnActionTypes.SubmitFormError, payload: singOn})
+        if (password == null || password == "")
+            return dispatch({type: SignOnActionTypes.SubmitFormError, payload: false})
 
-        return dispatch({type: SignOnActionTypes.EnterUserName, payload: singOn})
+        return dispatch({type: SignOnActionTypes.EnterPassword, payload: password})
     }
 }
 
-export const enterConfirmPassword = (singOn: SignOn) => {
+export const enterConfirmPassword = (confirmPassword: string) => {
     return async (dispatch: Dispatch<SignOnActions>) => {
-        if (singOn.userName || singOn.confirmPassword == null || singOn.confirmPassword == ""
-            || singOn.confirmPassword != singOn.confirmPassword)
-            return dispatch({type: SignOnActionTypes.SubmitFormError, payload: singOn})
+        if (confirmPassword || confirmPassword == null)
+            return dispatch({type: SignOnActionTypes.SubmitFormError, payload: false})
 
-        return dispatch({type: SignOnActionTypes.EnterUserName, payload: singOn})
+        return dispatch({type: SignOnActionTypes.EnterConfirmPassword, payload: confirmPassword})
     }
 }
 
@@ -40,8 +38,8 @@ export const submitForm = (singOn: SignOn) => {
     return async (dispatch: Dispatch<SignOnActions>) => {
         if (singOn.userName || singOn.confirmPassword == null || singOn.confirmPassword == ""
             || singOn.confirmPassword != singOn.confirmPassword)
-            return dispatch({type: SignOnActionTypes.SubmitFormError, payload: singOn})
+            return dispatch({type: SignOnActionTypes.SubmitFormError, payload: false})
 
-        return dispatch({type: SignOnActionTypes.SubmitFormSuccess, payload: singOn})
+        return dispatch({type: SignOnActionTypes.SubmitFormSuccess, payload: true})
     }
 }
