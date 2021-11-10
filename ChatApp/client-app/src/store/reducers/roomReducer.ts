@@ -1,6 +1,6 @@
 import {RoomActions, RoomActionTypes, RoomState} from "../types/roomTypes";
 
-export const initState: RoomState = {
+const initState: RoomState = {
     room: null,
     loading: false,
     error: null

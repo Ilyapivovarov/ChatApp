@@ -32,7 +32,6 @@ const SignOnForm: React.FC = () => {
                              }}/>
             </FormGroup>
             
-            <Test password={password}/>
             <div>
 
             </div>
