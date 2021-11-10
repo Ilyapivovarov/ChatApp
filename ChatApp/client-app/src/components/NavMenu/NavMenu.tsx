@@ -8,16 +8,21 @@ import {useActions} from "../../hooks/useActions";
 import './NavMenu.css';
 
 interface AuthItemProps {
-    isAuthorized : boolean;
+    isAuthorized: boolean;
 }
 
 const AuthItem: React.FC<AuthItemProps> = (prop) => {
     const {singOutUser} = useActions();
     if (!prop.isAuthorized)
         return (
-            <NavItem>
-                <NavLink tag={Link} className="text-dark" to={RouteTemplates.SingIn}>Sign in</NavLink>
-            </NavItem>
+            <>
+                <NavItem>
+                    <NavLink tag={Link} className="text-dark" to={RouteTemplates.SingIn}>Sign in</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink tag={Link} className="text-dark" to={RouteTemplates.SignOn}>Sign on</NavLink>
+                </NavItem>
+            </>
         )
 
     return (
@@ -32,7 +37,7 @@ const NavMenu: React.FC = () => {
     const {currentUser, isAuthorized} = useUserSelector(x => x.users);
     useEffect(() => {
         authUser();
-    },[] )
+    }, [])
     return (
         <div>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>

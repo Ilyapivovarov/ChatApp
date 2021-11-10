@@ -7,6 +7,7 @@ import SignInPage from "./pages/SingInPage/SignInPage";
 import {RouteTemplates} from "./router/types/Routs";
 
 import './App.css';
+import SignOnPage from "./pages/SignOnPage/SignOnPage";
 
 const App: React.FC = () => {
     return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
                 <Route exact path={RouteTemplates.Home} component={HomePage} />
                 <Route path={RouteTemplates.ChatRoom} component={ChatRoomPage}/>
                 <Route path={RouteTemplates.SingIn} component={SignInPage}/>
+                <Route path={RouteTemplates.SignOn} component={SignOnPage}/>
             </Switch>
         </Layout>
     )
