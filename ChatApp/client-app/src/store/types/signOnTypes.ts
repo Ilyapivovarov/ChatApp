@@ -1,5 +1,3 @@
-import {SignOn} from "../action-creators/signOn";
-
 export enum SignOnActionTypes {
     EnterUserName,
     EnterPassword,
@@ -12,8 +10,8 @@ export interface SignOnSate {
     userName: null | string,
     password: null | string,
     confirmPassword: null | string,
-    isValid: boolean,
-    error: null | string
+    error: null | string,
+   
 }
 
 export interface EnterUserNameAction {
@@ -33,12 +31,11 @@ export interface EnterConfirmPasswordAction {
 
 export interface SubmitFormSuccessAction {
     type: SignOnActionTypes.SubmitFormSuccess,
-    payload: boolean,
 }
 
 export interface SubmitFormErrorAction {
     type: SignOnActionTypes.SubmitFormError,
-    payload: boolean,
+    payload: string,
 }
 
 export type SignOnActions = EnterUserNameAction | EnterPasswordAction | EnterConfirmPasswordAction

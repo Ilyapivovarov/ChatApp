@@ -4,19 +4,10 @@ const initSate: SignOnSate = {
     userName: null,
     password: null,
     confirmPassword: null,
-    isValid: false,
     error: null
-}
+};
 
-const checkState = (state: SignOnSate): boolean => {
-    if (state.userName != null)
-        if (state.password == state.confirmPassword)
-            return true;
-    return false;
-}
-
-export const singOnReducer = (state: SignOnSate = initSate, action: SignOnActions): SignOnSate => {
-    console.log(state)
+export const singOnReducer = (state = initSate, action: SignOnActions): SignOnSate => {
     switch (action.type) {
         case SignOnActionTypes.EnterUserName: {
             return {
@@ -24,53 +15,39 @@ export const singOnReducer = (state: SignOnSate = initSate, action: SignOnAction
                 error: null,
                 password: state.password,
                 confirmPassword: state.password,
-                isValid: checkState(state)
             };
         }
         case SignOnActionTypes.EnterPassword: {
-            if (checkState(state))
-                return {
-                    userName: state.userName,
-                    error: null,
-                    password: action.payload,
-                    confirmPassword: state.password,
-                    isValid: true
-                };
-
             return {
                 userName: state.userName,
-                error: "Error password",
-                password: state.password,
-                confirmPassword: action.payload,
-                isValid: false
+                error: null,
+                password: action.payload,
+                confirmPassword: state.confirmPassword,
             };
         }
         case SignOnActionTypes.EnterConfirmPassword: {
-            if (checkState(state))
-                return {
-                    userName: state.userName,
-                    error: null,
-                    password: state.password,
-                    confirmPassword: action.payload,
-                    isValid: true
-                };
-
             return {
                 userName: state.userName,
-                error: "Error password",
+                error: null,
                 password: state.password,
                 confirmPassword: action.payload,
-                isValid: false
             };
         }
         case SignOnActionTypes.SubmitFormSuccess: {
             console.log("Sibmit")
-            return state
+            return {
+                password: state.password, 
+                confirmPassword: state.confirmPassword,
+                error: null, 
+                userName: state.userName
+            }
         }
         case SignOnActionTypes.SubmitFormError: {
             return {
-                password: state.password, confirmPassword: state.confirmPassword,
-                isValid: false, error: "SignOnActionTypes.SubmitFormError", userName: state.userName
+                password: state.password, 
+                confirmPassword: state.confirmPassword,
+                error: action.payload, 
+                userName: state.userName
             }
         }
         default: {
