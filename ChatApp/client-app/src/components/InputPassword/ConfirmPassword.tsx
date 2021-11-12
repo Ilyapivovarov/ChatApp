@@ -26,7 +26,7 @@ const ConfirmPassword: React.FC = () => {
         <>
             <Input type={"password"}
                    placeholder={"Confirm password"}
-                   invalid={confirmPassword == null && password != null}
+                   invalid={confirmPassword != null && password != null}
                    value={confirmPassword ?? ""}
                    onChange={(event => {
                        event.persist();
