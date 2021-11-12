@@ -64,7 +64,6 @@ namespace ChatApp.Controllers
             var room = Services.Locator.GetRequiredService<IMapperService>()
                 .Map<ChatRoom, Room>(result);
             
-            
             return Ok(room);
         }
 
