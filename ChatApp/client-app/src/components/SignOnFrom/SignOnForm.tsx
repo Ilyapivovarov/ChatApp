@@ -1,36 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Button, Form, FormFeedback, FormGroup, Input} from "reactstrap";
 import {useSignOn} from "../../hooks/useSignOn";
 import {useUserSelector} from "../../hooks/useAuth";
+import InputUserName from "../InputUserName/InputUserName";
 
-const InputUserName: React.FC = () => {
-    const {enterUsername} = useSignOn();
-    const {userName} = useUserSelector(x => x.signOn);
-    if (userName != null && userName.length > 5) {
-        return (
-            <>
-                <Input valid value={userName} onChange={(event => {
-                    event.persist();
-                    enterUsername(event.target.value);
-                })}/>
-                <FormFeedback valid>
-                    Username correct
-                </FormFeedback>
-            </>
-        );
-    }
-    return (
-        <>
-            <Input invalid value={userName ?? ""} onChange={(event => {
-                event.persist();
-                enterUsername(event.target.value);
-            })}/>
-            <FormFeedback>
-                Error username
-            </FormFeedback>
-        </>
-    );
-}
+import "./SignOnFrom.css"
+
 
 const InputPassword: React.FC = () => {
     const {enterPassword} = useSignOn();
@@ -42,19 +17,16 @@ const InputPassword: React.FC = () => {
                     event.persist();
                     enterPassword(event.target.value);
                 })}/>
-                <FormFeedback valid>
-                    Password correct
-                </FormFeedback>
             </>
         );
     }
     return (
         <>
-            <Input invalid value={password ?? ""} onChange={(event => {
+            <Input invalid={password != null} value={password ?? ""} onChange={(event => {
                 event.persist();
                 enterPassword(event.target.value);
             })}/>
-            <FormFeedback>
+            <FormFeedback hidden={password == null}>
                 Error password
             </FormFeedback>
         </>
@@ -66,16 +38,13 @@ const InputConfirmPassword: React.FC = () => {
     const {confirmPassword, password} = useUserSelector(x => x.signOn);
 
     if (confirmPassword != null && confirmPassword.length > 5 && password != null && password.length > 5
-    && confirmPassword == password) {
+        && confirmPassword == password) {
         return (
             <>
                 <Input valid value={confirmPassword} onChange={(event => {
                     event.persist();
                     enterConfirmPassword(event.target.value);
                 })}/>
-                <FormFeedback valid>
-                    Confirm password correct
-                </FormFeedback>
             </>
         );
     }
@@ -97,23 +66,28 @@ const SignOnForm: React.FC = () => {
     const s = useUserSelector(x => x.signOn)
     return (
         <Form inline>
-            <FormGroup className="mb-2 me-sm-2 mb-sm-0">
-                <InputUserName />
+            <FormGroup className="mb-2 me-sm-2 mb-sm-0 input-from-group">
+                <InputUserName/>
             </FormGroup>
-            <FormGroup className="mb-2 me-sm-2 mb-sm-0">
+            <FormGroup className="mb-2 me-sm-2 mb-sm-0 input-from-group">
                 <InputPassword/>
             </FormGroup>
-            <FormGroup className="mb-2 me-sm-2 mb-sm-0">
+            <FormGroup className="mb-2 me-sm-2 mb-sm-0 input-from-group">
                 <InputConfirmPassword/>
             </FormGroup>
-            <Button onClick={() => submitForm({password: s.password, userName: s.userName, confirmPassword: s.confirmPassword})}>
+            <Button
+                onSubmit={() => submitForm({
+                    password: s.password,
+                    userName: s.userName,
+                    confirmPassword: s.confirmPassword
+                })}>
                 Submit
             </Button>
             <div>
                 {s.error}
             </div>
         </Form>
-        
+
     );
 };
 
