@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
+import {Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {RouteTemplates} from "../../router/types/Routs";
 import {useUserSelector} from "../../hooks/useAuth";
@@ -17,17 +17,23 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
         return (
             <>
                 <NavItem>
-                    <NavLink tag={Link} className="text-dark" to={RouteTemplates.SingIn}>Sign in</NavLink>
+                    <NavLink tag={Link} className="text-dark" to={RouteTemplates.SingIn}>
+                        Sign in
+                    </NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink tag={Link} className="text-dark" to={RouteTemplates.SignOn}>Sign on</NavLink>
+                    <NavLink tag={Link} className="text-dark" to={RouteTemplates.SignOn}>
+                        Sign on
+                    </NavLink>
                 </NavItem>
             </>
         )
 
     return (
         <NavItem>
-            <NavLink className="text-dark" style={{cursor: "pointer"}} onClick={() => singOutUser()}>Sing out</NavLink>
+            <NavLink className="text-dark" style={{cursor: "pointer"}} onClick={() => singOutUser()}>
+                Sing out
+            </NavLink>
         </NavItem>
     )
 }
@@ -40,21 +46,25 @@ const NavMenu: React.FC = () => {
     }, [])
     return (
         <div>
-            <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>
+            <Navbar className={"box-shadow"} 
+                    expand="md"
+                    light>
                 <Container>
-                    <NavbarBrand tag={Link} to="/">ChatApp</NavbarBrand>
-                    <NavbarBrand>{currentUser?.userName}</NavbarBrand>
-                    <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
-                        <ul className="navbar-nav flex-grow">
-                            <NavItem>
-                                <NavLink tag={Link} className="text-dark" to={RouteTemplates.Home}>Home</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/chat-room/1">Join to chat room</NavLink>
-                            </NavItem>
+                    <Nav>
+                        <NavbarBrand tag={Link} to="/">Chat App</NavbarBrand>
+                        <NavItem>
+                            <NavLink tag={Link} className="text-dark" to={RouteTemplates.Home}>Home</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} className="text-dark" to="/chat-room/1">
+                                Join to chat room
+                            </NavLink>
+                        </NavItem>
+                        <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
                             <AuthItem isAuthorized={isAuthorized}/>
-                        </ul>
-                    </Collapse>
+                        </Collapse>
+                    </Nav>
+                    <NavbarBrand>{currentUser?.userName ?? "Anonymous"}</NavbarBrand>
                 </Container>
             </Navbar>
         </div>
