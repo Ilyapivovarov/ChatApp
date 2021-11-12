@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {SignOnActions, SignOnActionTypes} from "../types/signOnTypes";
+import {SignOnActions, SignOnActionTypes, SignOnSate} from "../types/signOnTypes";
 
 export interface SignOn {
     userName: string  | null,
@@ -25,7 +25,7 @@ export const enterConfirmPassword = (confirmPassword: string) => {
     }
 }
 
-export const submitForm = (singOn: SignOn) => {
+export const submitForm = (singOn: SignOnSate) => {
     return async (dispatch: Dispatch<SignOnActions>) => {
         
         try {

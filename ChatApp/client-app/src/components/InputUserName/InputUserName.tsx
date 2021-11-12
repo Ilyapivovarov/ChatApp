@@ -13,19 +13,25 @@ const generateErrorMessage = (userName: string | null): string => {
 const InputUserName: React.FC = () => {
     const {enterUsername} = useSignOn();
     const {userName} = useUserSelector(x => x.signOn);
-    if (userName != null && userName.length > 5) {
+    if (userName != null && userName.length > 4) {
         return (
             <>
-                <Input valid value={userName} onChange={(event => {
-                    event.persist();
-                    enterUsername(event.target.value);
-                })}/>
+                <Input placeholder={"Username"}
+                    required={true}
+                    valid value={userName} 
+                    
+                    onChange={(event => {
+                        event.persist();
+                        enterUsername(event.target.value);
+                    })}/>
             </>
         );
     }
     return (
         <>
-            <Input required={true} invalid={userName != null}
+            <Input required={true}
+                   placeholder={"Username"}
+                   invalid={userName != null}
                    value={userName ?? ""}
                    onChange={(event => {
                        event.persist();

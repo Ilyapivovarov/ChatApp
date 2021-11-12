@@ -4,8 +4,20 @@ const initSate: SignOnSate = {
     userName: null,
     password: null,
     confirmPassword: null,
-    error: null
+    error: null,
+    isValid: false
 };
+
+const maxLength = 4;
+
+const userNameValidator = (userName : string | null) : boolean => {
+    return userName != null && userName.length > maxLength;
+}
+
+const passwordValidator = (password: string | null, confirmPassword : string | null) : boolean => {
+    return password != null && password.length > maxLength 
+    && password == confirmPassword;
+}
 
 export const singOnReducer = (state = initSate, action: SignOnActions): SignOnSate => {
     switch (action.type) {
@@ -15,6 +27,7 @@ export const singOnReducer = (state = initSate, action: SignOnActions): SignOnSa
                 error: null,
                 password: state.password,
                 confirmPassword: state.password,
+                isValid: userNameValidator(action.payload) && passwordValidator(state.password, state.confirmPassword)
             };
         }
         case SignOnActionTypes.EnterPassword: {
@@ -23,6 +36,7 @@ export const singOnReducer = (state = initSate, action: SignOnActions): SignOnSa
                 error: null,
                 password: action.payload,
                 confirmPassword: state.confirmPassword,
+                isValid: userNameValidator(state.userName) && passwordValidator(action.payload, state.confirmPassword)
             };
         }
         case SignOnActionTypes.EnterConfirmPassword: {
@@ -31,6 +45,7 @@ export const singOnReducer = (state = initSate, action: SignOnActions): SignOnSa
                 error: null,
                 password: state.password,
                 confirmPassword: action.payload,
+                isValid: userNameValidator(state.userName) && passwordValidator(state.password, action.payload)
             };
         }
         case SignOnActionTypes.SubmitFormSuccess: {
@@ -39,7 +54,8 @@ export const singOnReducer = (state = initSate, action: SignOnActions): SignOnSa
                 password: state.password, 
                 confirmPassword: state.confirmPassword,
                 error: null, 
-                userName: state.userName
+                userName: state.userName,
+                isValid: true
             }
         }
         case SignOnActionTypes.SubmitFormError: {
@@ -47,7 +63,8 @@ export const singOnReducer = (state = initSate, action: SignOnActions): SignOnSa
                 password: state.password, 
                 confirmPassword: state.confirmPassword,
                 error: action.payload, 
-                userName: state.userName
+                userName: state.userName,
+                isValid: false
             }
         }
         default: {

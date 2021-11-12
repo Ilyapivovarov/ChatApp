@@ -11,7 +11,7 @@ export interface SignOnSate {
     password: null | string,
     confirmPassword: null | string,
     error: null | string,
-   
+    isValid: boolean
 }
 
 export interface EnterUserNameAction {
