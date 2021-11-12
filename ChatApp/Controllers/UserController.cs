@@ -38,12 +38,12 @@ namespace ChatApp.Controllers
 
         [HttpPost]
         [Route("sign-up")]
-        public async Task<ActionResult> SignUpUser([FromBody] SignOn signUp)
+        public async Task<ActionResult> SignUpUser([FromBody] SignUp signUp)
         {
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
             if (await userRepository.IsUsernameUnused(signUp.UserName))
             {
-                return BadRequest("Username is used");
+                return BadRequest(new {Message = "Username is used"});
             }
             
             if (await userRepository.TrySignUpUserAsync(signUp))

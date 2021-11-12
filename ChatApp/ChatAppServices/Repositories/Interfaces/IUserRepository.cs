@@ -6,7 +6,7 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        public Task<bool> TrySignUpUserAsync(SignOn signOn);
+        public Task<bool> TrySignUpUserAsync(SignUp signOn);
         
         public Task<User> SignInUserAsync(SignIn signIn);
         
