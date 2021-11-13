@@ -17,13 +17,13 @@ const InputUserName: React.FC = () => {
         return (
             <>
                 <Input placeholder={"Username"}
-                    required={true}
-                    valid value={userName} 
-                    
-                    onChange={(event => {
-                        event.persist();
-                        enterUsername(event.target.value);
-                    })}/>
+                       required={true}
+                       valid
+                       value={userName}
+                       onChange={(event => {
+                           event.persist();
+                           enterUsername(event.target.value);
+                       })}/>
             </>
         );
     }

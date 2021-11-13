@@ -38,7 +38,6 @@ export const submitForm = (signUp: SignOnSate) => {
                         password: signUp.password,
                         confirmPassword: signUp.confirmPassword
                     })
-                console.log(response)
                 if (response.status == 200)
                     return dispatch({type: SignOnActionTypes.SubmitFormSuccess, payload: response.data})
 
@@ -46,7 +45,6 @@ export const submitForm = (signUp: SignOnSate) => {
             }
             return dispatch({type: SignOnActionTypes.SubmitFormError, payload: "Invalid form"})
         } catch {
-            console.log("catch")
             return dispatch({type: SignOnActionTypes.SubmitFormError, payload: "Error while submit from"})
         }
     }
