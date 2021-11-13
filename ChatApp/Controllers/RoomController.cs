@@ -21,7 +21,7 @@ namespace ChatApp.Controllers
     public class RoomController : ControllerBase
     {
         private readonly IHubContext<ChatHub, IChatClient> _chatHub;
-        private int _userId = 0;
+        private int _userId;
         
         public RoomController(IHubContext<ChatHub, IChatClient> chatHub)
         {
