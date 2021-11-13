@@ -43,7 +43,7 @@ namespace ChatApp.Controllers
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
             if (await userRepository.IsUsernameUnused(signUp.UserName))
             {
-                return BadRequest(new {Message = "Username is used"});
+                return Accepted(new {message = "Username is used"});
             }
             
             if (await userRepository.TrySignUpUserAsync(signUp))

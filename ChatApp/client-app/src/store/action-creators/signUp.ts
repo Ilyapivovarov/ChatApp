@@ -31,24 +31,22 @@ export const submitForm = (signUp: SignOnSate) => {
         console.log("asfa")
         try {
             if (signUp.userName != null && signUp.confirmPassword == signUp.password) {
-                try {
-                    const response = await axios.post("User/sign-up",
-                        {
-                            userName: signUp.userName,
-                            password: signUp.password,
-                            confirmPassword: signUp.confirmPassword
-                        })
+      
+                const response = await axios.post("User/sign-up",
+                    {
+                        userName: signUp.userName,
+                        password: signUp.password,
+                        confirmPassword: signUp.confirmPassword
+                    })
+                console.log(response)
+                if (response.status == 200)
+                    return dispatch({type: SignOnActionTypes.SubmitFormSuccess, payload: response.data})
 
-                    console.log(response)
-                    
-                    return dispatch({type: SignOnActionTypes.SubmitFormSuccess})
-                } catch {
-                    return dispatch({type: SignOnActionTypes.SubmitFormError, payload: "Invalid form"})
-                }
-
+                return dispatch({type: SignOnActionTypes.SubmitFormError, payload: response.data.message})
             }
             return dispatch({type: SignOnActionTypes.SubmitFormError, payload: "Invalid form"})
         } catch {
+            console.log("catch")
             return dispatch({type: SignOnActionTypes.SubmitFormError, payload: "Error while submit from"})
         }
     }
