@@ -3,6 +3,13 @@ import {useSignOn} from "../../hooks/useSignOn";
 import {useUserSelector} from "../../hooks/useAuth";
 import {FormFeedback, Input} from "reactstrap";
 
+const generateErrorMessage = (password: string | null): string => {
+    if (password == null)
+        return "Input required field"
+    
+    return "Password min length 5 symbols"
+}
+
 const InputPassword: React.FC = () => {
     const {enterPassword} = useSignOn();
     const {password} = useUserSelector(x => x.signOn);
@@ -33,7 +40,7 @@ const InputPassword: React.FC = () => {
                        enterPassword(event.target.value);
                    })}/>
             <FormFeedback hidden={password == null}>
-                Error password
+                {generateErrorMessage(password)}
             </FormFeedback>
         </>
     );

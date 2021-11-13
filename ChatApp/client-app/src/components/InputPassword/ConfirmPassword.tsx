@@ -3,6 +3,16 @@ import {useSignOn} from "../../hooks/useSignOn";
 import {useUserSelector} from "../../hooks/useAuth";
 import {FormFeedback, Input} from "reactstrap";
 
+const generateErrorMessage = (password: string | null, confirmPassword : string | null): string => {
+    if (confirmPassword == null)
+        return "Input required field"
+
+    if (confirmPassword != password)
+        return "Not same"
+
+    return "Username min length 5 symbols"
+}
+
 const ConfirmPassword: React.FC = () => {
     const {enterConfirmPassword} = useSignOn();
     const {confirmPassword, password} = useUserSelector(x => x.signOn);
@@ -33,7 +43,7 @@ const ConfirmPassword: React.FC = () => {
                        enterConfirmPassword(event.target.value);
                    })}/>
             <FormFeedback hidden={confirmPassword == null && password == null}>
-                Error confirm password
+                {generateErrorMessage(password, confirmPassword)}
             </FormFeedback>
         </>
     );
