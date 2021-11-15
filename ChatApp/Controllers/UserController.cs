@@ -9,6 +9,7 @@ using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.AuthService;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Common.CustomClaims;
+using ChatApp.Controllers.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,9 +18,9 @@ namespace ChatApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : ChatAppControllerBase
     {
-        private int UserId => int.Parse(User.Claims.Single(c => c.Type == CustomClaimTypes.Id).Value);
+        
         
         [HttpGet]
         [Route("test")]

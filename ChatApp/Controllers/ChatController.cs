@@ -1,10 +1,8 @@
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
-using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using ChatApp.Controllers.Base;
 using ChatApp.SignalRHubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +13,7 @@ namespace ChatApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ChatController : ControllerBase
+    public class ChatController : ChatAppControllerBase
     {
         private readonly IHubContext<ChatHub, IChatClient> _chatHub;
 
@@ -23,8 +21,6 @@ namespace ChatApp.Controllers
         {
             _chatHub = chatHub;
         }
-        
-        private int UserId => int.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
         [HttpGet("{chatRoomId:int}")]
         [Authorize]

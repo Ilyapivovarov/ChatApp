@@ -1,12 +1,10 @@
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.MapperService;
-using ChatApp.ChatAppServices.Repositories;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using ChatApp.Controllers.Base;
 using ChatApp.SignalRHubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,27 +16,15 @@ namespace ChatApp.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize]
-    public class RoomController : ControllerBase
+    public class RoomController : ChatAppControllerBase
     {
         private readonly IHubContext<ChatHub, IChatClient> _chatHub;
-        private int _userId;
-        
+
         public RoomController(IHubContext<ChatHub, IChatClient> chatHub)
         {
             _chatHub = chatHub;
         }
-
-        private int UserId
-        {
-            get
-            {
-                if (_userId == 0)
-                    _userId = int.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
-                
-                return _userId;
-            }
-        }
-
+        
         [HttpGet]
         public async Task<ActionResult> GetUserRooms()
         {
