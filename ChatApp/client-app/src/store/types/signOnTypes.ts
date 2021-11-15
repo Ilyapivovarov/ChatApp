@@ -6,7 +6,7 @@ export enum SignOnActionTypes {
     SubmitFormError
 }
 
-export interface SignOnSate {
+export interface SignUpSate {
     userName: null | string,
     password: null | string,
     confirmPassword: null | string,

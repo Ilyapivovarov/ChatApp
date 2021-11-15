@@ -1,12 +1,6 @@
 import {Dispatch} from "redux";
-import {SignOnActions, SignOnActionTypes, SignOnSate} from "../types/signOnTypes";
+import {SignOnActions, SignOnActionTypes, SignUpSate} from "../types/signOnTypes";
 import axios from "../../common/http-common"
-
-export interface SignOn {
-    userName: string | null,
-    password: string | null,
-    confirmPassword: string | null
-}
 
 export const enterUsername = (userName: string) => {
     return async (dispatch: Dispatch<SignOnActions>) => {
@@ -26,9 +20,8 @@ export const enterConfirmPassword = (confirmPassword: string) => {
     }
 }
 
-export const submitForm = (signUp: SignOnSate) => {
+export const submitForm = (signUp: SignUpSate) => {
     return async (dispatch: Dispatch<SignOnActions>) => {
-        console.log("asfa")
         try {
             if (signUp.userName != null && signUp.confirmPassword == signUp.password) {
       

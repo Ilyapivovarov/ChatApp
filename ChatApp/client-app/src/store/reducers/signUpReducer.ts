@@ -1,6 +1,6 @@
-import {SignOnActions, SignOnActionTypes, SignOnSate} from "../types/signOnTypes";
+import {SignOnActions, SignOnActionTypes, SignUpSate} from "../types/signOnTypes";
 
-const initSate: SignOnSate = {
+const initSate: SignUpSate = {
     userName: null,
     password: null,
     confirmPassword: null,
@@ -19,7 +19,7 @@ const passwordValidator = (password: string | null, confirmPassword : string | n
     && password == confirmPassword;
 }
 
-export const singOnReducer = (state = initSate, action: SignOnActions): SignOnSate => {
+export const singOnReducer = (state = initSate, action: SignOnActions): SignUpSate => {
     switch (action.type) {
         case SignOnActionTypes.EnterUserName: {
             return {

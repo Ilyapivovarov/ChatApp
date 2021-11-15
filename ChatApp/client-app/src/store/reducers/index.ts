@@ -1,7 +1,7 @@
 import {combineReducers} from "redux"
 import {userReducer} from "./userReducer";
 import {roomReducer} from "./roomReducer";
-import {singOnReducer} from "./signOnReducer";
+import {singOnReducer} from "./signUpReducer";
 
 export const rootReducer = combineReducers({
     users: userReducer,
