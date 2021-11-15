@@ -9,6 +9,7 @@ export const fetchRoom = (id: string) => {
         try {
             dispatch({type: RoomActionTypes.FETCH_ROOM})
             const response = await axios.get<Room>("Room/"+ id);
+            console.log(response)
             dispatch({type: RoomActionTypes.LOAD_ROOM_SUCCESS, payload: response.data})
         } catch (e) {
             dispatch({type: RoomActionTypes.LOAD_ERROR, payload: "Error while fetching data"})

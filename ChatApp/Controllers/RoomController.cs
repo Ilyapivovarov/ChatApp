@@ -65,5 +65,42 @@ namespace ChatApp.Controllers
             
             return Ok();
         }
+        
+        [HttpGet()]
+        [Route("join-to-room/{chatRoomId:int}")]
+        public async Task<ActionResult> JoinUserToChatRoom(int chatRoomId)
+        {
+            var chatRoomRepository = Services.Locator.GetRequiredService<IChatRoomRepository>();
+            var chatRoom = await chatRoomRepository.GetChatRoomById(chatRoomId);
+
+            if (chatRoom != null)
+            {
+                if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom, UserId))
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost("{chatRoomName}")]
+        [Route("create-chat-room/{chatRoomName}")]
+        public async Task<ActionResult> CreateChatRoom(string chatRoomName)
+        {
+            var user = await Services.Locator.GetRequiredService<IUserRepository>()
+                .GetUserByIdAsync(UserId);
+            if (user != null)
+            {
+                var chatRoom = await Services.Locator.GetRequiredService<IChatRoomRepository>()
+                    .CreateChatRoom(user);
+                if (chatRoom != null)
+                {
+                    return Ok(chatRoom);
+                }
+            }
+            
+            return BadRequest();
+        }
     }
 }

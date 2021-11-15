@@ -15,7 +15,6 @@ const hubConnection = new signalR.HubConnectionBuilder()
 hubConnection.start();
 
 const RoomView = () => {
-    console.log("render room view")
     const {room, loading, error} = useUserSelector(x => x.rooms)
     const [messages, setMessages] = useState<Message[]>([]);
 
@@ -33,7 +32,6 @@ const RoomView = () => {
     }
 
     if (room) {
-
         return (
             <div className={"room_view_main"}>
                 <MessageView messages={messages}/>
@@ -43,7 +41,7 @@ const RoomView = () => {
     }
     return (
         <div>
-            <h1>asd {error}</h1>
+            <h1>{error}</h1>
         </div>
     );
 };
