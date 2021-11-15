@@ -6,7 +6,7 @@ namespace ChatApp.Common.ActionResults
     {
         private const int DefaultStatusCode = ResponseStatusCodes.UserNameAlreadyExist50;
         
-        public UserExistResult(object? value) : base(value)
+        public UserExistResult(object value) : base(value)
         {
             StatusCode = DefaultStatusCode;
         }

@@ -22,7 +22,7 @@ namespace ChatApp.Controllers.Base
         }
 
         [NonAction]
-        protected UserExistResult UserExist([ActionResultObjectValue] object? value)
+        protected UserExistResult UserExist([ActionResultObjectValue] object value)
             => new(value);
         
         
