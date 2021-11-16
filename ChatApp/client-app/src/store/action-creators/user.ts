@@ -3,6 +3,7 @@ import {Dispatch} from "redux";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import {Account, DecodeJwtToken, JwtToken, SignUp} from "../../types/dataTypes";
+import {RequestResult} from "../../common/RequestResult";
 
 const ACCESS_TOKEN_KEY = "access_token";
 
@@ -30,7 +31,7 @@ export const signInUser = (signIn: SignIn) => {
     return async (dispatch: Dispatch<UserAction>) => {
         try {
             const response = await axios.post<JwtToken>("user/sign-in", signIn);
-            if (response.data.access_token != null) {
+            if (response.data?.access_token != null) {
                 localStorage.setItem(ACCESS_TOKEN_KEY, response.data.access_token);
                 let decoded = jwt_decode<Account>(response.data.access_token);
                 dispatch({type: UserActionType.SIGN_IN_USER_SUCCESS, payload: decoded})
@@ -43,16 +44,16 @@ export const signInUser = (signIn: SignIn) => {
 
 export const signUpUser = (signUp: SignUp) => {
     return async (dispatch: Dispatch<UserAction>) => {
-        try {
-            const response = await axios.post<JwtToken>("user/sign-up", signUp);
-            if (response.data.access_token != null) {
-                localStorage.setItem(ACCESS_TOKEN_KEY, response.data.access_token);
-                let decoded = jwt_decode<Account>(response.data.access_token);
-                dispatch({type: UserActionType.SIGN_IN_USER_SUCCESS, payload: decoded})
-            }
-        } catch {
-            dispatch({type: UserActionType.SIGN_IN_USER_ERROR, payload: "Error"})
+        const response = await axios.post<RequestResult<JwtToken>>("user/sign-up", signUp);
+        if (response.data.isSuccess) {
+            localStorage.setItem(ACCESS_TOKEN_KEY, response.data.value.access_token);
+            let decoded = jwt_decode<Account>(response.data.value.access_token);
+            dispatch({type: UserActionType.SIGN_IN_USER_SUCCESS, payload: decoded})
+            console.log(response, "success")
         }
+
+        dispatch({type: UserActionType.SIGN_IN_USER_ERROR, payload: response.data.errorMessage})
+        console.log(response, "error")
     }
 }
 

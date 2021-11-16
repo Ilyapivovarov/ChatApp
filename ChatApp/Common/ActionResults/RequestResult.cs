@@ -2,26 +2,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ChatApp.Common.ActionResults
 {
-    public class RequestResult : ObjectResult
+    public class RequestResult : OkObjectResult
     {
         private const int DefaultStatusCode = ResponseStatusCodes.RequestResult51;
         
         public RequestResult(object value) : base(value)
         {
-            StatusCode = DefaultStatusCode;
+           // StatusCode = DefaultStatusCode;
             IsSuccess = true;
         }
         
         public RequestResult(string errorMessage) 
             : base(null)
         {
-            StatusCode = DefaultStatusCode;
+            //StatusCode = DefaultStatusCode;
             IsSuccess = false;
-            Message = errorMessage;
+            ErrorMessage = errorMessage;
         }
 
         public bool IsSuccess { get; }
         
-        public string Message { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

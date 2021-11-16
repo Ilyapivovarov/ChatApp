@@ -27,6 +27,6 @@ namespace ChatApp.Controllers.Base
 
         [NonAction]
         protected RequestResult RequestResultError([ActionResultObjectValue] string errorMessage)
-            => new(errorMessage);
+            => new(new {errorMessage});
     }
 }

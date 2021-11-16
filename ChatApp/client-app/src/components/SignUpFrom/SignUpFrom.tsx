@@ -15,6 +15,9 @@ const SignOnForm: React.FC = () => {
     const {signUpUser} = useActions()
     return (
         <div>
+            <h1>
+                afsa {f.error}
+            </h1>
             <Form inline>
                 <FormGroup className="mb-2 me-sm-2 mb-sm-0 input-from-group">
                     <InputUserName/>
@@ -37,9 +40,7 @@ const SignOnForm: React.FC = () => {
                 >
                     Sign on
                 </Button>
-                <h1>
-                    {f.error}
-                </h1>
+                
             </Form>
         </div>
 
