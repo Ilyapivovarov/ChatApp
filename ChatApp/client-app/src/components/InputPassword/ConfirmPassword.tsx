@@ -15,7 +15,7 @@ const generateErrorMessage = (password: string | null, confirmPassword : string 
 
 const ConfirmPassword: React.FC = () => {
     const {enterConfirmPassword} = useSignUp();
-    const {confirmPassword, password} = useUserSelector(x => x.signOn);
+    const {confirmPassword, password} = useUserSelector(x => x.signUp);
 
     if (confirmPassword != null && confirmPassword.length > 4
         && confirmPassword == password) {

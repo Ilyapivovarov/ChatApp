@@ -7,12 +7,14 @@ import InputPassword from "../InputPassword/InputPassword";
 import ConfirmPassword from "../InputPassword/ConfirmPassword";
 
 import "./SignUpFrom.css"
+import {useActions} from "../../hooks/useActions";
 
 const SignOnForm: React.FC = () => {
-    const {submitForm} = useSignUp()
-    const state = useUserSelector(x => x.signOn)
+    const state = useUserSelector(x => x.signUp)
+    const f = useUserSelector(x => x.users)
+    const {signUpUser} = useActions()
     return (
-        <div id={"asd"}>
+        <div>
             <Form inline>
                 <FormGroup className="mb-2 me-sm-2 mb-sm-0 input-from-group">
                     <InputUserName/>
@@ -26,16 +28,21 @@ const SignOnForm: React.FC = () => {
                 <Button disabled={!state.isValid}
                         onClick={() => {
                             if (state.password != null && state.confirmPassword == state.password && state.userName != null)
-                                return submitForm({userName: state.userName, password: state.password, 
-                                    confirmPassword: state.confirmPassword })      
+                                return signUpUser({
+                                    userName: state.userName, password: state.password,
+                                    confirmPassword: state.confirmPassword
+                                })
                         }}
                         className={"input-from-group"}
                 >
                     Sign on
                 </Button>
+                <h1>
+                    {f.error}
+                </h1>
             </Form>
         </div>
-        
+
 
     );
 };

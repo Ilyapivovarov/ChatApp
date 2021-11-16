@@ -6,7 +6,7 @@ import {singUpReducer} from "./signUpReducer";
 export const rootReducer = combineReducers({
     users: userReducer,
     rooms: roomReducer,
-    signOn: singUpReducer
+    signUp: singUpReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

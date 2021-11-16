@@ -12,7 +12,7 @@ const generateErrorMessage = (password: string | null): string => {
 
 const InputPassword: React.FC = () => {
     const {enterPassword} = useSignUp();
-    const {password} = useUserSelector(x => x.signOn);
+    const {password} = useUserSelector(x => x.signUp);
     if (password != null && password.length > 4) {
         return (
             <>
