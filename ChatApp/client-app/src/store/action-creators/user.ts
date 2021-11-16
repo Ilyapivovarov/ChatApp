@@ -44,7 +44,7 @@ export const signInUser = (signIn: SignIn) => {
 export const signUpUser = (signUp: SignUp) => {
     return async (dispatch: Dispatch<UserAction>) => {
         try {
-            const response = await axios.post<JwtToken>("user/sign-un", signUp);
+            const response = await axios.post<JwtToken>("user/sign-up", signUp);
             if (response.data.access_token != null) {
                 localStorage.setItem(ACCESS_TOKEN_KEY, response.data.access_token);
                 let decoded = jwt_decode<Account>(response.data.access_token);

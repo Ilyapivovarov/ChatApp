@@ -1,15 +1,15 @@
 import React from 'react';
 import {Alert, Button, Form, FormGroup} from "reactstrap";
-import {useSignOn} from "../../hooks/useSignOn";
+import {useSignUp} from "../../hooks/useSignOn";
 import {useUserSelector} from "../../hooks/useAuth";
 import InputUserName from "../InputUserName/InputUserName";
 import InputPassword from "../InputPassword/InputPassword";
 import ConfirmPassword from "../InputPassword/ConfirmPassword";
 
-import "./SignOnFrom.css"
+import "./SignUpFrom.css"
 
 const SignOnForm: React.FC = () => {
-    const {submitForm} = useSignOn()
+    const {submitForm} = useSignUp()
     const state = useUserSelector(x => x.signOn)
     return (
         <div id={"asd"}>

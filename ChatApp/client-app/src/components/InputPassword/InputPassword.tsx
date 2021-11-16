@@ -1,5 +1,5 @@
 import React from "react";
-import {useSignOn} from "../../hooks/useSignOn";
+import {useSignUp} from "../../hooks/useSignOn";
 import {useUserSelector} from "../../hooks/useAuth";
 import {FormFeedback, Input} from "reactstrap";
 
@@ -11,7 +11,7 @@ const generateErrorMessage = (password: string | null): string => {
 }
 
 const InputPassword: React.FC = () => {
-    const {enterPassword} = useSignOn();
+    const {enterPassword} = useSignUp();
     const {password} = useUserSelector(x => x.signOn);
     if (password != null && password.length > 4) {
         return (

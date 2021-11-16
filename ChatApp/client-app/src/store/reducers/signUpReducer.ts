@@ -19,7 +19,7 @@ const passwordValidator = (password: string | null, confirmPassword : string | n
     && password == confirmPassword;
 }
 
-export const singOnReducer = (state = initSate, action: SignOnActions): SignUpSate => {
+export const singUpReducer = (state = initSate, action: SignOnActions): SignUpSate => {
     switch (action.type) {
         case SignOnActionTypes.EnterUserName: {
             return {
