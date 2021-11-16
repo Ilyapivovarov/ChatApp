@@ -1,9 +1,9 @@
 import {useDispatch} from "react-redux";
 import {bindActionCreators} from "@reduxjs/toolkit";
-import * as signUpActionCreator from "../store/action-creators/signUp"
+import * as signUpFormActionCreator from "../store/action-creators/signUpForm"
 
 
 export const useSignOn = () => {
     const dispatch = useDispatch();
-    return bindActionCreators(signUpActionCreator, dispatch)
+    return bindActionCreators(signUpFormActionCreator, dispatch)
 }

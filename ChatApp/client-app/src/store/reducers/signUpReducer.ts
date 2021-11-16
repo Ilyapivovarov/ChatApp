@@ -49,13 +49,12 @@ export const singOnReducer = (state = initSate, action: SignOnActions): SignUpSa
             };
         }
         case SignOnActionTypes.SubmitFormSuccess: {
-            console.log("Sibmit")
             return {
                 password: state.password, 
                 confirmPassword: state.confirmPassword,
                 error: null, 
                 userName: state.userName,
-                isValid: true
+                isValid: action.payload
             }
         }
         case SignOnActionTypes.SubmitFormError: {

@@ -8,7 +8,7 @@ export const fetchRoom = (id: string) => {
     return async (dispatch: Dispatch<RoomActions>) => {
         try {
             dispatch({type: RoomActionTypes.FETCH_ROOM})
-            const response = await axios.get<Room>("Room/"+ id);
+            const response = await axios.get<Room>("room/"+ id);
             console.log(response)
             dispatch({type: RoomActionTypes.LOAD_ROOM_SUCCESS, payload: response.data})
         } catch (e) {

@@ -24,3 +24,9 @@ export interface DecodeJwtToken {
     userName: string,
     exp: number
 }
+
+export interface SignUp {
+    userName: string,
+    password: string,
+    confirmPassword: string
+}

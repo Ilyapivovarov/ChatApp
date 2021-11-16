@@ -24,7 +24,11 @@ const SignOnForm: React.FC = () => {
                     <ConfirmPassword/>
                 </FormGroup>
                 <Button disabled={!state.isValid}
-                        onClick={() => submitForm(state)}
+                        onClick={() => {
+                            if (state.password != null && state.confirmPassword == state.password && state.userName != null)
+                                return submitForm({userName: state.userName, password: state.password, 
+                                    confirmPassword: state.confirmPassword })      
+                        }}
                         className={"input-from-group"}
                 >
                     Sign on

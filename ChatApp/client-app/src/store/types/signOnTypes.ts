@@ -1,3 +1,5 @@
+import {SignUp} from "../../types/dataTypes";
+
 export enum SignOnActionTypes {
     EnterUserName,
     EnterPassword,
@@ -6,7 +8,7 @@ export enum SignOnActionTypes {
     SubmitFormError
 }
 
-export interface SignUpSate {
+export interface SignUpSate{
     userName: null | string,
     password: null | string,
     confirmPassword: null | string,
@@ -31,6 +33,7 @@ export interface EnterConfirmPasswordAction {
 
 export interface SubmitFormSuccessAction {
     type: SignOnActionTypes.SubmitFormSuccess,
+    payload: boolean
 }
 
 export interface SubmitFormErrorAction {
