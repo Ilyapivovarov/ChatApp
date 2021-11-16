@@ -22,9 +22,11 @@ namespace ChatApp.Controllers.Base
         }
 
         [NonAction]
-        protected UserExistResult UserExist([ActionResultObjectValue] object value)
+        protected RequestResult RequestResultSuccess([ActionResultObjectValue] object value = null)
             => new(value);
-        
-        
+
+        [NonAction]
+        protected RequestResult RequestResultError([ActionResultObjectValue] string errorMessage)
+            => new(errorMessage);
     }
 }

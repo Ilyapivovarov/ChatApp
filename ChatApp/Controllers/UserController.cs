@@ -8,6 +8,7 @@ using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.AuthService;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using ChatApp.Common.ActionResults;
 using ChatApp.Common.CustomClaims;
 using ChatApp.Controllers.Base;
 using Microsoft.AspNetCore.Authorization;
@@ -44,12 +45,12 @@ namespace ChatApp.Controllers
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
             if (await userRepository.IsUsernameUnused(signUp.UserName))
             {
-                return UserExist(new {message = "Username is used"});
+                return RequestResultError("Username already exist");
             }
             
             if (await userRepository.TrySignUpUserAsync(signUp))
             {
-                return Ok();
+                return RequestResultSuccess();
             }
 
             return BadRequest("Error while creating user");
