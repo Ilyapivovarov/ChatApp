@@ -48,23 +48,8 @@ export const singUpReducer = (state = initSate, action: SignOnActions): SignUpSa
                 isValid: userNameValidator(state.userName) && passwordValidator(state.password, action.payload)
             };
         }
-        case SignOnActionTypes.SubmitFormSuccess: {
-            return {
-                password: state.password, 
-                confirmPassword: state.confirmPassword,
-                error: null, 
-                userName: state.userName,
-                isValid: action.payload
-            }
-        }
-        case SignOnActionTypes.SubmitFormError: {
-            return {
-                password: state.password, 
-                confirmPassword: state.confirmPassword,
-                error: "AFS", 
-                userName: state.userName,
-                isValid: false
-            }
+        case SignOnActionTypes.ResetFrom:{
+            return initSate;
         }
         default: {
             return state;

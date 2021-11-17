@@ -1,11 +1,8 @@
-import {SignUp} from "../../types/dataTypes";
-
 export enum SignOnActionTypes {
     EnterUserName,
     EnterPassword,
     EnterConfirmPassword,
-    SubmitFormSuccess,
-    SubmitFormError
+    ResetFrom
 }
 
 export interface SignUpSate{
@@ -31,15 +28,8 @@ export interface EnterConfirmPasswordAction {
     payload: string,
 }
 
-export interface SubmitFormSuccessAction {
-    type: SignOnActionTypes.SubmitFormSuccess,
-    payload: boolean
+export interface ResetFromAction {
+    type: SignOnActionTypes.ResetFrom,
 }
 
-export interface SubmitFormErrorAction {
-    type: SignOnActionTypes.SubmitFormError,
-    payload: string,
-}
-
-export type SignOnActions = EnterUserNameAction | EnterPasswordAction | EnterConfirmPasswordAction
-    | SubmitFormSuccessAction | SubmitFormErrorAction
+export type SignOnActions = EnterUserNameAction | EnterPasswordAction | EnterConfirmPasswordAction | ResetFromAction

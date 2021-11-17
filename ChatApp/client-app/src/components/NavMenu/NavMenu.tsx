@@ -6,6 +6,7 @@ import {useUserSelector} from "../../hooks/useAuth";
 import {useActions} from "../../hooks/useActions";
 
 import './NavMenu.css';
+import {authUser} from "../../store/action-creators/user";
 
 interface AuthItemProps {
     isAuthorized: boolean;

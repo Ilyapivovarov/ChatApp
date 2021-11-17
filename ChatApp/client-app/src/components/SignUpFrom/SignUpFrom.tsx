@@ -7,6 +7,7 @@ import ConfirmPassword from "../InputPassword/ConfirmPassword";
 import {useActions} from "../../hooks/useActions";
 
 import "./SignUpFrom.css"
+import {resetForm} from "../../store/action-creators/signUpForm";
 
 
 const SignOnForm: React.FC = () => {
@@ -28,10 +29,14 @@ const SignOnForm: React.FC = () => {
                 <Button disabled={!state.isValid}
                         onClick={() => {
                             if (state.password != null && state.confirmPassword == state.password && state.userName != null)
+                            {
                                 signUpUser({
                                     userName: state.userName, password: state.password,
                                     confirmPassword: state.confirmPassword
                                 })
+
+                                resetForm()
+                            }
                           
                         }}
                         className={"input-from-group"}

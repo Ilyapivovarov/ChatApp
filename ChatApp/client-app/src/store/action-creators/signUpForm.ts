@@ -1,7 +1,6 @@
 import {Dispatch} from "redux";
-import {SignOnActions, SignOnActionTypes, SignUpSate} from "../types/signOnTypes";
-import axios from "../../common/http-common"
-import {SignUp} from "../../types/dataTypes";
+import {ResetFromAction, SignOnActions, SignOnActionTypes} from "../types/signOnTypes";
+
 
 export const enterUsername = (userName: string) => {
     return async (dispatch: Dispatch<SignOnActions>) => {
@@ -21,11 +20,8 @@ export const enterConfirmPassword = (confirmPassword: string) => {
     }
 }
 
-export const submitForm = (signUp: SignUp) => {
+export const resetForm = () => {
     return async (dispatch: Dispatch<SignOnActions>) => {
-        if  (signUp.password != null && signUp.confirmPassword == signUp.password) {
-            return dispatch({type: SignOnActionTypes.SubmitFormSuccess, payload: true})
-        }
-        return dispatch({type: SignOnActionTypes.SubmitFormError, payload: "Passwords not same"})
+        return dispatch({type: SignOnActionTypes.ResetFrom, })
     }
 }
