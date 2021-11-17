@@ -67,3 +67,10 @@ const validateToken = (tokenExp: number): boolean => {
     console.log(exp > now, "Token")
     return exp > now
 }
+
+export const signOut = () => {
+    return async (dispatch: Dispatch<AuthActions>) => {
+       localStorage.removeItem(AccessTokenKey);
+       return dispatch({type: AuthActionTypes.SignOut})
+    }
+} 

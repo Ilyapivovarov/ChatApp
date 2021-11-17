@@ -65,7 +65,7 @@ namespace ChatApp.Controllers
             if (Services.Locator.GetRequiredService<IAuthService>()
                 .TryAuthUser(signIn, out var token))
             {
-                return Ok(new {access_token = token});
+                return RequestResultSuccess(new {access_token = token});
             }
 
             return Unauthorized();

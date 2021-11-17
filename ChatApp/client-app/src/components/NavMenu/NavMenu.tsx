@@ -1,17 +1,22 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {RouteTemplates} from "../../router/types/Routs";
 
 
-
 import './NavMenu.css';
+import {useSelector} from "react-redux";
+import {useAuthActions} from "../../hooks/useAuthActions";
+import {useCustomSelector} from "../../hooks/useStateReader";
+import {signOut} from "../../store/reducers/authReducer/authActionCreator";
 
 interface AuthItemProps {
     isAuthorized: boolean;
 }
 
 const AuthItem: React.FC<AuthItemProps> = (prop) => {
+    const {signOut} = useAuthActions()
+
     if (!prop.isAuthorized)
         return (
             <>
@@ -38,7 +43,7 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
     return (
         <NavItem>
             <NavLink
-                onClick={() => console.log("click")}>
+                onClick={() => signOut()}>
                 <Button
                     color="primary"
                     outline
@@ -52,6 +57,12 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
 }
 
 const NavMenu: React.FC = () => {
+    const {isAuthorized, currentUser} = useCustomSelector(x => x.auth);
+    const {authUser} = useAuthActions()
+    useEffect(() => {
+        authUser()
+    }, [isAuthorized]);
+
     return (
         <div>
             <Navbar className={"box-shadow"}
@@ -69,10 +80,10 @@ const NavMenu: React.FC = () => {
                             </NavLink>
                         </NavItem>
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
-                            <AuthItem isAuthorized={false}/>
+                            <AuthItem isAuthorized={isAuthorized}/>
                         </Collapse>
                     </Nav>
-                    <NavbarBrand>{"Anonymous"}</NavbarBrand>
+                    <NavbarBrand>{currentUser?.userName ?? "Anonymous"}</NavbarBrand>
                 </Container>
             </Navbar>
         </div>

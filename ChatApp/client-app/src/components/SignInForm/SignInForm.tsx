@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {Button, Col, Form, FormGroup, Input, Row} from 'reactstrap';
 import {SignIn} from "../../types/dataTypes";
-import {useActions} from "../../hooks/useAuthActions";
+import {useAuthActions} from "../../hooks/useAuthActions";
 
 const SignInForm: React.FC = () => {
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const {signInUser} = useActions()
+    const {signInUser} = useAuthActions()
     
     const onSubmit = (signIn : SignIn) => {
         signInUser(signIn)
