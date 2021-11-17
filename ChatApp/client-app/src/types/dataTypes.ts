@@ -1,6 +1,7 @@
 export interface Account {
     id: number,
     userName: string,
+    exp: number
 }
 
 export interface Message {
@@ -19,14 +20,16 @@ export interface JwtToken {
     access_token: string
 }
 
-export interface DecodeJwtToken {
-    id: number
-    userName: string,
-    exp: number
-}
-
 export interface SignUp {
     userName: string,
     password: string,
     confirmPassword: string
 }
+
+export interface SignIn {
+    userName: string,
+    password: string,
+    confirmPassword: string
+}
+
+export type AuthType = SignIn | SignUp
