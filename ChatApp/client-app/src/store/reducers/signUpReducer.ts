@@ -61,7 +61,7 @@ export const singUpReducer = (state = initSate, action: SignOnActions): SignUpSa
             return {
                 password: state.password, 
                 confirmPassword: state.confirmPassword,
-                error: action.payload, 
+                error: "AFS", 
                 userName: state.userName,
                 isValid: false
             }

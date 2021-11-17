@@ -14,8 +14,11 @@ export const userReducer = (state = initState, action : UserAction): UserState =
         case  UserActionType.SIGN_IN_USER_ERROR: {
             return {isAuthorized: false, error: action.payload, currentUser: null}
         }
-        case UserActionType.SING_OUT_USER: {
+        case UserActionType.SIGN_OUT_USER: {
             return {isAuthorized: false, error: null, currentUser: null}
+        }
+        case UserActionType.SIGN_UP_USER_SUCCESS:{
+            return {isAuthorized: true, error: null, currentUser: action.payload}
         }
         default:
             return state

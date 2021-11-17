@@ -6,7 +6,7 @@ import {FormFeedback, Input} from "reactstrap";
 const generateErrorMessage = (password: string | null): string => {
     if (password == null)
         return "Input required field"
-    
+
     return "Password min length 5 symbols"
 }
 
@@ -33,7 +33,7 @@ const InputPassword: React.FC = () => {
             <Input type={"password"}
                    placeholder={"Password"}
                    required={true}
-                   invalid={password != null} 
+                   invalid={password != null}
                    value={password ?? ""}
                    onChange={(event => {
                        event.persist();

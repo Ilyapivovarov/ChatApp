@@ -21,8 +21,6 @@ namespace ChatApp.Controllers
     [Route("[controller]")]
     public class UserController : ChatAppControllerBase
     {
-        
-        
         [HttpGet]
         [Route("test")]
         public ActionResult<User[]> RunTest()
@@ -47,10 +45,14 @@ namespace ChatApp.Controllers
             {
                 return RequestResultError("Username already exist");
             }
-            
+
             if (await userRepository.TrySignUpUserAsync(signUp))
             {
-                return RequestResultSuccess();
+                Services.Locator.GetRequiredService<IAuthService>()
+                    .TryAuthUser(new SignIn {UserName = signUp.UserName, Password = signUp.Password},
+                        out var token);
+
+                return RequestResultSuccess(new {access_token = token});
             }
 
             return BadRequest("Error while creating user");

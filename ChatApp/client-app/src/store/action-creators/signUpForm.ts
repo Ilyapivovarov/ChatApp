@@ -23,7 +23,7 @@ export const enterConfirmPassword = (confirmPassword: string) => {
 
 export const submitForm = (signUp: SignUp) => {
     return async (dispatch: Dispatch<SignOnActions>) => {
-        if  (signUp.confirmPassword == signUp.password) {
+        if  (signUp.password != null && signUp.confirmPassword == signUp.password) {
             return dispatch({type: SignOnActionTypes.SubmitFormSuccess, payload: true})
         }
         return dispatch({type: SignOnActionTypes.SubmitFormError, payload: "Passwords not same"})

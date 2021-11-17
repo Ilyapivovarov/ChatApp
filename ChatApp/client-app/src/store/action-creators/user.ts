@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import {Account, DecodeJwtToken, JwtToken, SignUp} from "../../types/dataTypes";
 import {RequestResult} from "../../common/RequestResult";
 
-const ACCESS_TOKEN_KEY = "access_token";
+const ACCESS_TOKEN_KEY = "accessToken";
 
 export const authUser = () => {
     return async (dispatch: Dispatch<UserAction>) => {
@@ -16,14 +16,14 @@ export const authUser = () => {
                 if (validateToken(jwtDecode.exp)) {
                     dispatch({
                         type: UserActionType.SIGN_IN_USER_SUCCESS,
-                        payload: {userName: jwtDecode.userName, id: jwtDecode.id}
+                        payload: jwtDecode
                     })
                     return;
                 }
                 singOutUser();
             }
         } else
-            dispatch(({type: UserActionType.SING_OUT_USER}))
+            dispatch(({type: UserActionType.SIGN_OUT_USER}))
     }
 }
 
@@ -45,22 +45,23 @@ export const signInUser = (signIn: SignIn) => {
 export const signUpUser = (signUp: SignUp) => {
     return async (dispatch: Dispatch<UserAction>) => {
         const response = await axios.post<RequestResult<JwtToken>>("user/sign-up", signUp);
+        console.log(response)
         if (response.data.isSuccess) {
+            console.log("success")
             localStorage.setItem(ACCESS_TOKEN_KEY, response.data.value.access_token);
-            let decoded = jwt_decode<Account>(response.data.value.access_token);
-            dispatch({type: UserActionType.SIGN_IN_USER_SUCCESS, payload: decoded})
-            console.log(response, "success")
+            const decoded = jwt_decode<Account>(response.data.value.access_token);
+            console.log(decoded)
+            dispatch({type: UserActionType.SIGN_UP_USER_SUCCESS, payload: decoded})
         }
 
         dispatch({type: UserActionType.SIGN_IN_USER_ERROR, payload: response.data.errorMessage})
-        console.log(response, "error")
     }
 }
 
 export const singOutUser = () => {
     return async (dispatch: Dispatch<UserAction>) => {
         localStorage.removeItem(ACCESS_TOKEN_KEY)
-        dispatch({type: UserActionType.SING_OUT_USER});
+        dispatch({type: UserActionType.SIGN_OUT_USER});
     }
 }
 
