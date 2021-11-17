@@ -29,7 +29,6 @@ export interface SignUp {
 export interface SignIn {
     userName: string,
     password: string,
-    confirmPassword: string
 }
 
 export type AuthType = SignIn | SignUp
