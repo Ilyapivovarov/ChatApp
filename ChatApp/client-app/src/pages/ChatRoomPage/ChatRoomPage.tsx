@@ -12,8 +12,7 @@ const ChatRoomPage: React.FC = () => {
     const {fetchRoom} = useRoomActionCreator();
     useEffect(() => {
         fetchRoom(id);
-    
-    }, []);
+    }, [id]);
     return (<RoomView />)
 };
 
