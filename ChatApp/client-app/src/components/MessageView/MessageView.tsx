@@ -1,6 +1,5 @@
 import React from 'react';
 import {Message} from "../../types/dataTypes";
-import {useUserSelector} from "../../hooks/useAuth";
 
 import "./MessageView.css"
 
@@ -24,15 +23,13 @@ const MessageView: React.FC<DialogProps> = (props: DialogProps) => {
         </div>
     );
 
-    const {currentUser} = useUserSelector(x => x.users)
-
     return <div className="dialog">
         <div className="dialog-content">
             <ul>
                 {
                     props.messages.map((item, i) => {
 
-                    if (item.author.id == currentUser?.id) {
+                    if (item.author.id == 1) {
                         return <li key={i}>
                             <MyMessage author={item.author} body={item.body} id={item.id} key={i}/>
                         </li>

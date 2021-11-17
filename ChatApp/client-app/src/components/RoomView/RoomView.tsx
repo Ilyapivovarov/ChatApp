@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useUserSelector} from "../../hooks/useAuth";
 import {Message} from "../../types/dataTypes";
 import Loader from "../Loader/Loader";
 import MessageView from "../MessageView/MessageView";
@@ -15,9 +14,16 @@ const hubConnection = new signalR.HubConnectionBuilder()
 hubConnection.start();
 
 const RoomView = () => {
-    const {room, loading, error} = useUserSelector(x => x.rooms)
+    const loading = false;
+    const error = false;
     const [messages, setMessages] = useState<Message[]>([]);
 
+    useEffect(() => {
+        hubConnection.on("receiveMessage", (message: Message) => {
+            return setMessages(x => [...x, message])
+        });
+    }, [loading]);
+    
     useEffect(() => {
         hubConnection.on("receiveMessage", (message: Message) => {
             return setMessages(x => [...x, message])
@@ -30,20 +36,22 @@ const RoomView = () => {
             <Loader/>
         );
     }
-
-    if (room) {
+    
+    if(error) {
         return (
-            <div className={"room_view_main"}>
-                <MessageView messages={messages}/>
-                <div> input message </div>
+            <div>
+                <h1>Error</h1>
             </div>
-        )
+        );
     }
+
     return (
-        <div>
-            <h1>{error}</h1>
+        <div className={"room_view_main"}>
+            <MessageView messages={messages}/>
+            <div> input message </div>
         </div>
-    );
+    )
+    
 };
 
 export default RoomView;

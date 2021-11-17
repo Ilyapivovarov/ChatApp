@@ -2,18 +2,16 @@ import React, {useEffect} from "react";
 import {Button, Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {RouteTemplates} from "../../router/types/Routs";
-import {useUserSelector} from "../../hooks/useAuth";
-import {useActions} from "../../hooks/useActions";
+
+
 
 import './NavMenu.css';
-import {authUser} from "../../store/action-creators/user";
 
 interface AuthItemProps {
     isAuthorized: boolean;
 }
 
 const AuthItem: React.FC<AuthItemProps> = (prop) => {
-    const {singOutUser} = useActions();
     if (!prop.isAuthorized)
         return (
             <>
@@ -40,7 +38,7 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
     return (
         <NavItem>
             <NavLink
-                onClick={() => singOutUser()}>
+                onClick={() => console.log("click")}>
                 <Button
                     color="primary"
                     outline
@@ -54,11 +52,6 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
 }
 
 const NavMenu: React.FC = () => {
-    const {authUser} = useActions();
-    const {currentUser, isAuthorized} = useUserSelector(x => x.users);
-    useEffect(() => {
-        authUser();
-    }, [])
     return (
         <div>
             <Navbar className={"box-shadow"}
@@ -76,10 +69,10 @@ const NavMenu: React.FC = () => {
                             </NavLink>
                         </NavItem>
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
-                            <AuthItem isAuthorized={isAuthorized}/>
+                            <AuthItem isAuthorized={false}/>
                         </Collapse>
                     </Nav>
-                    <NavbarBrand>{currentUser?.userName ?? "Anonymous"}</NavbarBrand>
+                    <NavbarBrand>{"Anonymous"}</NavbarBrand>
                 </Container>
             </Navbar>
         </div>

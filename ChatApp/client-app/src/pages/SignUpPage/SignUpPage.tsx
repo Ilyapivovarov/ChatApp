@@ -4,7 +4,7 @@ import SignUpFrom from "../../components/SignUpFrom/SignUpFrom";
 const SignOnPage = () => {
     return (
         <div>
-            <SignUpFrom/>
+           {/*// <SignUpFrom/>*/}
         </div>
     );
 };
