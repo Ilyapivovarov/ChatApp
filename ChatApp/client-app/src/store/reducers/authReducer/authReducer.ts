@@ -1,12 +1,4 @@
-import {
-    AuthActions,
-    AuthActionTypes,
-    AuthError,
-    AuthFetchingUser,
-    AuthSignOut,
-    AuthState,
-    AuthSuccess
-} from "./authReducerTypes";
+import {AuthActions, AuthActionTypes, AuthState} from "./authReducerTypes";
 
 const defaultState: AuthState = {
     currentUser: null,
@@ -22,10 +14,10 @@ export const authReducer = (state = defaultState, action: AuthActions): AuthStat
         case AuthActionTypes.AuthError: {
             return {currentUser: null, isAuthorized: false, error: action.payload}
         }
-        case AuthActionTypes.AuthSuccess:{
+        case AuthActionTypes.AuthSuccess: {
             return {currentUser: action.payload, isAuthorized: true, error: null}
         }
-        case AuthActionTypes.SignOut:{
+        case AuthActionTypes.SignOut: {
             return defaultState;
         }
         default: {
