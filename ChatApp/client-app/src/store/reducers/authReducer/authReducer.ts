@@ -20,6 +20,9 @@ export const authReducer = (state = defaultState, action: AuthActions): AuthStat
         case AuthActionTypes.SignOut: {
             return defaultState;
         }
+        case AuthActionTypes.Reset: {
+            return defaultState;
+        }
         default: {
             return state;
         }

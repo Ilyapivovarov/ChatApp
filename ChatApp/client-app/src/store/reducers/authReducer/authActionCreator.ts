@@ -28,6 +28,12 @@ export const signInUser = (signIn: SignIn) => {
     }
 }
 
+export const resetAuthReducer = () => {
+    return async (dispatch: Dispatch<AuthActions>) => {
+        dispatch({type: AuthActionTypes.Reset})
+    }
+}
+
 export const signUpUser = (signUp: SignUp) => {
     return async (dispatch: Dispatch<AuthActions>) => {
         try {
@@ -70,7 +76,7 @@ const validateToken = (tokenExp: number): boolean => {
 
 export const signOut = () => {
     return async (dispatch: Dispatch<AuthActions>) => {
-       localStorage.removeItem(AccessTokenKey);
-       return dispatch({type: AuthActionTypes.SignOut})
+        localStorage.removeItem(AccessTokenKey);
+        return dispatch({type: AuthActionTypes.SignOut})
     }
 } 

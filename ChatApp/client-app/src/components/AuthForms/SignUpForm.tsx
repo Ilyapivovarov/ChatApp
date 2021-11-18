@@ -3,6 +3,8 @@ import {useAuthActions} from "../../hooks/useAuthActions";
 import {useCustomSelector} from "../../hooks/useStateReader";
 import {Button, Col, Form, FormFeedback, FormGroup, Input, Row} from "reactstrap";
 
+import "./AuthForm.css"
+
 const SignOnForm: React.FC = () => {
     const {signUpUser} = useAuthActions()
     const {error} = useCustomSelector(x => x.auth)
@@ -27,7 +29,7 @@ const SignOnForm: React.FC = () => {
         setPassword(event.target.value);
         validatePassword(event.target.value);
     }
-    const handlerConfirmPassword = (event : ChangeEvent<HTMLInputElement>) => {
+    const handlerConfirmPassword = (event: ChangeEvent<HTMLInputElement>) => {
         setConfirmPassword(event.target.value)
         validateConfirmPassword(event.target.value)
     }
@@ -41,7 +43,7 @@ const SignOnForm: React.FC = () => {
         signUpUser({userName, password, confirmPassword});
         return false
     };
-    
+
     const validateUserName = (value: string | undefined) => {
         setUserNameValid(getFieldValid(value))
         setUserNameError(generateErrorMessage(value))
@@ -55,11 +57,11 @@ const SignOnForm: React.FC = () => {
         setConfirmPasswordValid(validateConfirmPasswordField(value))
         setConfirmPasswordError(generateErrorMessage(value))
     }
-    
+
     const validateConfirmPasswordField = (value: string | undefined) => {
         return password != null && password.length != 0 && value == password;
     }
-    
+
     const getFieldValid = (value: string | undefined): boolean => {
         return value != null && value.length > 4;
     }
@@ -95,7 +97,7 @@ const SignOnForm: React.FC = () => {
                         </FormGroup>
                     </Col>
                     <Col md={6}>
-                        <FormGroup  className={"sign_in_form"}>
+                        <FormGroup className={"sign_in_form"}>
                             <div>
                                 <Input
                                     id="password"
@@ -114,7 +116,7 @@ const SignOnForm: React.FC = () => {
                         </FormGroup>
                     </Col>
                     <Col md={6}>
-                        <FormGroup  className={"sign_in_form"}>
+                        <FormGroup className={"sign_in_form"}>
                             <div>
                                 <Input
                                     id="confirm_password"
@@ -138,7 +140,7 @@ const SignOnForm: React.FC = () => {
                         </div>
                     </Col>
                 </Row>
-                <Button disabled={error != null && !passwordValid || !userNameValid} type={"submit"}
+                <Button disabled={!passwordValid || !userNameValid || !confirmPasswordValid} type={"submit"}
                         color={"success"}>
                     Sign up
                 </Button>

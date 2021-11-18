@@ -5,6 +5,7 @@ export enum AuthActionTypes {
     AuthSuccess,
     AuthError,
     SignOut,
+    Reset
 }
 
 export interface AuthFetchingUser {
@@ -26,7 +27,11 @@ export interface AuthSignOut {
     type: AuthActionTypes.SignOut
 }
 
-export type AuthActions = AuthFetchingUser | AuthSuccess | AuthError | AuthSignOut
+export interface AuthReset {
+    type: AuthActionTypes.Reset
+}
+
+export type AuthActions = AuthFetchingUser | AuthSuccess | AuthError | AuthSignOut | AuthReset
 
 export interface AuthState {
     currentUser: Account | null,
