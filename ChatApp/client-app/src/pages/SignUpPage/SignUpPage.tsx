@@ -11,8 +11,7 @@ const SignOnPage = () => {
     useEffect(() => {
         resetAuthReducer()
     }, [])
-
-
+    
     if (isAuthorized)
         return (
             <Redirect to={"/"}/>

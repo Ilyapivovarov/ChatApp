@@ -5,7 +5,7 @@ import {Button, Col, Form, FormFeedback, FormGroup, Input, Row} from "reactstrap
 
 import "./AuthForm.css"
 
-const SignOnForm: React.FC = () => {
+const SignUpForm: React.FC = () => {
     const {signUpUser} = useAuthActions()
     const {error} = useCustomSelector(x => x.auth)
 
@@ -135,7 +135,7 @@ const SignOnForm: React.FC = () => {
                         </FormGroup>
                     </Col>
                     <Col md={6}>
-                        <div hidden={error == null} className={"sign_in_form sign_in_error_message"}>
+                        <div hidden={error == null} className={"auth_error_message"}>
                             {error}
                         </div>
                     </Col>
@@ -149,4 +149,4 @@ const SignOnForm: React.FC = () => {
     );
 };
 
-export default SignOnForm;
+export default SignUpForm;
