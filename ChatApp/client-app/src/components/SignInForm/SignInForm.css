@@ -1,0 +1,13 @@
+.sign_in_error_message {
+    min-height: 50px;
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.feedback_wrapper{
+    text-align: right;
+}

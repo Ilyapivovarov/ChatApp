@@ -68,7 +68,7 @@ namespace ChatApp.Controllers
                 return RequestResultSuccess(new {access_token = token});
             }
 
-            return Unauthorized();
+            return RequestResultError("Not found user with this username");
         }
     }
 }

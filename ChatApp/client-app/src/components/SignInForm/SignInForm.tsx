@@ -1,9 +1,14 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
-import {Button, Col, Form, FormFeedback, FormGroup, Input, Row} from 'reactstrap';
-import {SignIn} from "../../types/dataTypes";
+import React, {ChangeEvent, FormEvent, useState} from 'react';
+import { Button, Col, Form, FormFeedback, FormGroup, Input, Row} from 'reactstrap';
 import {useAuthActions} from "../../hooks/useAuthActions";
+import {useCustomSelector} from "../../hooks/useStateReader";
+
+import "./SignInForm.css"
 
 const SignInForm: React.FC = () => {
+    const {signInUser} = useAuthActions()
+    const {error} = useCustomSelector(x => x.auth)
+    
     const [userName, setUserName] = useState<string>("");
     const [userNameValid, setUserNameValid] = useState<boolean>();
     const [userNameError, setUserNameError] = useState<string>("");
@@ -11,46 +16,38 @@ const SignInForm: React.FC = () => {
     const [password, setPassword] = useState<string>("");
     const [passwordValid, setPasswordValid] = useState<boolean>();
     const [passwordError, setPasswordError] = useState<string>("");
-    
-    const {signInUser} = useAuthActions()
 
     const handlerUserName = (event: ChangeEvent<HTMLInputElement>) => {
         setUserName(event.target.value)
         validateUserName(event.target.value);
     }
-
     const handlerPassword = (event: ChangeEvent<HTMLInputElement>) => {
         console.log("input password")
         console.log(event.target.value, event.target.value.length)
         setPassword(event.target.value);
         validatePassword(event.target.value);
     }
-
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         const form = event.currentTarget;
+        event.preventDefault()
         if (!form.checkValidity()) {
-            event.preventDefault();
             event.stopPropagation();
         }
 
         signInUser({userName, password});
+        return false
     };
-
     const validateUserName = (value: string | undefined) => {
         setUserNameValid(getFieldValid(value))
         setUserNameError(generateErrorMessage(value))
     }
-
     const validatePassword = (value: string | undefined) => {
         setPasswordValid(getFieldValid(value))
         setPasswordError(generateErrorMessage(value))
     }
-
-
     const getFieldValid = (value: string | undefined): boolean => {
         return value != null && value.length > 4;
     }
-
     const generateErrorMessage = (value: string | undefined): string => {
         if (value == null)
             return "You are required to complete this field"
@@ -63,8 +60,8 @@ const SignInForm: React.FC = () => {
             <Form noValidate onSubmit={handleSubmit}>
                 <Row form>
                     <Col md={6}>
-                        <FormGroup>
-                            <div style={{minHeight: "63px", justifyItems: "center"}}>
+                        <FormGroup className={"sign_in_form"}>
+                            <div>
                                 <Input
                                     valid={userNameValid}
                                     invalid={userName != null && userNameValid == false}
@@ -82,8 +79,8 @@ const SignInForm: React.FC = () => {
                         </FormGroup>
                     </Col>
                     <Col md={6}>
-                        <FormGroup>
-                            <div style={{minHeight: "63px"}}>
+                        <FormGroup  className={"sign_in_form"}>
+                            <div>
                                 <Input
                                     id="password"
                                     name="password"
@@ -94,14 +91,20 @@ const SignInForm: React.FC = () => {
                                     valid={passwordValid}
                                     invalid={password != null && passwordValid == false}
                                 />
-                                <FormFeedback style={{textAlign: "right"}}>
+                                <FormFeedback className={"feedback_wrapper"}>
                                     {passwordError}
                                 </FormFeedback>
                             </div>
                         </FormGroup>
                     </Col>
+                    <Col md={6}>
+                        <div hidden={error == null} className={"sign_in_form sign_in_error_message"}>
+                            {error}
+                        </div>
+                    </Col>
                 </Row>
-                <Button disabled={!passwordValid || !userNameValid} type={"submit"}>
+                <Button disabled={error != null && !passwordValid || !userNameValid} type={"submit"} 
+                        color={"success"}>
                     Sign in
                 </Button>
             </Form>
