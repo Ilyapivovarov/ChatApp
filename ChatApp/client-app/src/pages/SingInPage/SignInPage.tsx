@@ -1,10 +1,12 @@
 import React from 'react';
-
-
-import "./SignInPage.css"
-import SignInForm from "../../components/SignInForm/SignInForm";
 import {useCustomSelector} from "../../hooks/useStateReader";
 import {Redirect} from "react-router-dom";
+import SignInForm from "../../components/AuthForms/SignInForm";
+
+import "./SignInPage.css"
+
+
+
 
 const SingInPage: React.FC = () => {
     const {isAuthorized} = useCustomSelector(x => x.auth)

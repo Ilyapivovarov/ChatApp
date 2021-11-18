@@ -33,6 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="client-app\src\components\SignUpFrom" />
       <Folder Include="client-app\src\store\types" />
     </ItemGroup>
 

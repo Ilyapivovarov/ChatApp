@@ -31,7 +31,7 @@ export const signInUser = (signIn: SignIn) => {
 export const signUpUser = (signUp: SignUp) => {
     return async (dispatch: Dispatch<AuthActions>) => {
         try {
-            const response = await axios.post<RequestResult<JwtToken>>("user/sign-in", signUp)
+            const response = await axios.post<RequestResult<JwtToken>>("user/sign-up", signUp)
             console.log(response.data)
             if (response.data.isSuccess) {
                 localStorage.setItem(AccessTokenKey, response.data.value.access_token)
