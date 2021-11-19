@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {useAuthActions} from "../../hooks/useAuthActions";
-import {useCustomSelector} from "../../hooks/useStateReader";
+import {useCustomSelector} from "../../hooks/useCustomSelector";
 import {Button, Col, Form, FormFeedback, FormGroup, Input, Row} from "reactstrap";
 
 import "./AuthForm.css"

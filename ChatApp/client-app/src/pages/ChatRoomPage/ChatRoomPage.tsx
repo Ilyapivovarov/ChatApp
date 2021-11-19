@@ -14,7 +14,7 @@ const ChatRoomPage: React.FC = () => {
     }, []);
     return (
         <div className={"room_view_page"}>
-            <h1>Room name: </h1>
+            <h1>Room name: {id}</h1>
             <RoomView />
         </div>
     )

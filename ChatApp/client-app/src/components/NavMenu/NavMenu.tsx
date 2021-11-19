@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Button, Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {RouteTemplates} from "../../router/types/Routs";
-
+import {useAuthActions} from "../../hooks/useAuthActions";
+import {signOut} from "../../store/reducers/authReducer/authActionCreator";
+import {useCustomSelector} from "../../hooks/useCustomSelector";
 
 import './NavMenu.css';
-import {useSelector} from "react-redux";
-import {useAuthActions} from "../../hooks/useAuthActions";
-import {useCustomSelector} from "../../hooks/useStateReader";
-import {signOut} from "../../store/reducers/authReducer/authActionCreator";
 
 interface AuthItemProps {
     isAuthorized: boolean;

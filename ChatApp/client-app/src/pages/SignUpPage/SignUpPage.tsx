@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import SignUpForm from "../../components/AuthForms/SignUpForm";
-import {useCustomSelector} from "../../hooks/useStateReader";
+import {useCustomSelector} from "../../hooks/useCustomSelector";
 import {Redirect} from "react-router-dom";
 import {useAuthActions} from "../../hooks/useAuthActions";
 
