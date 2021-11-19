@@ -10,7 +10,6 @@ export const signInUser = (signIn: SignIn) => {
     return async (dispatch: Dispatch<AuthActions>) => {
         try {
             const response = await axios.post<RequestResult<JwtToken>>("user/sign-in", signIn)
-            console.log(response.data)
             if (response.data.isSuccess) {
                 localStorage.setItem(AccessTokenKey, response.data.value.access_token)
                 const account = jwtDecode<Account>(response.data.value.access_token);
@@ -38,7 +37,6 @@ export const signUpUser = (signUp: SignUp) => {
     return async (dispatch: Dispatch<AuthActions>) => {
         try {
             const response = await axios.post<RequestResult<JwtToken>>("user/sign-up", signUp)
-            console.log(response.data)
             if (response.data.isSuccess) {
                 localStorage.setItem(AccessTokenKey, response.data.value.access_token)
                 const account = jwtDecode<Account>(response.data.value.access_token);
@@ -70,7 +68,6 @@ const validateToken = (tokenExp: number): boolean => {
     const exp = new Date(0);
     exp.setUTCSeconds(tokenExp);
     let now = new Date();
-    console.log(exp > now, "Token")
     return exp > now
 }
 
