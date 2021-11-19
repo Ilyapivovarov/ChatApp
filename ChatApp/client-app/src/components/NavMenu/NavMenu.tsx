@@ -3,7 +3,7 @@ import {Button, Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink}
 import {Link} from 'react-router-dom';
 import {RouteTemplates} from "../../router/types/Routs";
 import {useAuthActions} from "../../hooks/useAuthActions";
-import {signOut} from "../../store/reducers/authReducer/authActionCreator";
+import {signOut} from "../../store/reducers/authReducer/authActionCreators";
 import {useCustomSelector} from "../../hooks/useCustomSelector";
 
 import './NavMenu.css';

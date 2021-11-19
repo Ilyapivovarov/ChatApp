@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Message} from "../../types/dataTypes";
-import Loader from "../Loader/Loader";
+import {Message, Room} from "../../types/dataTypes";
 import MessageView from "../MessageView/MessageView";
 import * as signalR from "@microsoft/signalr";
 
@@ -14,45 +13,25 @@ const hubConnection = new signalR.HubConnectionBuilder()
 
 hubConnection.start();
 
-const RoomView = () => {
-    const loading = false;
-    const error = false;
-    const [messages, setMessages] = useState<Message[]>([]);
+interface RoomViewProps {
+    room: Room
+}
 
-    useEffect(() => {
-        hubConnection.on("receiveMessage", (message: Message) => {
-            return setMessages(x => [...x, message])
-        });
-    }, [loading]);
-    
+const RoomView : React.FC<RoomViewProps> = (props) => {
+    const [messages, setMessages] = useState<Message[]>(props.room.messages);
     useEffect(() => {
         hubConnection.on("receiveMessage", (message: Message) => {
             return setMessages(x => [...x, message])
         });
     }, []);
-    console.log(messages, "props")
-
-    if (loading) {
-        return (
-            <Loader/>
-        );
-    }
     
-    if(error) {
-        return (
-            <div>
-                <h1>Error</h1>
-            </div>
-        );
-    }
-
     return (
         <div className={"room_view_main"}>
             <MessageView messages={messages}/>
             <InputMessage/>
         </div>
     )
-    
+
 };
 
 export default RoomView;

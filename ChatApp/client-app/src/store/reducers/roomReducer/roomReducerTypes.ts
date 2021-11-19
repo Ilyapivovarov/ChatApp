@@ -9,6 +9,7 @@ export interface RoomState {
 export enum RoomActionTypes {
     Fetching,
     Success,
+    SendingMessage,
     Error
 }
 
@@ -26,4 +27,8 @@ export interface RoomActionError {
     payload: string,
 }
 
-export type RoomAction = RoomActionFetching | RoomActionSuccess | RoomActionError
+export interface RoomActionSendingMessage {
+    type: RoomActionTypes.SendingMessage,
+}
+
+export type RoomAction = RoomActionFetching | RoomActionSuccess | RoomActionError | RoomActionSendingMessage

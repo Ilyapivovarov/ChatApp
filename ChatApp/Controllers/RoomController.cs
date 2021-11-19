@@ -50,7 +50,7 @@ namespace ChatApp.Controllers
             var room = Services.Locator.GetRequiredService<IMapperService>()
                 .Map<ChatRoom, Room>(result);
             
-            return Ok(room);
+            return RequestResultSuccess(room);
         }
 
         [HttpPost]
@@ -60,8 +60,8 @@ namespace ChatApp.Controllers
             await _chatHub.Clients.All
                 .ReceiveMessage(message);
 
-            // await Services.Locator.GetRequiredService<IChatMessageRepository>()
-            //     .TrySaveMessageAsync(id, message);
+            await Services.Locator.GetRequiredService<IChatMessageRepository>()
+                .TrySaveMessageAsync(id, message);
             
             return Ok();
         }

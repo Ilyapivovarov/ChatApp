@@ -9,6 +9,7 @@ interface DialogProps {
 
 const MessageView: React.FC<DialogProps> = (props: DialogProps) => {
 
+    console.log(props.messages)
     const MyMessage: React.FC<Message> = (prop: Message) => (
         <div className={"message output"} style={{background: "lightgreen"}} key={prop.id}>
             <div>{prop.body}</div>
@@ -38,7 +39,7 @@ const MessageView: React.FC<DialogProps> = (props: DialogProps) => {
                             <InputMessage author={item.author} body={item.body} id={item.id} key={i}/>
                         </li>
                 })
-                
+
                 }
             </ul>
         </div>
