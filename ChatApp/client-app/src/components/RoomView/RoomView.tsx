@@ -5,6 +5,7 @@ import MessageView from "../MessageView/MessageView";
 import * as signalR from "@microsoft/signalr";
 
 import "./RoomView.css"
+import InputMessage from "../InputMessage/InputMessage";
 
 
 const hubConnection = new signalR.HubConnectionBuilder()
@@ -48,7 +49,7 @@ const RoomView = () => {
     return (
         <div className={"room_view_main"}>
             <MessageView messages={messages}/>
-            <div> input message </div>
+            <InputMessage/>
         </div>
     )
     

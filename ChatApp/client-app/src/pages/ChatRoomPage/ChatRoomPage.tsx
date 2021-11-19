@@ -12,7 +12,12 @@ const ChatRoomPage: React.FC = () => {
     useEffect(() => {
         fetchRoom(id);
     }, []);
-    return (<RoomView />)
+    return (
+        <div className={"room_view_page"}>
+            <h1>Room name: </h1>
+            <RoomView />
+        </div>
+    )
 };
 
 export default ChatRoomPage;

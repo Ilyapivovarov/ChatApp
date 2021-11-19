@@ -1,9 +1,11 @@
 .dialog {
     display: flex;
     flex-direction: row;
-    height: 70vh;
+    height: 60vh;
     border: 1px solid gainsboro;
     border-radius: 5px;
+    padding: 15px;
+    margin: 15px;
 }
 .dialog-content {
     flex: 1;
