@@ -6,7 +6,6 @@ import ChatRoomPage from "./pages/ChatRoomPage/ChatRoomPage";
 import SignInPage from "./pages/SingInPage/SignInPage";
 import {RouteTemplates} from "./router/types/Routs";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
-import {useActions} from "./hooks/useActions";
 
 import './App.css';
 

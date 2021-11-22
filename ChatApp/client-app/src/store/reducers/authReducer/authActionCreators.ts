@@ -40,7 +40,7 @@ export const signUpUser = (signUp: SignUp) => {
             if (response.data.isSuccess) {
                 localStorage.setItem(AccessTokenKey, response.data.value.access_token)
                 const account = jwtDecode<Account>(response.data.value.access_token);
-                dispatch({type: AuthActionTypes.AuthSuccess, payload: account})
+                 dispatch({type: AuthActionTypes.AuthSuccess, payload: account})
             } else {
                 return dispatch({type: AuthActionTypes.AuthError, payload: response.data.errorMessage})
             }
@@ -56,11 +56,12 @@ export const authUser = () => {
         if (token) {
             const account = await jwtDecode<Account>(token)
             if (validateToken(account.exp)) {
-                return dispatch({type: AuthActionTypes.AuthSuccess, payload: account})
+                dispatch({type: AuthActionTypes.AuthSuccess, payload: account})
+                return;
             }
         }
 
-        return dispatch({type: AuthActionTypes.SignOut})
+        dispatch({type: AuthActionTypes.SignOut})
     }
 }
 

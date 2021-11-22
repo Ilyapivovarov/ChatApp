@@ -53,11 +53,12 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
 }
 
 const NavMenu: React.FC = () => {
+    console.log("RENDER NAV")
     const {isAuthorized, currentUser} = useCustomSelector(x => x.auth);
     const {authUser} = useActions()
     useEffect(() => {
         authUser()
-    }, []);
+    }, [currentUser?.id]);
     return (
         <div>
             <Navbar className={"box-shadow"}
@@ -78,7 +79,7 @@ const NavMenu: React.FC = () => {
                             <AuthItem isAuthorized={isAuthorized}/>
                         </Collapse>
                     </Nav>
-                    <NavbarBrand>{currentUser?.userName ?? "Anonymous"}</NavbarBrand>
+                    <NavbarBrand>{isAuthorized ? currentUser?.userName : "Anonymous"}</NavbarBrand>
                 </Container>
             </Navbar>
         </div>

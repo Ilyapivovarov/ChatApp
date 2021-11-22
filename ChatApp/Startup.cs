@@ -30,8 +30,8 @@ namespace ChatApp
         {
             services.AddDbContext<AppDbContext>(builder =>
             {
-                builder.UseLazyLoadingProxies().Use;
                 builder.UseNpgsql(Services.GetConnectionString(_env.IsDevelopment()));
+                builder.UseLazyLoadingProxies();
             });
 
             services.AddSignalR();
