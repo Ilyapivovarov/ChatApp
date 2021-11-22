@@ -2,9 +2,8 @@ import React, {useEffect} from "react";
 import {Button, Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {RouteTemplates} from "../../router/types/Routs";
-import {useAuthActions} from "../../hooks/useAuthActions";
-import {signOut} from "../../store/reducers/authReducer/authActionCreators";
 import {useCustomSelector} from "../../hooks/useCustomSelector";
+import {useActions} from "../../hooks/useActions";
 
 import './NavMenu.css';
 
@@ -13,8 +12,7 @@ interface AuthItemProps {
 }
 
 const AuthItem: React.FC<AuthItemProps> = (prop) => {
-    const {signOut} = useAuthActions()
-
+    const {signOut} = useActions()
     if (!prop.isAuthorized)
         return (
             <>
@@ -56,11 +54,10 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
 
 const NavMenu: React.FC = () => {
     const {isAuthorized, currentUser} = useCustomSelector(x => x.auth);
-    const {authUser} = useAuthActions()
+    const {authUser} = useActions()
     useEffect(() => {
         authUser()
-    }, [isAuthorized]);
-
+    }, []);
     return (
         <div>
             <Navbar className={"box-shadow"}

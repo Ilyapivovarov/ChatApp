@@ -6,6 +6,6 @@ namespace ChatApp.AppData.Models
     {
         public string Message { get; set; }
 
-        public User Author { get; set; }
+        public virtual User Author { get; set; }
     }
 }

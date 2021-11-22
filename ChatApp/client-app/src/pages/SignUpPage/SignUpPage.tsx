@@ -2,12 +2,12 @@ import React, {useEffect} from 'react';
 import SignUpForm from "../../components/AuthForms/SignUpForm";
 import {useCustomSelector} from "../../hooks/useCustomSelector";
 import {Redirect} from "react-router-dom";
-import {useAuthActions} from "../../hooks/useAuthActions";
+import {useActions} from "../../hooks/useActions";
 
 
 const SignOnPage = () => {
     const {isAuthorized} = useCustomSelector(x => x.auth)
-    const {resetAuthReducer} = useAuthActions();
+    const {resetAuthReducer} = useActions();
     useEffect(() => {
         resetAuthReducer()
     }, [])

@@ -1,14 +1,14 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Form, FormGroup, Input} from "reactstrap";
+import {useCustomSelector} from "../../hooks/useCustomSelector";
+import {useActions} from "../../hooks/useActions";
 
 import "./InputMessage.css"
-import {useCustomSelector} from "../../hooks/useCustomSelector";
-import {useRoomActions} from "../../hooks/useRoomActions";
+
 
 const InputMessage: React.FC = () => {
     const {currentUser} = useCustomSelector(x => x.auth)
-    const {room} = useCustomSelector(x => x.room);
-    const {sendMessage} = useRoomActions()
+    const {sendMessage} = useActions()
     const [body, setBody] = useState<string>("");
 
     const changeHandler = (event : ChangeEvent<HTMLInputElement>) => {

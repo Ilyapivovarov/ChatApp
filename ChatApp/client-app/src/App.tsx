@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
@@ -6,8 +6,10 @@ import ChatRoomPage from "./pages/ChatRoomPage/ChatRoomPage";
 import SignInPage from "./pages/SingInPage/SignInPage";
 import {RouteTemplates} from "./router/types/Routs";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import {useActions} from "./hooks/useActions";
 
 import './App.css';
+
 
 const App: React.FC = () => {
     return (

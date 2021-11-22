@@ -3,8 +3,8 @@ import {authReducer} from "./authReducer/authReducer";
 import {roomReducer} from "./roomReducer/roomReducer";
 
 export const rootReducer = combineReducers({
+    room: roomReducer,
     auth: authReducer,
-    room: roomReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

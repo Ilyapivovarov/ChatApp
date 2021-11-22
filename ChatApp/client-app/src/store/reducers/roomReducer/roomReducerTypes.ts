@@ -32,3 +32,4 @@ export interface RoomActionSendingMessage {
 }
 
 export type RoomAction = RoomActionFetching | RoomActionSuccess | RoomActionError | RoomActionSendingMessage
+

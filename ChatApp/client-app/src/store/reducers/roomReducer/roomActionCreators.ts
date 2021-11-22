@@ -8,22 +8,23 @@ export const fetchRoom = (id: string) => {
     return async (dispatch: Dispatch<RoomAction>) => {
         dispatch({type: RoomActionTypes.Fetching})
         try {
-            const response = await axios.get<RequestResult<Room>>("room/" + id)
-            console.log(response)
-            if (response.data.isSuccess) {
-                return dispatch({type: RoomActionTypes.Success, payload: response.data.value})
-            }
-            return dispatch({type: RoomActionTypes.Error, payload: response.data.errorMessage})
+            axios.get<RequestResult<Room>>("room/" + id)
+                .then(response => {
+                    if (response.data.isSuccess) {
+                        dispatch({type: RoomActionTypes.Success, payload: response.data.value})
+                    } else {
+                        dispatch({type: RoomActionTypes.Error, payload: response.data.errorMessage})
+                    }
+                })
         } catch (e) {
-            return dispatch({type: RoomActionTypes.Error, payload: "Exception"})
+            dispatch({type: RoomActionTypes.Error, payload: "Exception"})
         }
     }
 }
 
 export const sendMessage = (id: string, message: Message) => {
     return async (dispatch: Dispatch<RoomAction>) => {
-        const response = await axios.post("room/send-message/" + id, message)
-        console.log(response)
-        return dispatch({type: RoomActionTypes.SendingMessage})
+        await axios.post("room/send-message/" + id, message)
+        // dispatch({type: RoomActionTypes.SendingMessage})
     }
 } 

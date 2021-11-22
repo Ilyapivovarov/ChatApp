@@ -1,9 +1,9 @@
 import React from 'react';
 import {Message} from "../../types/dataTypes";
+import {useCustomSelector} from "../../hooks/useCustomSelector";
 
 import "./MessageView.css"
-import {useCustomSelector} from "../../hooks/useCustomSelector";
-import Loader from "../Loader/Loader";
+
 
 interface DialogProps {
     messages: Message[]
@@ -24,38 +24,33 @@ const InputMessage: React.FC<Message> = (inputProp: Message) => (
 );
 
 const MessageView: React.FC<DialogProps> = (props: DialogProps) => {
-
     const {currentUser} = useCustomSelector(x => x.auth);
-    const {room} = useCustomSelector(x => x.room);
+    if (props.messages.length == 0)
+        return <h1>No messages</h1>
     
-    if (room?.messages == null)
-        return (
-            <Loader/>
-        );
-        
-        
-        return (
-            <div className="dialog">
-                <div className="dialog-content">
-                    <ul>
-                        {
-                            room.messages.map((item, i) => {
+    return (
+        <div className="dialog">
+            <div className="dialog-content">
+                <ul>
+                    {
+                        props.messages.map((item, i) => {
+                            if (item.author.id == currentUser?.id) {
+                                return <li key={i}>
+                                    <MyMessage author={item.author} body={item.body} id={item.id} key={i}/>
+                                </li>
+                            } else
+                                return <li key={i}>
+                                    <InputMessage author={item.author} body={item.body} id={item.id} key={i}/>
+                                </li>
+                        })
 
-                                if (item.author.id == currentUser?.id) {
-                                    return <li key={i}>
-                                        <MyMessage author={item.author} body={item.body} id={item.id} key={i}/>
-                                    </li>
-                                } else
-                                    return <li key={i}>
-                                        <InputMessage author={item.author} body={item.body} id={item.id} key={i}/>
-                                    </li>
-                            })
-
-                        }
-                    </ul>
-                </div>
+                    }
+                </ul>
             </div>
-        );
+        </div>
+    );
+
+
 }
 
 export default MessageView;

@@ -2,16 +2,13 @@ import React, {useEffect} from 'react';
 import {useCustomSelector} from "../../hooks/useCustomSelector";
 import {Redirect} from "react-router-dom";
 import SignInForm from "../../components/AuthForms/SignInForm";
+import {useActions} from "../../hooks/useActions";
 
 import "./SignInPage.css"
-import {useAuthActions} from "../../hooks/useAuthActions";
-
-
-
 
 const SingInPage: React.FC = () => {
     const {isAuthorized} = useCustomSelector(x => x.auth)
-    const {resetAuthReducer} = useAuthActions();
+    const {resetAuthReducer} = useActions();
     useEffect(() => {
         resetAuthReducer()
     }, [])

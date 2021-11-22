@@ -30,16 +30,17 @@ namespace ChatApp
         {
             services.AddDbContext<AppDbContext>(builder =>
             {
+                builder.UseLazyLoadingProxies().Use;
                 builder.UseNpgsql(Services.GetConnectionString(_env.IsDevelopment()));
             });
-            
+
             services.AddSignalR();
             services.AddControllersWithViews();
-            
+
             var authOptions = _configuration.GetSection("Auth");
             services.Configure<AuthOptions>(authOptions);
             services.UseJwt(authOptions.Get<AuthOptions>());
-            
+
             services.UseChatAppModules();
             services.UseChatAppRepositories();
             services.UseChatAppServices();
@@ -65,7 +66,7 @@ namespace ChatApp
             app.UseSpaStaticFiles();
 
             app.UseRouting();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
 

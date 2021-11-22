@@ -50,7 +50,8 @@ namespace ChatApp.Controllers
             var room = Services.Locator.GetRequiredService<IMapperService>()
                 .Map<ChatRoom, Room>(result);
             
-            return RequestResultSuccess(room);
+            var a = RequestResultSuccess(room);
+            return a;
         }
 
         [HttpPost]

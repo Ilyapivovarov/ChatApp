@@ -1,12 +1,13 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import { Button, Col, Form, FormFeedback, FormGroup, Input, Row} from 'reactstrap';
-import {useAuthActions} from "../../hooks/useAuthActions";
 import {useCustomSelector} from "../../hooks/useCustomSelector";
+import {useActions} from "../../hooks/useActions";
 
 import "./AuthForm.css"
 
+
 const SignInForm: React.FC = () => {
-    const {signInUser} = useAuthActions()
+    const {signInUser} = useActions()
     const {error} = useCustomSelector(x => x.auth)
     
     const [userName, setUserName] = useState<string>("");

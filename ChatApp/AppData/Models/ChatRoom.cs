@@ -9,8 +9,8 @@ namespace ChatApp.AppData.Models
         [Required]
         public User Admin { get; set; }
         
-        public List<User> Members { get; set; } = new();
+        public virtual  List<User> Members { get; set; } = new();
         
-        public List<ChatMessage> Messages { get; set; } = new();
+        public virtual  List<ChatMessage> Messages { get; set; } = new();
     }
 }

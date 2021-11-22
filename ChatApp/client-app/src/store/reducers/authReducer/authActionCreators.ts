@@ -52,9 +52,9 @@ export const signUpUser = (signUp: SignUp) => {
 
 export const authUser = () => {
     return async (dispatch: Dispatch<AuthActions>) => {
-        const token = localStorage.getItem(AccessTokenKey);
+        const token =  localStorage.getItem(AccessTokenKey);
         if (token) {
-            const account = jwtDecode<Account>(token)
+            const account = await jwtDecode<Account>(token)
             if (validateToken(account.exp)) {
                 return dispatch({type: AuthActionTypes.AuthSuccess, payload: account})
             }
