@@ -23,7 +23,11 @@ const InputMessage: React.FC = () => {
         }
         
         if(currentUser != null && body.length > 0)
-            sendMessage("1", {author: currentUser, body: body, id: 1});
+        {
+            sendMessage("1", {author: currentUser, body: body});
+            
+            setBody("");
+        }
         
         return false
     }

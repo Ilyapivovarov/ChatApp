@@ -5,7 +5,7 @@ export interface Account {
 }
 
 export interface Message {
-    id: number
+    id?: number
     author: Account
     body: string,
 }
