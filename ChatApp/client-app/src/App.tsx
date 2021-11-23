@@ -14,7 +14,6 @@ import './App.css';
 
 const App: React.FC = () => {
     return (
-
         <Routes>
             <Route path={RouteTemplates.Home} element={<Layout/>}>
                 <Route index element={<HomePage/>}/>

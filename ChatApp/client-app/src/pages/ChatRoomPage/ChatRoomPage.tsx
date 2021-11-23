@@ -23,7 +23,10 @@ const ChatRoomPage: React.FC = () => {
                 }
 
             })
-            .catch(e => setError(e))
+            .catch(e => {
+                setError(e)
+                setLoading(false);
+            })
     }, []);
 
     if (loading) {
