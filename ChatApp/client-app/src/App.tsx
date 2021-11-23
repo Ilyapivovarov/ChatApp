@@ -6,10 +6,11 @@ import ChatRoomPage from "./pages/ChatRoomPage/ChatRoomPage";
 import SignInPage from "./pages/SingInPage/SignInPage";
 import {RouteTemplates} from "./router/types/Routs";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
-
-import './App.css';
 import RequireAuth from "./hoc/RequireAuth";
 import RequireUnAuth from "./hoc/RequireUnAuth";
+
+import './App.css';
+
 
 const App: React.FC = () => {
     return (

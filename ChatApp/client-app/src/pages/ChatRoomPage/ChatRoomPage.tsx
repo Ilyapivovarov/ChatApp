@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import RoomView from "../../components/RoomView/RoomView";
-import {useActions} from "../../hooks/useActions";
-import {useCustomSelector} from "../../hooks/useCustomSelector";
 import Loader from "../../components/Loader/Loader";
-import axios from "../../common/http-common"
+import Axios from "../../common/axios";
+import {Room} from "../../types/dataTypes";
+import {RequestResult} from "../../common/RequestResult";
 
 import "./ChatRoomPage.css"
-import {RequestResult} from "../../common/RequestResult";
-import {Room} from "../../types/dataTypes";
 
 
 const ChatRoomPage: React.FC = () => {
@@ -17,7 +15,7 @@ const ChatRoomPage: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
     useEffect(() => {
-        axios.get<RequestResult<Room>>("room/" + id)
+        Axios.get<RequestResult<Room>>("room/" + id)
             .then(r => {
                 if (r.data.isSuccess) {
                     setRoom(r.data.value);

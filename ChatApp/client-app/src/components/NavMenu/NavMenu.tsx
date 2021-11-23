@@ -53,7 +53,6 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
 }
 
 const NavMenu: React.FC = () => {
-    console.log("RENDER NAV")
     const {isAuthorized, currentUser} = useCustomSelector(x => x.auth);
     const {authUser} = useActions()
     useEffect(() => {

@@ -1,13 +1,13 @@
 import {Dispatch} from "redux";
 import {RoomAction, RoomActionTypes} from "./roomReducerTypes";
-import axios from "../../../common/http-common";
+import Axios from "../../../common/axios"; 
 import {RequestResult} from "../../../common/RequestResult";
 import {Message, Room} from "../../../types/dataTypes";
 
 export const fetchRoom = (id: string) => {
     return async (dispatch: Dispatch<RoomAction>) => {
-        
-        axios.get<RequestResult<Room>>("room/" + id)
+
+        Axios.get<RequestResult<Room>>("room/" + id)
             .then(response => {
                 if (response.data.isSuccess) {
                     dispatch({type: RoomActionTypes.Success, payload: response.data.value})
@@ -22,7 +22,7 @@ export const fetchRoom = (id: string) => {
 
 export const sendMessage = (id: string, message: Message) => {
     return async (dispatch: Dispatch<RoomAction>) => {
-        await axios.post("room/send-message/" + id, message)
+        await Axios.post("room/send-message/" + id, message)
         // dispatch({type: RoomActionTypes.SendingMessage})
     }
 } 
