@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import React from 'react';
+import {Route, Routes} from 'react-router-dom';
 import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
 import ChatRoomPage from "./pages/ChatRoomPage/ChatRoomPage";
@@ -8,18 +8,21 @@ import {RouteTemplates} from "./router/types/Routs";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 
 import './App.css';
-
+import RequireAuth from "./hoc/RequireAuth";
+import RequireUnAuth from "./hoc/RequireUnAuth";
 
 const App: React.FC = () => {
     return (
-        <Layout>
-            <Switch>
-                <Route exact path={RouteTemplates.Home} component={HomePage} />
-                <Route path={RouteTemplates.ChatRoom} component={ChatRoomPage}/>
-                <Route path={RouteTemplates.SingIn} component={SignInPage}/>
-                <Route path={RouteTemplates.SignOn} component={SignUpPage}/>
-            </Switch>
-        </Layout>
+
+        <Routes>
+            <Route path={RouteTemplates.Home} element={<Layout/>}>
+                <Route index element={<HomePage/>}/>
+                <Route path={RouteTemplates.ChatRoom} element={<RequireAuth children={<ChatRoomPage/> }/>}/>
+                <Route path={RouteTemplates.SingIn} element={<RequireUnAuth children={<SignInPage/>} /> }/>
+                <Route path={RouteTemplates.SignOn} element={<RequireUnAuth children={<SignUpPage/>} /> }/>
+            </Route>
+        </Routes>
+      
     )
 }
 

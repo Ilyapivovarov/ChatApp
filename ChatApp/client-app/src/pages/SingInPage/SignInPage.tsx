@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {useCustomSelector} from "../../hooks/useCustomSelector";
-import {Redirect} from "react-router-dom";
 import SignInForm from "../../components/AuthForms/SignInForm";
 import {useActions} from "../../hooks/useActions";
 
@@ -12,11 +11,6 @@ const SingInPage: React.FC = () => {
     useEffect(() => {
         resetAuthReducer()
     }, [])
-    
-    if (isAuthorized)
-        return (
-            <Redirect to={"/"}/>
-        );
     
     return (
         <div>

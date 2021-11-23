@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import SignUpForm from "../../components/AuthForms/SignUpForm";
 import {useCustomSelector} from "../../hooks/useCustomSelector";
-import {Redirect} from "react-router-dom";
 import {useActions} from "../../hooks/useActions";
 
 
@@ -11,11 +10,6 @@ const SignOnPage = () => {
     useEffect(() => {
         resetAuthReducer()
     }, [])
-    
-    if (isAuthorized)
-        return (
-            <Redirect to={"/"}/>
-        );
     
     return (
         <div>

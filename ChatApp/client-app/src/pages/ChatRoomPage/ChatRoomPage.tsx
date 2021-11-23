@@ -12,26 +12,35 @@ import {Room} from "../../types/dataTypes";
 
 
 const ChatRoomPage: React.FC = () => {
-    const {id} = useParams<{ id: string }>();
+    const {id} = useParams()
     const [room, setRoom] = useState<Room | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string>("");
     useEffect(() => {
         axios.get<RequestResult<Room>>("room/" + id)
             .then(r => {
-                if(r.data.isSuccess)
+                if (r.data.isSuccess) {
                     setRoom(r.data.value);
+                    setLoading(false);
+                }
+
             })
+            .catch(e => setError(e))
     }, []);
 
-    if (room == null) {
+    if (loading) {
         return (<Loader/>);
     }
 
-    return (
-        <div className={"room_view_page"}>
-            <h1>Room name: {id}</h1>
-            <RoomView room={room}/>
-        </div>
-    )
+    if (room != null)
+        return (
+            <div className={"room_view_page"}>
+                <h1>Room name: {id}</h1>
+                <RoomView room={room}/>
+            </div>
+        )
+    
+    return (<h1>{error}</h1>)
 };
 
 export default ChatRoomPage;
