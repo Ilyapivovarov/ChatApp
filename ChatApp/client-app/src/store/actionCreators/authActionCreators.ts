@@ -11,18 +11,19 @@ export const signInUser = (signIn: SignIn) => {
         try {
             const response = await axios.post<RequestResult<JwtToken>>("user/sign-in", signIn)
             if (response.data.isSuccess) {
-                localStorage.setItem(AccessTokenKey, response.data.value.access_token)
+                localStorage.setItem(AccessTokenKey, response.data.value.access_token);
                 const account = jwtDecode<Account>(response.data.value.access_token);
-                dispatch({type: AuthActionTypes.AuthSuccess, payload: account})
+                dispatch({type: AuthActionTypes.AuthSuccess, payload: account});
+                window.location.replace("/");
             } else {
-                return dispatch({
+                dispatch({
                     type: AuthActionTypes.AuthError,
                     payload: response.data.errorMessage
-                })
+                });
             }
 
         } catch (e) {
-            return dispatch({type: AuthActionTypes.AuthError, payload: "Exception"})
+            return dispatch({type: AuthActionTypes.AuthError, payload: "Exception"});
         }
     }
 }
@@ -38,11 +39,12 @@ export const signUpUser = (signUp: SignUp) => {
         try {
             const response = await axios.post<RequestResult<JwtToken>>("user/sign-up", signUp)
             if (response.data.isSuccess) {
-                localStorage.setItem(AccessTokenKey, response.data.value.access_token)
+                localStorage.setItem(AccessTokenKey, response.data.value.access_token);
                 const account = jwtDecode<Account>(response.data.value.access_token);
-                 dispatch({type: AuthActionTypes.AuthSuccess, payload: account})
+                dispatch({type: AuthActionTypes.AuthSuccess, payload: account});
+                window.location.replace("/");
             } else {
-                return dispatch({type: AuthActionTypes.AuthError, payload: response.data.errorMessage})
+                dispatch({type: AuthActionTypes.AuthError, payload: response.data.errorMessage})
             }
         } catch (e) {
             return dispatch({type: AuthActionTypes.AuthError, payload: "Exception"})
@@ -51,17 +53,17 @@ export const signUpUser = (signUp: SignUp) => {
 }
 
 export const authUser = () => {
-    return async (dispatch: Dispatch<AuthActions>) => {
-        const token =  localStorage.getItem(AccessTokenKey);
+    return (dispatch: Dispatch<AuthActions>) => {
+        const token = localStorage.getItem(AccessTokenKey);
         if (token) {
-            const account = await jwtDecode<Account>(token)
+            const account = jwtDecode<Account>(token);
             if (validateToken(account.exp)) {
                 dispatch({type: AuthActionTypes.AuthSuccess, payload: account})
-                return;
             }
+        } else {
+            dispatch({type: AuthActionTypes.SignOut})
         }
 
-        dispatch({type: AuthActionTypes.SignOut})
     }
 }
 

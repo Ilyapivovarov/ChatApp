@@ -4,11 +4,13 @@ import {Button, Col, Form, FormFeedback, FormGroup, Input, Row} from "reactstrap
 import {useActions} from "../../hooks/useActions";
 
 import "./AuthForm.css"
+import {useNavigate} from "react-router-dom";
 
 
 const SignUpForm: React.FC = () => {
+    const navigate = useNavigate();
     const {signUpUser} = useActions()
-    const {error} = useCustomSelector(x => x.auth)
+    const {error, isAuthorized} = useCustomSelector(x => x.auth)
 
     const [userName, setUserName] = useState<string>("");
     const [userNameValid, setUserNameValid] = useState<boolean>();
@@ -42,7 +44,6 @@ const SignUpForm: React.FC = () => {
         }
 
         signUpUser({userName, password, confirmPassword});
-        return false
     };
 
     const validateUserName = (value: string | undefined) => {

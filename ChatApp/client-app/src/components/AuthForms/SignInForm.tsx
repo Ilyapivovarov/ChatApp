@@ -4,9 +4,11 @@ import {useCustomSelector} from "../../hooks/useCustomSelector";
 import {useActions} from "../../hooks/useActions";
 
 import "./AuthForm.css"
+import {useNavigate} from "react-router-dom";
 
 
 const SignInForm: React.FC = () => {
+    const navigate = useNavigate();
     const {signInUser} = useActions()
     const {error} = useCustomSelector(x => x.auth)
     
@@ -32,9 +34,7 @@ const SignInForm: React.FC = () => {
         if (!form.checkValidity()) {
             event.stopPropagation();
         }
-
         signInUser({userName, password});
-        return false
     };
     const validateUserName = (value: string | undefined) => {
         setUserNameValid(getFieldValid(value))
