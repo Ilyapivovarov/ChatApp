@@ -1,10 +1,10 @@
 import {Dispatch} from "redux";
-import {AuthActions, AuthActionTypes} from "./authReducerTypes";
 import axios from "axios";
-import {Account, JwtToken, SignIn, SignUp} from "../../../types/dataTypes";
-import {RequestResult} from "../../../common/RequestResult";
-import {AccessTokenKey} from "../../../common/global";
 import jwtDecode from "jwt-decode";
+import {Account, JwtToken, SignIn, SignUp} from "../../types/dataTypes";
+import {AuthActions, AuthActionTypes} from "../types/authReducerTypes";
+import {RequestResult} from "../../common/RequestResult";
+import {AccessTokenKey} from "../../common/global";
 
 export const signInUser = (signIn: SignIn) => {
     return async (dispatch: Dispatch<AuthActions>) => {

@@ -1,9 +1,7 @@
 import {combineReducers} from "redux"
-import {authReducer} from "./authReducer/authReducer";
-import {roomReducer} from "./roomReducer/roomReducer";
+import {authReducer} from "./authReducer";
 
 export const rootReducer = combineReducers({
-    room: roomReducer,
     auth: authReducer,
 })
 

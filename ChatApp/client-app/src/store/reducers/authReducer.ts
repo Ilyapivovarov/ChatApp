@@ -1,4 +1,4 @@
-import {AuthActions, AuthActionTypes, AuthState} from "./authReducerTypes";
+import {AuthActions, AuthActionTypes, AuthState} from "../types/authReducerTypes";
 
 const defaultState: AuthState = {
     currentUser: null,

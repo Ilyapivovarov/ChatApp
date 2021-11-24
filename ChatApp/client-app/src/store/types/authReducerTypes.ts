@@ -1,4 +1,4 @@
-import {Account} from "../../../types/dataTypes";
+import {Account} from "../../types/dataTypes";
 
 export enum AuthActionTypes {
     FetchingUser,
