@@ -50,7 +50,7 @@ namespace ChatApp.Controllers
             var room = Services.Locator.GetRequiredService<IMapperService>()
                 .Map<ChatRoom, Room>(result);
             
-            var a = RequestResultSuccess(room);
+            var a = Success(room);
             return a;
         }
 
@@ -90,7 +90,7 @@ namespace ChatApp.Controllers
         public async Task<ActionResult> CreateChatRoom(string chatRoomName)
         {
             var user = await Services.Locator.GetRequiredService<IUserRepository>()
-                .GetAccountByIdAsync(UserId);
+                .GetUserByIdAsync(UserId);
             if (user != null)
             {
                 var chatRoom = await Services.Locator.GetRequiredService<IChatRoomRepository>()

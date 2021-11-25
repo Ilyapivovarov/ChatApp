@@ -21,7 +21,7 @@ namespace ChatApp.Controllers
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
             if (await userRepository.IsUsernameUnused(signUp.UserName))
             {
-                return RequestResultError("Username already exist");
+                return Error("Username already exist");
             }
 
             if (await userRepository.TrySignUpAsync(signUp))
@@ -30,7 +30,7 @@ namespace ChatApp.Controllers
                     .TryAuthUser(new SignIn {UserName = signUp.UserName, Password = signUp.Password},
                         out var token);
 
-                return RequestResultSuccess(new {access_token = token});
+                return Success(new {access_token = token});
             }
 
             return BadRequest("Error while creating user");
@@ -43,10 +43,10 @@ namespace ChatApp.Controllers
             if (Services.Locator.GetRequiredService<IAuthService>()
                 .TryAuthUser(signIn, out var token))
             {
-                return RequestResultSuccess(new {access_token = token});
+                return Success(new {access_token = token});
             }
 
-            return RequestResultError("Not found user with this username");
+            return Error("Not found user with this username");
         }
     }
 }

@@ -22,11 +22,11 @@ namespace ChatApp.Controllers.Base
         }
 
         [NonAction]
-        protected RequestResult RequestResultSuccess([ActionResultObjectValue] object value = null)
+        protected RequestResult Success([ActionResultObjectValue] object value = null)
             => new(new {isSuccess = true, value});
 
         [NonAction]
-        protected RequestResult RequestResultError([ActionResultObjectValue] string errorMessage)
+        protected RequestResult Error([ActionResultObjectValue] string errorMessage)
             => new(new {isSuccess = false, errorMessage});
     }
 }

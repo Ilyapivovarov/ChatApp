@@ -11,8 +11,10 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
         public Task<User> SignInAsync(SignIn signIn);
         
         public User SignInUser(SignIn signIn);
-        
-        public Task<User> GetAccountByIdAsync(int accountId);
+
+        public Task<User[]> GetUsersAsync();
+
+        public Task<User> GetUserByIdAsync(int accountId);
 
         public Task<bool> IsUsernameUnused(string userName);
     }

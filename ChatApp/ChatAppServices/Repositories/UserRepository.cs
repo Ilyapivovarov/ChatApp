@@ -22,7 +22,6 @@ namespace ChatApp.ChatAppServices.Repositories
                         Password = signUp.Password,
                     };
                     db.Users.Add(user);
-                    
                 }, "Error while writing user in database");
             });
         }
@@ -50,7 +49,16 @@ namespace ChatApp.ChatAppServices.Repositories
             }, "Error while loading user from database");
         }
 
-        public async Task<User> GetAccountByIdAsync(int userId)
+        public async Task<User[]> GetUsersAsync()
+        {
+            return await Task.Run(() =>
+            {
+                return LoadData(db => db.Users.ToArray(), 
+                    "Error while loading users");
+            });
+        }
+
+        public async Task<User> GetUserByIdAsync(int userId)
         {
             return await Task.Run(() =>
             {

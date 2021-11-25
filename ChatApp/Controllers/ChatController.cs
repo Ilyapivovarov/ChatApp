@@ -61,7 +61,7 @@ namespace ChatApp.Controllers
         public async Task<ActionResult> CreateChatRoom(string chatRoomName)
         {
             var user = await Services.Locator.GetRequiredService<IUserRepository>()
-                .GetAccountByIdAsync(UserId);
+                .GetUserByIdAsync(UserId);
             if (user != null)
             {
                 var chatRoom = await Services.Locator.GetRequiredService<IChatRoomRepository>()
