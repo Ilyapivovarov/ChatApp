@@ -13,7 +13,7 @@ const ChatRoomPage: React.FC = () => {
     const {id} = useParams()
     const [room, setRoom] = useState<Room | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string>("");
+    const [error, setError] = useState<any>();
     useEffect(() => {
         Axios.get<RequestResult<Room>>("room/" + id)
             .then(r => {

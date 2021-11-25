@@ -9,7 +9,7 @@ import {AccessTokenKey} from "../../common/global";
 export const signInUser = (signIn: SignIn) => {
     return async (dispatch: Dispatch<AuthActions>) => {
         try {
-            const response = await axios.post<RequestResult<JwtToken>>("user/sign-in", signIn)
+            const response = await axios.post<RequestResult<JwtToken>>("auth/sign-in", signIn)
             if (response.data.isSuccess) {
                 localStorage.setItem(AccessTokenKey, response.data.value.access_token);
                 const account = jwtDecode<Account>(response.data.value.access_token);
@@ -37,7 +37,7 @@ export const resetAuthReducer = () => {
 export const signUpUser = (signUp: SignUp) => {
     return async (dispatch: Dispatch<AuthActions>) => {
         try {
-            const response = await axios.post<RequestResult<JwtToken>>("user/sign-up", signUp)
+            const response = await axios.post<RequestResult<JwtToken>>("auth/sign-up", signUp)
             if (response.data.isSuccess) {
                 localStorage.setItem(AccessTokenKey, response.data.value.access_token);
                 const account = jwtDecode<Account>(response.data.value.access_token);

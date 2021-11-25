@@ -12,6 +12,7 @@ interface AuthItemProps {
 }
 
 const AuthItem: React.FC<AuthItemProps> = (prop) => {
+    const {isAuthorized, currentUser} = useCustomSelector(x => x.auth);
     const {signOut} = useActions()
     if (!prop.isAuthorized)
         return (
@@ -37,18 +38,24 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
         )
 
     return (
-        <NavItem>
-            <NavLink
-                onClick={() => signOut()}>
-                <Button
-                    color="primary"
-                    outline
-                    size="sm"
-                >
-                    Sign out
-                </Button>
-            </NavLink>
-        </NavItem>
+        <>
+            <NavItem>
+                <NavLink
+                    onClick={() => signOut()}>
+                    <Button
+                        color="primary"
+                        outline
+                        size="sm"
+                    >
+                        Sign out
+                    </Button>
+                </NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink tag={Link}
+                         to={"/profile/" + currentUser?.id}>{isAuthorized ? currentUser?.userName.toUpperCase() : ""}</NavLink>
+            </NavItem>
+        </>
     )
 }
 
@@ -64,7 +71,7 @@ const NavMenu: React.FC = () => {
                     expand="md"
                     light>
                 <Container>
-                    <Nav>
+                    <Nav pills>
                         <NavbarBrand tag={Link} to="/">Chat App</NavbarBrand>
                         <NavItem>
                             <NavLink tag={Link} to={RouteTemplates.Home}>Home</NavLink>
@@ -78,7 +85,6 @@ const NavMenu: React.FC = () => {
                             <AuthItem isAuthorized={isAuthorized}/>
                         </Collapse>
                     </Nav>
-                    <NavbarBrand>{isAuthorized ? currentUser?.userName : "Anonymous"}</NavbarBrand>
                 </Container>
             </Navbar>
         </div>

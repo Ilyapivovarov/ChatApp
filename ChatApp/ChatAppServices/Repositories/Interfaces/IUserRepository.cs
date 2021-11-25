@@ -6,13 +6,13 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        public Task<bool> TrySignUpUserAsync(SignUp signOn);
+        public Task<bool> TrySignUpAsync(SignUp signOn);
         
-        public Task<User> SignInUserAsync(SignIn signIn);
+        public Task<User> SignInAsync(SignIn signIn);
         
         public User SignInUser(SignIn signIn);
         
-        public Task<User> GetUserByIdAsync(int userId);
+        public Task<User> GetAccountByIdAsync(int accountId);
 
         public Task<bool> IsUsernameUnused(string userName);
     }

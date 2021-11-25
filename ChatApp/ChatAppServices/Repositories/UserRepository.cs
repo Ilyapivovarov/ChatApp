@@ -8,9 +8,9 @@ using ChatApp.ChatAppServices.Repositories.Interfaces;
 
 namespace ChatApp.ChatAppServices.Repositories
 {
-    public sealed class UserRepository : RepositoryBase, IUserRepository
+    public sealed class AccountRepository : RepositoryBase, IUserRepository
     {
-        public async Task<bool> TrySignUpUserAsync(SignUp signUp)
+        public async Task<bool> TrySignUpAsync(SignUp signUp)
         {
             return await Task.Run(() =>
             {
@@ -27,7 +27,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<User> SignInUserAsync(SignIn signIn)
+        public async Task<User> SignInAsync(SignIn signIn)
         {
             return await Task.Run(() =>
             {
@@ -50,7 +50,7 @@ namespace ChatApp.ChatAppServices.Repositories
             }, "Error while loading user from database");
         }
 
-        public async Task<User> GetUserByIdAsync(int userId)
+        public async Task<User> GetAccountByIdAsync(int userId)
         {
             return await Task.Run(() =>
             {

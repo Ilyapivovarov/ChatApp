@@ -1,17 +1,10 @@
-using System.Linq;
-using System.Net;
-using System.Security.Claims;
-using ChatApp.AppData;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
-using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.AuthService;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
-using ChatApp.Common.ActionResults;
-using ChatApp.Common.CustomClaims;
 using ChatApp.Controllers.Base;
-using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,23 +12,8 @@ namespace ChatApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ChatAppControllerBase
+    public class AuthController : ChatAppControllerBase
     {
-        [HttpGet]
-        [Route("test")]
-        public ActionResult<User[]> RunTest()
-        {
-            return Ok(Services.Locator.GetRequiredService<AppDbContext>().Users);
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("test-auth-protections")]
-        public ActionResult<int> TestProtection()
-        {
-            return Ok(UserId);
-        }
-
         [HttpPost]
         [Route("sign-up")]
         public async Task<ActionResult> SignUpUser([FromBody] SignUp signUp)
@@ -46,7 +24,7 @@ namespace ChatApp.Controllers
                 return RequestResultError("Username already exist");
             }
 
-            if (await userRepository.TrySignUpUserAsync(signUp))
+            if (await userRepository.TrySignUpAsync(signUp))
             {
                 Services.Locator.GetRequiredService<IAuthService>()
                     .TryAuthUser(new SignIn {UserName = signUp.UserName, Password = signUp.Password},

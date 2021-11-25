@@ -40,7 +40,7 @@ namespace ChatApp.Extensions
         
         public static void UseChatAppRepositories(this IServiceCollection service)
         {
-            service.AddTransient<IUserRepository, UserRepository>();
+            service.AddTransient<IUserRepository, AccountRepository>();
             service.AddTransient<IChatMessageRepository, ChatMessageRepository>();
             service.AddTransient<IChatRoomRepository, ChatRoomRepository>();
             service.AddTransient<IDefaultDataRepository, DefaultDataRepository>();
