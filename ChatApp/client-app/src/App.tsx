@@ -9,10 +9,9 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import RequireAuth from "./hoc/RequireAuth";
 import RequireUnAuth from "./hoc/RequireUnAuth";
 import {useActions} from "./hooks/useActions";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import AccountPage from "./pages/AccountPage/AccountPage";
 
 import './App.css';
-
 
 const App: React.FC = () => {
     const {authUser} = useActions()
@@ -25,7 +24,7 @@ const App: React.FC = () => {
                 <Route path={RouteTemplates.ChatRoom} element={<RequireAuth children={<ChatRoomPage/>}/>}/>
                 <Route path={RouteTemplates.SingIn} element={<RequireUnAuth children={<SignInPage/>}/>}/>
                 <Route path={RouteTemplates.SignOn} element={<RequireUnAuth children={<SignUpPage/>}/>}/>
-                <Route path={RouteTemplates.ProfilePage} element={<ProfilePage/>}/>
+                <Route path={RouteTemplates.ProfilePage} element={<RequireAuth children={<AccountPage/>}/>}/>
             </Route>
         </Routes>
 

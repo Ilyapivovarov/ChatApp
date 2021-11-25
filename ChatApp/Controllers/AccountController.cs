@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace ChatApp.Controllers
 {
     [ApiController]
-    [Route("[controller]/account/account")]
+    [Route("[controller]")]
     public class AccountController : ChatAppControllerBase
     {
         [HttpGet]
