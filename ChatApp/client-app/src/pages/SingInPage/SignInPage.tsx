@@ -11,7 +11,7 @@ const SingInPage: React.FC = () => {
     }, [])
     
     return (
-        <div>
+        <div className={"page"}>
             <h1>Sign in page</h1>
             <SignInForm/>
         </div>

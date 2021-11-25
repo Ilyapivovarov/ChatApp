@@ -35,7 +35,7 @@ const ChatRoomPage: React.FC = () => {
 
     if (room != null)
         return (
-            <div className={"room_view_page"}>
+            <div className={"page"}>
                 <h1>Room name: {id}</h1>
                 <RoomView room={room}/>
             </div>

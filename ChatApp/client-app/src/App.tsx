@@ -9,9 +9,10 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import RequireAuth from "./hoc/RequireAuth";
 import RequireUnAuth from "./hoc/RequireUnAuth";
 import {useActions} from "./hooks/useActions";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 import './App.css';
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
+
 
 const App: React.FC = () => {
     const {authUser} = useActions()

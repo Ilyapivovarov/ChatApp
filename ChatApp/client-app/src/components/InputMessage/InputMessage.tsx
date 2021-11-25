@@ -48,7 +48,7 @@ const InputMessage: React.FC = () => {
                     onChange={changeHandler}
                 />
             </FormGroup>
-            <Button className={"send_btn"} type={"submit"}>Send</Button>
+            <Button className={"send_btn"} type={"submit"} color={"primary"}>Send</Button>
         </Form>
     );
 };
