@@ -15,7 +15,6 @@ namespace ChatApp.Controllers
     public class AuthController : ChatAppControllerBase
     {
         [HttpPost]
-        [Route("sign-up")]
         public async Task<ActionResult> SignUpUser([FromBody] SignUp signUp)
         {
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
@@ -37,7 +36,6 @@ namespace ChatApp.Controllers
         }
 
         [HttpPost]
-        [Route("sign-in")]
         public ActionResult SignInUser([FromBody] SignIn signIn)
         {
             if (Services.Locator.GetRequiredService<IAuthService>()
