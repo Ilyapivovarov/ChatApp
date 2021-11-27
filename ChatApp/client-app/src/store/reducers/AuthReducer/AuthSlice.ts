@@ -2,7 +2,6 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AuthState} from "./AuthTypes";
 import {Account} from "../../../types/dataTypes";
 import {signIn, signOut, signUp, validateToken} from "./AuthActionCreators";
-import {stat} from "fs";
 
 const initialState: AuthState = {
     currentUser: null,
@@ -22,7 +21,7 @@ export const authSlice = createSlice({
             state.isAuth = false;
             state.error = action.payload;
         },
-        authReset(state) {
+        authReset(state) { 
             state.currentUser = null;
             state.isAuth = false;
             state.error = null;
