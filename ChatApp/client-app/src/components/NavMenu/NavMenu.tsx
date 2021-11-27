@@ -2,18 +2,19 @@ import React, {useEffect} from "react";
 import {Button, Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {RouteTemplates} from "../../router/types/Routs";
-import {useCustomSelector} from "../../hooks/useCustomSelector";
-import {useActions} from "../../hooks/useActions";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {signOut, validateToken} from "../../store/reducers/AuthReducer/AuthActionCreators";
 
 import './NavMenu.css';
+
 
 interface AuthItemProps {
     isAuthorized: boolean;
 }
 
 const AuthItem: React.FC<AuthItemProps> = (prop) => {
-    const {isAuthorized, currentUser} = useCustomSelector(x => x.auth);
-    const {signOut} = useActions()
+    const {isAuth, currentUser} = useAppSelector(x => x.authReducer);
+    const dispatch = useAppDispatch();
     if (!prop.isAuthorized)
         return (
             <>
@@ -41,7 +42,7 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
         <>
             <NavItem>
                 <NavLink
-                    onClick={() => signOut()}>
+                    onClick={() => dispatch(signOut())}>
                     <Button
                         color="primary"
                         outline
@@ -53,17 +54,17 @@ const AuthItem: React.FC<AuthItemProps> = (prop) => {
             </NavItem>
             <NavItem>
                 <NavLink tag={Link}
-                         to={"/profile/" + currentUser?.id}>{isAuthorized ? currentUser?.userName.toUpperCase() : ""}</NavLink>
+                         to={"/profile/" + currentUser?.id}>{isAuth ? currentUser?.userName.toUpperCase() : ""}</NavLink>
             </NavItem>
         </>
     )
 }
 
 const NavMenu: React.FC = () => {
-    const {isAuthorized, currentUser} = useCustomSelector(x => x.auth);
-    const {authUser} = useActions()
+    const {isAuth, currentUser} = useAppSelector(x => x.authReducer);
+    const dispatch = useAppDispatch();
     useEffect(() => {
-        authUser()
+        dispatch(validateToken())
     }, [currentUser?.id]);
     return (
         <div>
@@ -82,7 +83,7 @@ const NavMenu: React.FC = () => {
                             </NavLink>
                         </NavItem>
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
-                            <AuthItem isAuthorized={isAuthorized}/>
+                            <AuthItem isAuthorized={isAuth}/>
                         </Collapse>
                     </Nav>
                 </Container>

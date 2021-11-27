@@ -32,10 +32,11 @@ namespace ChatApp.Controllers
                 return Success(new {access_token = token});
             }
 
-            return BadRequest("Error while creating user");
+            return Error("Error while creating user");
         }
 
         [HttpPost]
+        [Route("sign-in")]
         public ActionResult SignInUser([FromBody] SignIn signIn)
         {
             if (Services.Locator.GetRequiredService<IAuthService>()

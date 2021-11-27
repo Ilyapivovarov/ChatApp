@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {fetchAccount} from "../../servies/accountService";
-import {useCustomSelector} from "../../hooks/useCustomSelector";
 import {Account} from "../../types/dataTypes";
+import {useAppSelector} from "../../hooks/redux";
 
 const ProfilePage = () => {
-    const {currentUser} = useCustomSelector(x => x.auth);
+    const {currentUser} = useAppSelector(x => x.authReducer);
     const [account, setAccount] = useState<Account | null>();
     
     useEffect(() => {

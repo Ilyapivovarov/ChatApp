@@ -1,17 +1,14 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import { Button, Col, Form, FormFeedback, FormGroup, Input, Row} from 'reactstrap';
-import {useCustomSelector} from "../../hooks/useCustomSelector";
-import {useActions} from "../../hooks/useActions";
+import {Button, Col, Form, FormFeedback, FormGroup, Input, Row} from 'reactstrap';
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {signIn} from "../../store/reducers/AuthReducer/AuthActionCreators";
 
 import "./AuthForm.css"
-import {useNavigate} from "react-router-dom";
-
 
 const SignInForm: React.FC = () => {
-    const navigate = useNavigate();
-    const {signInUser} = useActions()
-    const {error} = useCustomSelector(x => x.auth)
-    
+    const dispatch = useAppDispatch()
+    const {error} = useAppSelector(x => x.authReducer)
+
     const [userName, setUserName] = useState<string>("");
     const [userNameValid, setUserNameValid] = useState<boolean>();
     const [userNameError, setUserNameError] = useState<string>("");
@@ -34,7 +31,7 @@ const SignInForm: React.FC = () => {
         if (!form.checkValidity()) {
             event.stopPropagation();
         }
-        signInUser({userName, password});
+        dispatch(signIn({userName, password}));
     };
     const validateUserName = (value: string | undefined) => {
         setUserNameValid(getFieldValid(value))
@@ -78,7 +75,7 @@ const SignInForm: React.FC = () => {
                         </FormGroup>
                     </Col>
                     <Col md={6}>
-                        <FormGroup  className={"auth_form"}>
+                        <FormGroup className={"auth_form"}>
                             <div>
                                 <Input
                                     id="password"
@@ -102,7 +99,7 @@ const SignInForm: React.FC = () => {
                         </div>
                     </Col>
                 </Row>
-                <Button disabled={error != null && !passwordValid || !userNameValid} type={"submit"} 
+                <Button disabled={error != null && !passwordValid || !userNameValid} type={"submit"}
                         color={"success"}>
                     Sign in
                 </Button>

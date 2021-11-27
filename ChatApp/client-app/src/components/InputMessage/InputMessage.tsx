@@ -1,15 +1,16 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Form, FormGroup, Input} from "reactstrap";
-import {useCustomSelector} from "../../hooks/useCustomSelector";
 import {useParams} from "react-router-dom";
-
-import "./InputMessage.css"
 import Axios from "../../common/axios";
 import {Message} from "../../types/dataTypes";
+import {useAppSelector} from "../../hooks/redux";
+
+import "./InputMessage.css"
+
 
 
 const InputMessage: React.FC = () => {
-    const {currentUser} = useCustomSelector(x => x.auth)
+    const {currentUser} = useAppSelector(x => x.authReducer)
     const [body, setBody] = useState<string>("");
     const {id} = useParams();
 

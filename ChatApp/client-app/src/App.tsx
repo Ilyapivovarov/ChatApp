@@ -8,14 +8,15 @@ import {RouteTemplates} from "./router/types/Routs";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import RequireAuth from "./hoc/RequireAuth";
 import RequireUnAuth from "./hoc/RequireUnAuth";
-import {useActions} from "./hooks/useActions";
 import AccountPage from "./pages/AccountPage/AccountPage";
+import {useAppDispatch} from "./hooks/redux";
+import {validateToken} from "./store/reducers/AuthReducer/AuthActionCreators";
 
 import './App.css';
 
 const App: React.FC = () => {
-    const {authUser} = useActions()
-    authUser()
+    const dispatch = useAppDispatch()
+    dispatch(validateToken())
 
     return (
         <Routes>

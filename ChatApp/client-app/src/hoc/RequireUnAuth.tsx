@@ -1,13 +1,13 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import {useCustomSelector} from "../hooks/useCustomSelector";
+import {useAppSelector} from "../hooks/redux";
 
 const RequireUnAuth: React.FC = ({children}) => {
     const navigate = useNavigate()
-    const {isAuthorized} = useCustomSelector(x => x.auth)
+    const {isAuth} = useAppSelector(x => x.authReducer)
   
-    if (isAuthorized)
-        navigate(-1);
+    if (isAuth)
+        navigate("/");
 
     return (
         <div>

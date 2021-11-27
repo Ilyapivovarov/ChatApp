@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {Message} from "../../types/dataTypes";
-import {useCustomSelector} from "../../hooks/useCustomSelector";
 
 import "./MessageView.css"
+import {useAppSelector} from "../../hooks/redux";
 
 
 interface DialogProps {
@@ -24,7 +24,7 @@ const InputMessage: React.FC<Message> = (inputProp: Message) => (
 );
 
 const MessageView: React.FC<DialogProps> = (props: DialogProps) => {
-    const {currentUser} = useCustomSelector(x => x.auth);
+    const {currentUser} = useAppSelector(x => x.authReducer);
 
     useEffect(() => {
         const element = document.querySelector(".wrapper_scroll_bottom")

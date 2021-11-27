@@ -1,16 +1,15 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import {useCustomSelector} from "../../hooks/useCustomSelector";
 import {Button, Col, Form, FormFeedback, FormGroup, Input, Row} from "reactstrap";
-import {useActions} from "../../hooks/useActions";
+import {useNavigate} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {signUp} from "../../store/reducers/AuthReducer/AuthActionCreators";
 
 import "./AuthForm.css"
-import {useNavigate} from "react-router-dom";
 
 
 const SignUpForm: React.FC = () => {
-    const navigate = useNavigate();
-    const {signUpUser} = useActions()
-    const {error, isAuthorized} = useCustomSelector(x => x.auth)
+    const dispatch = useAppDispatch()
+    const {error} = useAppSelector(x => x.authReducer)
 
     const [userName, setUserName] = useState<string>("");
     const [userNameValid, setUserNameValid] = useState<boolean>();
@@ -43,7 +42,7 @@ const SignUpForm: React.FC = () => {
             event.stopPropagation();
         }
 
-        signUpUser({userName, password, confirmPassword});
+        dispatch(signUp({userName, password, confirmPassword}));
     };
 
     const validateUserName = (value: string | undefined) => {

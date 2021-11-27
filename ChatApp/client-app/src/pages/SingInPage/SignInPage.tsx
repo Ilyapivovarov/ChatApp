@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
 import SignInForm from "../../components/AuthForms/SignInForm";
-import {useActions} from "../../hooks/useActions";
 
 import "./SignInPage.css"
+import {useAppDispatch} from "../../hooks/redux";
 
 const SingInPage: React.FC = () => {
-    const {resetAuthReducer} = useActions();
-    useEffect(() => {
-        resetAuthReducer()
-    }, [])
-    
+    const dispatch = useAppDispatch();
+    // useEffect(() => {
+    //     dispatch()
+    // }, [])
+    //
     return (
         <div className={"page"}>
             <h1>Sign in page</h1>
