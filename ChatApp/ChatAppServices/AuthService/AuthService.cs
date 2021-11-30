@@ -5,6 +5,7 @@ using System.Security.Claims;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using ChatApp.ChatAppServices.Repositories.Models;
 using ChatApp.Common.CustomClaims;
 using ChatApp.Security.AuthModule;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,11 +18,11 @@ namespace ChatApp.ChatAppServices.AuthService
     {
         public bool TryAuthUser(SignIn signIn, out string token)
         {
-            var user = Services.Locator.GetRequiredService<IUserRepository>()
+            var queryResult = Services.Locator.GetRequiredService<IUserRepository>()
                 .SignInUser(signIn);
-            if (user != null)
+            if (queryResult.HasValue)
             {
-                token = GenerateJwt(user);
+                token = GenerateJwt(queryResult.Value);
                 return true;
             }
             

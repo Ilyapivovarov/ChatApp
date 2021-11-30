@@ -30,15 +30,15 @@ namespace ChatApp.Controllers
             var chatRoomRepository = Services.Locator.GetRequiredService<IChatRoomRepository>();
             var chatRoom = await chatRoomRepository.GetChatRoomById(chatRoomId);
 
-            if (chatRoom != null)
+            if (chatRoom.HasValue)
             {
-                if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom, UserId))
+                if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom.Value, UserId))
                 {
-                    return Ok();
+                    return Success();
                 }
             }
 
-            return BadRequest();
+            return BadRequest(chatRoom.ErrorMessage);
         } 
 
         [HttpPost]
@@ -62,17 +62,17 @@ namespace ChatApp.Controllers
         {
             var user = await Services.Locator.GetRequiredService<IUserRepository>()
                 .GetUserByIdAsync(UserId);
-            if (user != null)
+            if (user.HasValue)
             {
                 var chatRoom = await Services.Locator.GetRequiredService<IChatRoomRepository>()
-                    .CreateChatRoom(user);
-                if (chatRoom != null)
+                    .CreateChatRoom(user.Value);
+                if (chatRoom.HasValue)
                 {
-                    return Ok(chatRoom);
+                    return Success(chatRoom);
                 }
             }
             
-            return BadRequest();
+            return Error(user.ErrorMessage);
         }
     }
 }

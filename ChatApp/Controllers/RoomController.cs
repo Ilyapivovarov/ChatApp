@@ -28,15 +28,15 @@ namespace ChatApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetUserRooms()
         {
-            var room = await Services.Locator.GetRequiredService<IChatRoomRepository>()
-                .GetRoomThatHasUser(UserId);
+            var rooms = await Services.Locator.GetRequiredService<IChatRoomRepository>()
+                .GetRoomsThatHasUser(UserId);
 
-            if (room != null)
+            if (rooms.HasValue)
             {
-                var roomDto = Services.Locator.GetRequiredService<IMapperService>()
-                    .Map<ChatRoom, Room>(room);
+                var roomsDto = Services.Locator.GetRequiredService<IMapperService>()
+                    .Map<ChatRoom[], Room[]>(rooms.Value);
 
-                return Success(roomDto);
+                return Success(roomsDto);
             }
 
             return Error("");
@@ -47,10 +47,17 @@ namespace ChatApp.Controllers
         public async Task<ActionResult> GetRoomById(int id)
         {
             var result = await Services.Locator.GetRequiredService<IChatRoomRepository>().GetChatRoomById(id);
-            var room = Services.Locator.GetRequiredService<IMapperService>()
-                .Map<ChatRoom, Room>(result);
 
-            return Success(room);
+            if (result.HasValue)
+            {
+                var room = Services.Locator.GetRequiredService<IMapperService>()
+                    .Map<ChatRoom, Room>(result.Value);
+                return Success(result.Value);
+            }
+
+
+            return Error(result.ErrorMessage);
+
         }
 
         [HttpPost]
@@ -73,15 +80,15 @@ namespace ChatApp.Controllers
             var chatRoomRepository = Services.Locator.GetRequiredService<IChatRoomRepository>();
             var chatRoom = await chatRoomRepository.GetChatRoomById(chatRoomId);
 
-            if (chatRoom != null)
+            if (chatRoom.HasValue)
             {
-                if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom, account.Id))
+                if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom.Value, account.Id))
                 {
                     return Success();
                 }
             }
 
-            return Error("Error while add user in room");
+            return Error(chatRoom.ErrorMessage);
         }
 
         [HttpPost("{chatRoomName}")]
@@ -90,12 +97,12 @@ namespace ChatApp.Controllers
         {
             var chatRoom = await Services.Locator.GetRequiredService<IChatRoomRepository>()
                 .CreateChatRoom(CurrentUser);
-            if (chatRoom != null)
+            if (chatRoom.HasValue)
             {
-                return Success(chatRoom);
+                return Success(chatRoom.Value);
             }
             
-            return Error("Error while creating chat room");
+            return Error(chatRoom.ErrorMessage);
         }
     }
 }

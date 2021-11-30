@@ -1,5 +1,6 @@
 using System;
 using ChatApp.AppData;
+using ChatApp.ChatAppServices.Repositories.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -7,18 +8,18 @@ namespace ChatApp.ChatAppServices.Repositories.Base
 {
     public class RepositoryBase
     {
-        protected T LoadData<T>(Func<AppDbContext, T> loaFunc, string error)
+        protected QueryResult<T> LoadData<T>(Func<AppDbContext, T> loaFunc, string error)
         {
             try
             {
                 var db = Services.Locator.GetRequiredService<AppDbContext>();
                 
-                return loaFunc(db);
+                return new QueryResult<T>(loaFunc(db));
             }
             catch(Exception e)
             {
                 Services.Logger.LogError(error, e.Message);
-                return default;
+                return new QueryResult<T>(error);
             }
         }
 
@@ -39,7 +40,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             }
         }
         
-        protected T WriteAndReturnData<T>(Func<AppDbContext, T> writeAction, string error)
+        protected QueryResult<T> WriteAndReturnData<T>(Func<AppDbContext, T> writeAction, string error)
         {
             try
             {
@@ -47,12 +48,12 @@ namespace ChatApp.ChatAppServices.Repositories.Base
                 var data = writeAction(db);
                 db.SaveChanges();
 
-                return data;
+                return new QueryResult<T>(data);
             }
             catch (Exception e)
             {
                 Services.Logger.LogError(e, error);
-                return default;
+                return new QueryResult<T>(error);
             }
         }
     }

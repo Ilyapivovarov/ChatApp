@@ -3,12 +3,13 @@ using System.Threading.Tasks;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Base;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using ChatApp.ChatAppServices.Repositories.Models;
 
 namespace ChatApp.ChatAppServices.Repositories
 {
     public class ChatRoomRepository : RepositoryBase, IChatRoomRepository
     {
-        public async Task<ChatRoom> GetChatRoomById(int id)
+        public async Task<QueryResult<ChatRoom>> GetChatRoomById(int id)
         {
             return await Task.Run(() =>
             {
@@ -31,7 +32,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<ChatRoom> CreateChatRoom(User creator)
+        public async Task<QueryResult<ChatRoom>> CreateChatRoom(User creator)
         {
             return await Task.Run(() =>
             {
@@ -66,13 +67,14 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<ChatRoom> GetRoomThatHasUser(int userId)
+        public async Task<QueryResult<ChatRoom[]>> GetRoomsThatHasUser(int userId)
         {
             return await Task.Run(() =>
             {
                 return LoadData(db =>
                 {
-                    return db.ChatRooms.FirstOrDefault(x => x.Members.Select(x => x.Id).Contains(userId));
+                    return db.ChatRooms.Where(x => x.Members.Select(x => x.Id).Contains(userId))
+                        .ToArray();
                 }, $"Error while getting room that has user with id {userId}");
             });
         }

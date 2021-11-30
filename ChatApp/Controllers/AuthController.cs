@@ -18,21 +18,23 @@ namespace ChatApp.Controllers
         public async Task<ActionResult> SignUpUser([FromBody] SignUp signUp)
         {
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
-            if (await userRepository.IsUsernameUnused(signUp.UserName))
+            var result = await userRepository.IsUsernameUnused(signUp.UserName);
+            
+            if (result.Value)
             {
-                return Error("Username already exist");
+                return Error(result.ErrorMessage);
             }
 
-            if (await userRepository.TrySignUpAsync(signUp))
+            var signUpResult = await userRepository.SignUpAsync(signUp);
+            if (signUpResult.HasValue)
             {
                 Services.Locator.GetRequiredService<IAuthService>()
-                    .TryAuthUser(new SignIn {UserName = signUp.UserName, Password = signUp.Password},
-                        out var token);
+                    .TryAuthUser(new SignIn {UserName = signUp.UserName, Password = signUp.Password}, out var token);
 
                 return Success(new {access_token = token});
             }
 
-            return Error("Error while creating user");
+            return Error(signUpResult.ErrorMessage);
         }
 
         [HttpPost]
