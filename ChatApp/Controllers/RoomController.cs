@@ -24,7 +24,7 @@ namespace ChatApp.Controllers
         {
             _chatHub = chatHub;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult> GetUserRooms()
         {
@@ -33,15 +33,15 @@ namespace ChatApp.Controllers
 
             if (room != null)
             {
-                 var roomDto = Services.Locator.GetRequiredService<IMapperService>()
-                                .Map<ChatRoom, Room>(room);
+                var roomDto = Services.Locator.GetRequiredService<IMapperService>()
+                    .Map<ChatRoom, Room>(room);
 
-                 return Ok(roomDto);
+                return Success(roomDto);
             }
 
-            return BadRequest();
+            return Error("");
         }
-        
+
         [HttpGet("{id:int}")]
         [Route("{id:int}")]
         public async Task<ActionResult> GetRoomById(int id)
@@ -49,9 +49,8 @@ namespace ChatApp.Controllers
             var result = await Services.Locator.GetRequiredService<IChatRoomRepository>().GetChatRoomById(id);
             var room = Services.Locator.GetRequiredService<IMapperService>()
                 .Map<ChatRoom, Room>(result);
-            
-            var a = Success(room);
-            return a;
+
+            return Success(room);
         }
 
         [HttpPost]
@@ -63,45 +62,40 @@ namespace ChatApp.Controllers
 
             await Services.Locator.GetRequiredService<IChatMessageRepository>()
                 .TrySaveMessageAsync(id, message);
-            
+
             return Ok();
         }
-        
-        [HttpGet()]
+
+        [HttpPost]
         [Route("join-to-room/{chatRoomId:int}")]
-        public async Task<ActionResult> JoinUserToChatRoom(int chatRoomId)
+        public async Task<ActionResult> JoinUserToChatRoom(int chatRoomId, [FromBody] Account account)
         {
             var chatRoomRepository = Services.Locator.GetRequiredService<IChatRoomRepository>();
             var chatRoom = await chatRoomRepository.GetChatRoomById(chatRoomId);
 
             if (chatRoom != null)
             {
-                if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom, UserId))
+                if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom, account.Id))
                 {
-                    return Ok();
+                    return Success();
                 }
             }
 
-            return BadRequest();
+            return Error("Error while add user in room");
         }
 
         [HttpPost("{chatRoomName}")]
         [Route("create-chat-room/{chatRoomName}")]
         public async Task<ActionResult> CreateChatRoom(string chatRoomName)
         {
-            var user = await Services.Locator.GetRequiredService<IUserRepository>()
-                .GetUserByIdAsync(UserId);
-            if (user != null)
+            var chatRoom = await Services.Locator.GetRequiredService<IChatRoomRepository>()
+                .CreateChatRoom(CurrentUser);
+            if (chatRoom != null)
             {
-                var chatRoom = await Services.Locator.GetRequiredService<IChatRoomRepository>()
-                    .CreateChatRoom(user);
-                if (chatRoom != null)
-                {
-                    return Ok(chatRoom);
-                }
+                return Success(chatRoom);
             }
             
-            return BadRequest();
+            return Error("Error while creating chat room");
         }
     }
 }

@@ -14,6 +14,8 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
 
         public Task<User[]> GetUsersAsync();
 
+        public User GetUserById(int userId);
+        
         public Task<User> GetUserByIdAsync(int accountId);
 
         public Task<bool> IsUsernameUnused(string userName);

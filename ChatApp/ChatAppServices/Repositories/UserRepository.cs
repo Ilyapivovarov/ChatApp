@@ -58,6 +58,12 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
+        public User GetUserById(int userId)
+        {
+            return LoadData(db => db.Users.First(x => x.Id == userId),
+                $"Error while searching user with {userId}");
+        }
+
         public async Task<User> GetUserByIdAsync(int userId)
         {
             return await Task.Run(() =>
