@@ -39,7 +39,7 @@ namespace ChatApp.Controllers
                 return Success(roomsDto);
             }
 
-            return Error("");
+            return Error(rooms.ErrorMessage);
         }
 
         [HttpGet("{id:int}")]
@@ -52,10 +52,9 @@ namespace ChatApp.Controllers
             {
                 var room = Services.Locator.GetRequiredService<IMapperService>()
                     .Map<ChatRoom, Room>(result.Value);
-                return Success(result.Value);
+                return Success(room);
             }
-
-
+            
             return Error(result.ErrorMessage);
 
         }
