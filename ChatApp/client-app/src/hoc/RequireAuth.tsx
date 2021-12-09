@@ -3,14 +3,17 @@ import {Navigate} from "react-router-dom";
 import {RouteTemplates} from "../router/types/Routs";
 import {useAppSelector} from "../hooks/redux";
 
-const RequireAuth: React.FC = ({children}) => {
-    const {isAuth} = useAppSelector(x => x.authReducer)
-    if (!isAuth) 
-        return (<Navigate to={RouteTemplates.SingIn}/>);
+interface RequireAuthProps {
+    isAuth: boolean
+}
+
+const RequireAuth: React.FC<RequireAuthProps> = (props) => {
+    // const {isAuth} = useAppSelector(x => x.authReducer)
+    
 
     return (
         <div>
-            {children}
+            {props.children}
         </div>
     );
 };
