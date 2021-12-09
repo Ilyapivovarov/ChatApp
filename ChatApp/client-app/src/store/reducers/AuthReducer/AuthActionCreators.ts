@@ -26,10 +26,11 @@ export const signIn = createAsyncThunk(
 )
 
 export const signUp = createAsyncThunk(
-    'authSlice/authorize',
+    'authSlice/sign-up',
     async (authModel: SignUp, thunkAPI) => {
         try {
             const response = await Axios.post<RequestResult<JwtToken>>("auth/sign-up", authModel)
+            console.log(response)
             if (response.data.isSuccess) {
                 const account = jwtDecode<Account>(response.data.value.access_token)
                 if (account) {
