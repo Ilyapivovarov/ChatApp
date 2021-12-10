@@ -9,12 +9,12 @@ interface RequireAuthProps {
 
 const RequireAuth: React.FC<RequireAuthProps> = (props) => {
     // const {isAuth} = useAppSelector(x => x.authReducer)
-
+    const navigate = useNavigate()
     if (!props.isAuth) {
-        const navigate = useNavigate()
+
         navigate("/");
     }
-    
+
     return (
         <div>
             {props.children}
