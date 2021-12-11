@@ -5,6 +5,12 @@ import jwtDecode from "jwt-decode";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {AccessTokenKey} from "../../../common/global";
 
+export interface ActionResult<T> {
+    hasValue: boolean,
+    value: T | null,
+    error: string | null
+}
+
 export const signIn = createAsyncThunk(
     'authSlice/authorize',
     async (authModel: SignIn, thunkAPI) => {
@@ -26,21 +32,22 @@ export const signIn = createAsyncThunk(
 )
 
 export const signUp = createAsyncThunk(
-    'authSlice/authorize',
-    async (authModel: SignUp, thunkAPI) => {
+    'authSlice/sign-up',
+    async (authModel: SignUp, thunkAPI) : Promise<ActionResult<Account>> => {
         try {
             const response = await Axios.post<RequestResult<JwtToken>>("auth/sign-up", authModel)
+            console.log(response)
             if (response.data.isSuccess) {
                 const account = jwtDecode<Account>(response.data.value.access_token)
                 if (account) {
                     localStorage.setItem(AccessTokenKey, response.data.value.access_token)
-                    return account;
+                    return {value: account, hasValue: true, error: null};
                 }
 
             }
-            return response.data.errorMessage
+            return {error: response.data.errorMessage, hasValue: false, value: null }
         } catch {
-            return "Unknown error"
+            return {error: "Unknown error", hasValue: false, value: null }
         }
     }
 )

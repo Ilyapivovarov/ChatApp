@@ -15,6 +15,7 @@ namespace ChatApp.Controllers
     public class AuthController : ChatAppControllerBase
     {
         [HttpPost]
+        [Route("sign-up")]
         public async Task<ActionResult> SignUpUser([FromBody] SignUp signUp)
         {
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
@@ -22,7 +23,7 @@ namespace ChatApp.Controllers
             
             if (result.Value)
             {
-                return Error(result.ErrorMessage);
+                return Error("User already exist");
             }
 
             var signUpResult = await userRepository.SignUpAsync(signUp);

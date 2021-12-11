@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import {Message} from "../../types/dataTypes";
-
-import "./MessageView.css"
 import {useAppSelector} from "../../hooks/redux";
 
+import "./MessageView.css"
 
 interface DialogProps {
     messages: Message[]
