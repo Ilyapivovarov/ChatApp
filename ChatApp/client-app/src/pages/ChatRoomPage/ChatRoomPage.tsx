@@ -17,7 +17,7 @@ const ChatRoomPage: React.FC = () => {
     useEffect(() => {
         Axios.get<RequestResult<Room>>("room/" + id)
             .then(r => {
-                if (r.data.isSuccess) {
+                if (r.data.hasValue) {
                     setRoom(r.data.value);
                     setLoading(false);
                 }

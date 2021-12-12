@@ -11,7 +11,7 @@ const ProfilePage = () => {
         if (currentUser != null) {
             fetchAccount(currentUser.id)
                 .then(r => {
-                    if (r.isSuccess)
+                    if (r.hasValue)
                         setAccount(r.value);
                 })
         }

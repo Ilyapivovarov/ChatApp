@@ -17,7 +17,7 @@ export const signIn = createAsyncThunk(
     async (authModel: SignIn, thunkAPI) => {
         try {
             const response = await Axios.post<RequestResult<JwtToken>>("auth/sign-in", authModel)
-            if (response.data.isSuccess) {
+            if (response.data.hasValue) {
                 const account = jwtDecode<Account>(response.data.value.access_token)
                 if (account) {
                     localStorage.setItem(AccessTokenKey, response.data.value.access_token)
@@ -36,7 +36,7 @@ export const signUp = createAsyncThunk(
     async (authModel: SignUp, thunkAPI) => {
         try {
             const response = await Axios.post<RequestResult<JwtToken>>("auth/sign-up", authModel)
-            if (response.data.isSuccess) {
+            if (response.data.hasValue) {
                 const account = jwtDecode<Account>(response.data.value.access_token)
                 if (account) {
                     localStorage.setItem(AccessTokenKey, response.data.value.access_token)
