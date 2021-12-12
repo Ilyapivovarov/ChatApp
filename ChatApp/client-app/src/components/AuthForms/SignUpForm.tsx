@@ -1,14 +1,17 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import {Button, Col, Form, FormFeedback, FormGroup, Input, Row} from "reactstrap";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {signUp} from "../../store/reducers/AuthReducer/AuthActionCreators";
+import {resetAuthState, signUp} from "../../store/reducers/AuthReducer/AuthActionCreators";
 
 import "./AuthForm.css"
 
 
 const SignUpForm: React.FC = () => {
     const dispatch = useAppDispatch()
+    useEffect(() => {
+       dispatch(resetAuthState())
+    }, []);
     const {error} = useAppSelector(x => x.authReducer)
 
     const [userName, setUserName] = useState<string>("");

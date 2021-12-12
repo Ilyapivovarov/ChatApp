@@ -5,14 +5,15 @@ import jwtDecode from "jwt-decode";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {AccessTokenKey} from "../../../common/global";
 
-export interface ActionResult<T> {
-    hasValue: boolean,
-    value: T | null,
-    error: string | null
-}
+export const resetAuthState = createAsyncThunk(
+    'authSlice/reset-auth-state',
+    async (_, thunkAPI) => {
+        
+    }
+)
 
 export const signIn = createAsyncThunk(
-    'authSlice/authorize',
+    'authSlice/sign-in',
     async (authModel: SignIn, thunkAPI) => {
         try {
             const response = await Axios.post<RequestResult<JwtToken>>("auth/sign-in", authModel)
@@ -22,32 +23,29 @@ export const signIn = createAsyncThunk(
                     localStorage.setItem(AccessTokenKey, response.data.value.access_token)
                     return account;
                 }
-
             }
-            return response.data.errorMessage
+            return thunkAPI.rejectWithValue(response.data.errorMessage)
         } catch {
-            return "Unknown error"
+            return thunkAPI.rejectWithValue("Unknown error")
         }
     }
 )
 
 export const signUp = createAsyncThunk(
     'authSlice/sign-up',
-    async (authModel: SignUp, thunkAPI) : Promise<ActionResult<Account>> => {
+    async (authModel: SignUp, thunkAPI) => {
         try {
             const response = await Axios.post<RequestResult<JwtToken>>("auth/sign-up", authModel)
-            console.log(response)
             if (response.data.isSuccess) {
                 const account = jwtDecode<Account>(response.data.value.access_token)
                 if (account) {
                     localStorage.setItem(AccessTokenKey, response.data.value.access_token)
-                    return {value: account, hasValue: true, error: null};
+                    return account;
                 }
-
             }
-            return {error: response.data.errorMessage, hasValue: false, value: null }
+            return thunkAPI.rejectWithValue(response.data.errorMessage)
         } catch {
-            return {error: "Unknown error", hasValue: false, value: null }
+            return thunkAPI.rejectWithValue("Unknown error");
         }
     }
 )
@@ -55,14 +53,18 @@ export const signUp = createAsyncThunk(
 export const validateToken = createAsyncThunk(
     'authSlice/validateToken',
     async (_, thunkAPI) => {
-        const token = localStorage.getItem(AccessTokenKey);
-        if (token) {
-            const account = jwtDecode<Account>(token);
-            if (account && IsTokenExpValid(account.exp)) {
-                return account;
+        try {
+            const token = localStorage.getItem(AccessTokenKey);
+            if (token) {
+                const account = jwtDecode<Account>(token);
+                if (account && IsTokenExpValid(account.exp)) {
+                    return account;
+                }
             }
+            return thunkAPI.rejectWithValue("New auth again");
+        } catch {
+            return thunkAPI.rejectWithValue("Unknown error while validate token");
         }
-        return null;
     });
 
 const IsTokenExpValid = (tokenExp: number): boolean => {
