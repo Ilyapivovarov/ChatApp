@@ -8,7 +8,6 @@ import {AccessTokenKey} from "../../../common/global";
 export const resetAuthState = createAsyncThunk(
     'authSlice/reset-auth-state',
     async (_, thunkAPI) => {
-        
     }
 )
 

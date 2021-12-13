@@ -1,43 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useParams} from "react-router-dom";
 import RoomView from "../../components/RoomView/RoomView";
 import Loader from "../../components/Loader/Loader";
-import Axios from "../../common/axios";
-import {Room} from "../../types/dataTypes";
-import {RequestResult} from "../../common/RequestResult";
 
 import "./ChatRoomPage.css"
+import {useFetchRoomQuery} from "../../servies/roomService";
 
 
 const ChatRoomPage: React.FC = () => {
-    const {id} = useParams()
-    const [room, setRoom] = useState<Room | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<any>();
-    useEffect(() => {
-        Axios.get<RequestResult<Room>>("room/" + id)
-            .then(r => {
-                if (r.data.hasValue) {
-                    setRoom(r.data.value);
-                    setLoading(false);
-                }
+    const {id} = useParams<string>()
+    const {error, isLoading, data} = useFetchRoomQuery(1);
 
-            })
-            .catch(e => {
-                setError(e)
-                setLoading(false);
-            })
-    }, []);
-
-    if (loading) {
+    console.log(data)
+    if (isLoading) {
         return (<Loader/>);
     }
 
-    if (room != null)
+    if (data != undefined && data.value != null)
         return (
             <div className={"page"}>
                 <h1>Room name: {id}</h1>
-                <RoomView room={room}/>
+                <RoomView room={data.value}/>
             </div>
         )
     
