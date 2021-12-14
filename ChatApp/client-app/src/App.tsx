@@ -26,8 +26,8 @@ const App: React.FC = () => {
             <Route path={RouteTemplates.Home} element={<Layout/>}>
                 <Route index element={<HomePage/>}/>
                 <Route path={RouteTemplates.ChatRoom} element={<RequireAuth isAuth={isAuth} children={<ChatRoomPage/>}/>}/>
-                <Route path={RouteTemplates.SingIn} element={<RequireUnAuth children={<SignInPage/>}/>}/>
-                <Route path={RouteTemplates.SignOn} element={<RequireUnAuth children={<SignUpPage/>}/>}/>
+                <Route path={RouteTemplates.SingIn} element={<RequireUnAuth isAuth={isAuth} children={<SignInPage/>}/>}/>
+                <Route path={RouteTemplates.SignOn} element={<RequireUnAuth isAuth={isAuth} children={<SignUpPage/>}/>}/>
                 <Route path={RouteTemplates.ProfilePage} element={<RequireAuth isAuth={isAuth} children={<AccountPage/>}/>}/>
             </Route>
         </Routes>

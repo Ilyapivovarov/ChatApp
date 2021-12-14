@@ -1,10 +1,8 @@
 import Axios from "../../../common/axios";
 import {Account, JwtToken, SignIn, SignUp} from "../../../types/dataTypes";
-import {RequestResult} from "../../../common/RequestResult";
 import jwtDecode from "jwt-decode";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {AccessTokenKey} from "../../../common/global";
-import {log} from "util";
 
 export const resetAuthState = createAsyncThunk(
     'authSlice/reset-auth-state',
@@ -13,10 +11,10 @@ export const resetAuthState = createAsyncThunk(
 )
 
 export const signIn = createAsyncThunk(
-    'authSlice/sign-in',
+    'authSlice/sing-in',
     async (authModel: SignIn, thunkAPI) => {
-        try {
-            const response = await Axios.post<JwtToken>("auth/sign-in", authModel)
+        const response = await Axios.post<JwtToken>("auth/sign-in", authModel)
+        if (response.status == 200) {
             if (response.data) {
                 const account = jwtDecode<Account>(response.data.access_token)
                 if (account) {
@@ -24,36 +22,24 @@ export const signIn = createAsyncThunk(
                     return account;
                 }
             }
-        } catch (e) {
-            const error = JSON.parse(JSON.stringify(e));
-            console.log(error)
-            console.log(e);
-            if (error.status == 401){
-                
-            }
-            
-            return thunkAPI.rejectWithValue(JSON.parse(JSON.stringify(e)).data)
+        } else {
+            return thunkAPI.rejectWithValue(response.data)
         }
-
-
     }
 )
 
 export const signUp = createAsyncThunk(
     'authSlice/sign-up',
     async (authModel: SignUp, thunkAPI) => {
-        try {
-            const response = await Axios.post<RequestResult<JwtToken>>("auth/sign-up", authModel)
-            if (response.data.hasValue) {
-                const account = jwtDecode<Account>(response.data.value.access_token)
-                if (account) {
-                    localStorage.setItem(AccessTokenKey, response.data.value.access_token)
-                    return account;
-                }
+        const response = await Axios.post<JwtToken>("auth/sign-up", authModel)
+        if (response.status == 200) {
+            const account = jwtDecode<Account>(response.data.access_token)
+            if (account) {
+                localStorage.setItem(AccessTokenKey, response.data.access_token)
+                return account;
             }
-            return thunkAPI.rejectWithValue(response.data.errorMessage)
-        } catch {
-            return thunkAPI.rejectWithValue("Unknown error");
+        } else {
+            return thunkAPI.rejectWithValue(response.data)
         }
     }
 )

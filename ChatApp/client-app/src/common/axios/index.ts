@@ -6,6 +6,10 @@ const Axios = axios.create({
     headers: {
         "Content-type": "application/json",
         "Authorization" : "Bearer " + token
+    },
+    responseType: "json",
+    validateStatus: (s) : boolean => {
+        return true
     }
 });
 

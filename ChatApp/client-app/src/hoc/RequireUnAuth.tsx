@@ -2,16 +2,20 @@ import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {useAppSelector} from "../hooks/redux";
 
-const RequireUnAuth: React.FC = ({children}) => {
-    const navigate = useNavigate()
-    const {isAuth} = useAppSelector(x => x.authReducer)
-  
-    if (isAuth)
-        navigate("/");
+interface RequireUnAuthProps {
+    isAuth: boolean
+}
+
+
+const RequireUnAuth: React.FC<RequireUnAuthProps> = (props) => {
+    // const navigate = useNavigate();
+    //
+    // if (props.isAuth)
+    //     navigate("/");
 
     return (
         <div>
-            {children}
+            {props.children}
         </div>
     );
 };
