@@ -36,10 +36,10 @@ namespace ChatApp.Controllers
                 var roomsDto = Services.Locator.GetRequiredService<IMapperService>()
                     .Map<ChatRoom[], Room[]>(rooms.Value);
 
-                return Success(roomsDto);
+                return Ok(roomsDto);
             }
 
-            return Error(rooms.ErrorMessage);
+            return BadRequest(rooms.ErrorMessage);
         }
 
         [HttpGet("{id:int}")]
@@ -52,10 +52,10 @@ namespace ChatApp.Controllers
             {
                 var room = Services.Locator.GetRequiredService<IMapperService>()
                     .Map<ChatRoom, Room>(result.Value);
-                return Success(room);
+                return Ok(room);
             }
             
-            return Error(result.ErrorMessage);
+            return BadRequest(result.ErrorMessage);
 
         }
 
@@ -83,11 +83,11 @@ namespace ChatApp.Controllers
             {
                 if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom.Value, account.Id))
                 {
-                    return Success();
+                    return Ok();
                 }
             }
 
-            return Error(chatRoom.ErrorMessage);
+            return BadRequest(chatRoom.ErrorMessage);
         }
 
         [HttpPost("{chatRoomName}")]
@@ -98,10 +98,10 @@ namespace ChatApp.Controllers
                 .CreateChatRoom(CurrentUser);
             if (chatRoom.HasValue)
             {
-                return Success(chatRoom.Value);
+                return Ok(chatRoom.Value);
             }
             
-            return Error(chatRoom.ErrorMessage);
+            return BadRequest(chatRoom.ErrorMessage);
         }
     }
 }

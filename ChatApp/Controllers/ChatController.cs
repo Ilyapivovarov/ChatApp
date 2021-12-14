@@ -34,7 +34,7 @@ namespace ChatApp.Controllers
             {
                 if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom.Value, UserId))
                 {
-                    return Success();
+                    return Ok();
                 }
             }
 
@@ -68,11 +68,11 @@ namespace ChatApp.Controllers
                     .CreateChatRoom(user.Value);
                 if (chatRoom.HasValue)
                 {
-                    return Success(chatRoom);
+                    return Ok(chatRoom);
                 }
             }
             
-            return Error(user.ErrorMessage);
+            return BadRequest(user.ErrorMessage);
         }
     }
 }

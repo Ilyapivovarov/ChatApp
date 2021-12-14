@@ -1,10 +1,12 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import authReducer from "./reducers/AuthReducer/AuthSlice"
 import {roomAPI} from "../servies/roomService";
+import {accountAPI} from "../servies/accountService";
 
 const rootReducers = combineReducers({
     authReducer,
-    [roomAPI.reducerPath]: roomAPI.reducer
+    [roomAPI.reducerPath]: roomAPI.reducer,
+    [accountAPI.reducerPath]: accountAPI.reducer
 })
 
 export const setupStore = () => {
@@ -13,6 +15,7 @@ export const setupStore = () => {
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
                 .concat(roomAPI.middleware)
+                .concat(accountAPI.middleware)
     })
 }
 

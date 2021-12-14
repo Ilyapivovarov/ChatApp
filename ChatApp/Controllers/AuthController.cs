@@ -23,7 +23,7 @@ namespace ChatApp.Controllers
             
             if (result.Value)
             {
-                return Error("User already exist");
+                return BadRequest("User already exist");
             }
 
             var signUpResult = await userRepository.SignUpAsync(signUp);
@@ -32,10 +32,10 @@ namespace ChatApp.Controllers
                 Services.Locator.GetRequiredService<IAuthService>()
                     .TryAuthUser(new SignIn {UserName = signUp.UserName, Password = signUp.Password}, out var token);
 
-                return Success(new {access_token = token});
+                return Ok(new {access_token = token});
             }
 
-            return Error(signUpResult.ErrorMessage);
+            return BadRequest(signUpResult.ErrorMessage);
         }
 
         [HttpPost]
@@ -45,10 +45,10 @@ namespace ChatApp.Controllers
             if (Services.Locator.GetRequiredService<IAuthService>()
                 .TryAuthUser(signIn, out var token))
             {
-                return Success(new {access_token = token});
+                return Ok(new {access_token = token});
             }
 
-            return Error("Not found user with this username");
+            return BadRequest("Not found user with this username");
         }
     }
 }

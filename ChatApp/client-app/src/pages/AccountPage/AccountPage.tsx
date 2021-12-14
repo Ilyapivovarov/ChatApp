@@ -1,25 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {fetchAccount} from "../../servies/accountService";
-import {Account} from "../../types/dataTypes";
-import {useAppSelector} from "../../hooks/redux";
+import React from 'react';
+import {useFetchAccountQuery} from "../../servies/accountService";
+import {useParams} from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
 
 const ProfilePage = () => {
-    const {currentUser} = useAppSelector(x => x.authReducer);
-    const [account, setAccount] = useState<Account | null>();
-    
-    useEffect(() => {
-        if (currentUser != null) {
-            fetchAccount(currentUser.id)
-                .then(r => {
-                    if (r.hasValue)
-                        setAccount(r.value);
-                })
-        }
-    }, []);
-
+    const {id} = useParams();
+    const {error, isLoading, data} = useFetchAccountQuery(0)
+    console.log("data", data)
+    console.log("error", error)
     return (
         <div>
-            <h1>Hi {account?.userName}</h1>
+            {data && <h1>Hi {data.userName}</h1>}
+            {isLoading && <Loader/>}
+            {error && <h1>{JSON.parse(JSON.stringify(error)).data}</h1>}
         </div>
     );
 };

@@ -41,13 +41,5 @@ namespace ChatApp.Controllers.Base
                 return _currentUser;
             }
         }
-
-        [NonAction]
-        protected RequestResult Success([ActionResultObjectValue] object value = null)
-            => new(new {isSuccess = true, value});
-
-        [NonAction]
-        protected RequestResult Error([ActionResultObjectValue] string errorMessage)
-            => new(new {isSuccess = false, errorMessage});
     }
 }

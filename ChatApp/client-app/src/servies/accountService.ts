@@ -1,11 +1,31 @@
-import Axios from "../common/axios";
-import {RequestResult} from "../common/RequestResult";
+import {RequestOkResult, RequestResult} from "../common/RequestResult";
 import {Account} from "../types/dataTypes";
+import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
+import {AccessTokenKey, BaseUrl} from "../common/global";
 
-export const fetchAccount = async (id: string | number) => {
-    return Axios.get<RequestResult<Account>>("/account/" + id)
-        .then(response => {
-            return response.data;
+export const accountAPI = createApi({
+    reducerPath: 'accountAPI',
+    baseQuery: fetchBaseQuery({
+        baseUrl: BaseUrl,
+        prepareHeaders: (headers) => {
+            const token = localStorage.getItem(AccessTokenKey);
+            if (token)
+                headers.set('authorization', `Bearer ${token}`)
+            return headers;
+        },
+    }),
+    endpoints: (build) => ({
+        fetchAccounts: build.query<Account[], void>({
+            query: () => ({
+                url: "account/",
+            })
+        }),
+        fetchAccount: build.query<Account, number | string>({
+            query: (id) => ({
+                url: `account/${id}`
+            })
         })
+    })
+})
 
-}
+export const {useFetchAccountQuery, useFetchAccountsQuery} = accountAPI
