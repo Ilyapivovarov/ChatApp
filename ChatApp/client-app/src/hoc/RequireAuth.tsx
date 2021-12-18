@@ -1,7 +1,5 @@
 import React from 'react';
-import {Navigate, useNavigate} from "react-router-dom";
-import {RouteTemplates} from "../router/types/Routs";
-import {useAppSelector} from "../hooks/redux";
+import {useNavigate} from "react-router-dom";
 
 interface RequireAuthProps {
     isAuth: boolean
@@ -10,7 +8,6 @@ interface RequireAuthProps {
 const RequireAuth: React.FC<RequireAuthProps> = (props) => {
     const navigate = useNavigate()
     if (!props.isAuth) {
-
         navigate("/");
     }
 
