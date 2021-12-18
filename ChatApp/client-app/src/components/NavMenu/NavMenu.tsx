@@ -75,11 +75,13 @@ const NavMenu: React.FC = () => {
                     <Nav pills>
                         <NavbarBrand tag={Link} to="/">Chat App</NavbarBrand>
                         <NavItem>
-                            <NavLink tag={Link} to={RouteTemplates.Home}>Home</NavLink>
+                            <NavLink tag={Link} to={RouteTemplates.Chats}>
+                                Chats
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/chat-room/1">
-                                Join to chat room
+                            <NavLink tag={Link} to={RouteTemplates.ChatRooms}>
+                                Chat rooms
                             </NavLink>
                         </NavItem>
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>

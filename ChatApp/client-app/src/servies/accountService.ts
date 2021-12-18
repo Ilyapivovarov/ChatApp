@@ -1,4 +1,3 @@
-import {RequestOkResult, RequestResult} from "../common/RequestResult";
 import {Account} from "../types/dataTypes";
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {AccessTokenKey, BaseUrl} from "../common/global";

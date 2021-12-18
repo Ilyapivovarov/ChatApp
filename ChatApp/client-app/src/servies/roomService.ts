@@ -15,9 +15,9 @@ export const roomAPI = createApi({
     }),
     endpoints: (build) => ({
         fetchRooms: build.query<Room[], void>({
-           query: () => ({
-               url: "room/"
-           })
+            query: () => ({
+                url: "room/"
+            })
         }),
         fetchRoom: build.query<Room, number | string>({
             query: (id) => ({
@@ -27,4 +27,4 @@ export const roomAPI = createApi({
     })
 })
 
-export const {useFetchRoomsQuery, useFetchRoomQuery} = roomAPI
+export const {useFetchRoomQuery} = roomAPI

@@ -32,3 +32,11 @@ export interface SignIn {
 }
 
 export type AuthType = SignIn | SignUp
+
+export interface Chat {
+    id: number,
+    sender: Account,
+    recipient : Account,
+    messages: Message[]
+    
+}

@@ -11,6 +11,8 @@ import RequireUnAuth from "./hoc/RequireUnAuth";
 import AccountPage from "./pages/AccountPage/AccountPage";
 import {useAppDispatch, useAppSelector} from "./hooks/redux";
 import {validateToken} from "./store/reducers/AuthReducer/AuthActionCreators";
+import ChatRoomsPage from "./pages/ChatRoomsPage/ChatRoomsPage";
+import ChatsPage from "./pages/ChatsPage/ChatsPage";
 
 import './App.css';
 
@@ -29,6 +31,8 @@ const App: React.FC = () => {
                 <Route path={RouteTemplates.SingIn} element={<RequireUnAuth isAuth={isAuth} children={<SignInPage/>}/>}/>
                 <Route path={RouteTemplates.SignOn} element={<RequireUnAuth isAuth={isAuth} children={<SignUpPage/>}/>}/>
                 <Route path={RouteTemplates.ProfilePage} element={<RequireAuth isAuth={isAuth} children={<AccountPage/>}/>}/>
+                <Route path={RouteTemplates.ChatRooms} element={<RequireAuth isAuth={isAuth} children={<ChatRoomsPage/>}/>}/>
+                <Route path={RouteTemplates.Chats} element={<RequireAuth isAuth={isAuth} children={<ChatsPage/>}/>}/>
             </Route>
         </Routes>
 
