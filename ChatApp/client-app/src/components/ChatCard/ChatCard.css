@@ -1,0 +1,21 @@
+.chat-card {
+    display: flex;
+    border: solid 1px #bebebe;
+    margin: 15px;
+    padding: 7px;
+}
+
+.chat-card-header {
+    margin: 5px;
+
+}
+
+.chat-card-body {
+    margin: 5px;
+    min-width: 200px;
+    width: 80%;
+}
+
+.chat-card-footer {
+    margin: 5px
+}

@@ -2,6 +2,8 @@ import React from 'react';
 import {Chat} from "../../types/dataTypes";
 import {useNavigate} from "react-router-dom";
 
+import "./ChatCard.css"
+
 interface ChatCardProp {
     chatName: string,
     chat: Chat
@@ -12,16 +14,22 @@ const ChatCard: React.FC<ChatCardProp> = (props) => {
     const onClickHandler = () => {
         navigate( `chat/${props.chat.id}`)
     }
+
+    const removeChatHandler = () => {
+        console.log(`remove chat with id ${props.chat.id}`)
+    }
+    
+    const lastMessage = props.chat.messages[props.chat.messages.length - 1].body;
     
     return (
-        <div className={"chat-card"} onClick={onClickHandler}>
-            <div className={"chat-card-header"}>
+        <div className={"chat-card shadow br5"}>
+            <div onClick={onClickHandler} className={"chat-card-header pd10"}>
                 {props.chatName}
             </div>
-            <div className={"chat-card-body"}>
-                {props.chat.messages}
+            <div onClick={onClickHandler} className={"chat-card-body pd10"}>
+                {lastMessage}
             </div>
-            <div className={"chat-card-footer"}>
+            <div onClick={removeChatHandler} className={"chat-card-footer pd10"} >
                 Remove chat
             </div>
         </div>
