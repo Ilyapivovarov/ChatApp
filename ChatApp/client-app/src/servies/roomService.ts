@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {AccessTokenKey, BaseUrl} from "../common/global";
-import {Room} from "../types/dataTypes";
+import {Chat, Room} from "../types/dataTypes";
 
 export const roomAPI = createApi({
     reducerPath: 'roomApi',
@@ -14,12 +14,12 @@ export const roomAPI = createApi({
         },
     }),
     endpoints: (build) => ({
-        fetchRooms: build.query<Room[], void>({
+        fetchRooms: build.query<Chat[], void>({
             query: () => ({
                 url: "room/"
             })
         }),
-        fetchRoom: build.query<Room, number | string>({
+        fetchRoom: build.query<Chat, number | string>({
             query: (id) => ({
                 url: `room/${id}`
             })
@@ -27,4 +27,4 @@ export const roomAPI = createApi({
     })
 })
 
-export const {useFetchRoomQuery} = roomAPI
+export const {useFetchRoomQuery, useFetchRoomsQuery} = roomAPI

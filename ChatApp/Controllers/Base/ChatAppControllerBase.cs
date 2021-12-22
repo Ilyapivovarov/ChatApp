@@ -4,6 +4,7 @@ using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Common.ActionResults;
+using ChatApp.Common.CustomClaims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +21,7 @@ namespace ChatApp.Controllers.Base
             get
             {
                 if (_userId == 0)
-                    _userId = int.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                    _userId = int.Parse(User.Claims.Single(c => c.Type == CustomClaimTypes.Id).Value);
                 
                 return _userId;
             }

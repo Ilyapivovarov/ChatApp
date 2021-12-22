@@ -1,54 +1,15 @@
 import React from 'react';
 import {Chat} from "../../types/dataTypes";
 import ChatCard from "../../components/ChatCard/ChatCard";
+import {useFetchRoomsQuery} from "../../servies/roomService";
+import Loader from "../../components/Loader/Loader";
 
 const ChatRoomsPage: React.FC = () => {
-    const chats: Chat[] = [{
-        id: 1,
-        messages: [{
-            author: {
-                userName: "admin",
-                id: 1,
-                exp: 123
-            },
-            body: 'body'
-        }],
-        recipient: {
-            userName: "recipient",
-            id: 1,
-            exp: 123
-        },
-        sender: {
-            userName: "sender",
-            id: 1,
-            exp: 123
-        }
-    },
-        {
-            id: 2,
-            messages: [{
-                author: {
-                    userName: "admin",
-                    id: 1,
-                    exp: 123
-                },
-                body: 'body'
-            }],
-            recipient: {
-                userName: "recipient",
-                id: 1,
-                exp: 123
-            },
-            sender: {
-                userName: "sender",
-                id: 1,
-                exp: 123
-            }
-        }
-    ]
-
+    // 2021076
+    const {isLoading, data:chats} = useFetchRoomsQuery()
     return (
         <div className={"page"}>
+            {isLoading && <Loader/>}
             {chats && chats.map(chat => <ChatCard key={chat.id} chatName={chat.recipient.userName} chat={chat}/>)}
         </div>
     );

@@ -14,7 +14,6 @@ const ChatCard: React.FC<ChatCardProp> = (props) => {
     const onClickHandler = () => {
         navigate( `chat/${props.chat.id}`)
     }
-
     const removeChatHandler = () => {
         console.log(`remove chat with id ${props.chat.id}`)
     }
