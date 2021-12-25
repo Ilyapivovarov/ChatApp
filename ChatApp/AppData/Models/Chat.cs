@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using ChatApp.AppData.Models.Base;
 
 namespace ChatApp.AppData.Models;
 
 public class Chat : DbModelBase
 {
-    public User Creator { get; set; }
+    public virtual User Creator { get; set; } = default!;
 
-    public List<User> Admins { get; set; }
+    [ForeignKey("AdminId")]
+    public virtual List<User> Admins { get; set; } = default!;
 
-    public List<Message> Messages { get; set; }
+    [ForeignKey("MessageId")]
+    public virtual List<Message> Messages { get; set; } =  default!;
     
-    public virtual List<User> Users { get; set; }
+    public virtual List<User> Members { get; set; } =  default!;
 }

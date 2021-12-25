@@ -15,9 +15,12 @@ namespace ChatApp.ChatAppServices.Logger
             return true;
         }
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception, string> formatter)
         {
-            Console.WriteLine($"{DateTime.Now} {logLevel} {formatter(state, exception)}");
+            if (exception != null) 
+                Console.WriteLine($"{DateTime.Now} {logLevel} {formatter(state, exception)}");
+            
+            Console.WriteLine($"{DateTime.Now} {logLevel} ");
         }
     }
 

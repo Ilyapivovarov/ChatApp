@@ -23,25 +23,20 @@ namespace ChatApp.Controllers
         {
             _mapper = mapper;
         }
-        
+
         [HttpGet]
         [Route("")]
         public async Task<ActionResult> GetAccounts()
         {
-            try
-            {
-                var accounts = await Services.Locator.GetRequiredService<IUserRepository>()
-                    .GetUsersAsync();
-                return Ok(_mapper.Map<UserDto[]>(accounts.Value));
-            }
-            catch (Exception e)
-            {
-                Services.Logger.LogError(e, e.Message);
-                return BadRequest(e.Message);
-            }
+            var accounts = await Services.Locator.GetRequiredService<IUserRepository>()
+                .GetUsersAsync();
+            if (accounts != null)
+                return Ok(_mapper.Map<UserDto[]>(accounts));
+
+            return BadRequest("Error");
         }
-        
-        
+
+
         [HttpGet]
         [Route("{id:int}")]
         public async Task<ActionResult> GetAccounts(int id)
@@ -50,10 +45,10 @@ namespace ChatApp.Controllers
             {
                 var queryResult = await Services.Locator.GetRequiredService<IUserRepository>()
                     .GetUserByIdAsync(id);
-                if (queryResult.HasValue)
-                    return Ok(_mapper.Map<User, UserDto>(queryResult.Value));
+                if (queryResult != null)
+                    return Ok(_mapper.Map<User, UserDto>(queryResult));
 
-                return BadRequest(queryResult.ErrorMessage);
+                return BadRequest("");
             }
             catch (Exception e)
             {

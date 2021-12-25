@@ -4,17 +4,17 @@
 
 namespace ChatApp.Migrations
 {
-    public partial class AddLazyLoading : Migration
+    public partial class init1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_ChatRooms_Users_AdminId",
-                table: "ChatRooms");
+                name: "FK_Chats_Users_CreatorId",
+                table: "Chats");
 
             migrationBuilder.AlterColumn<int>(
-                name: "AdminId",
-                table: "ChatRooms",
+                name: "CreatorId",
+                table: "Chats",
                 type: "integer",
                 nullable: false,
                 defaultValue: 0,
@@ -23,9 +23,9 @@ namespace ChatApp.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ChatRooms_Users_AdminId",
-                table: "ChatRooms",
-                column: "AdminId",
+                name: "FK_Chats_Users_CreatorId",
+                table: "Chats",
+                column: "CreatorId",
                 principalTable: "Users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -34,21 +34,21 @@ namespace ChatApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_ChatRooms_Users_AdminId",
-                table: "ChatRooms");
+                name: "FK_Chats_Users_CreatorId",
+                table: "Chats");
 
             migrationBuilder.AlterColumn<int>(
-                name: "AdminId",
-                table: "ChatRooms",
+                name: "CreatorId",
+                table: "Chats",
                 type: "integer",
                 nullable: true,
                 oldClrType: typeof(int),
                 oldType: "integer");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ChatRooms_Users_AdminId",
-                table: "ChatRooms",
-                column: "AdminId",
+                name: "FK_Chats_Users_CreatorId",
+                table: "Chats",
+                column: "CreatorId",
                 principalTable: "Users",
                 principalColumn: "Id");
         }

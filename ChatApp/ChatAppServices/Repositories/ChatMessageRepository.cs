@@ -9,13 +9,13 @@ namespace ChatApp.ChatAppServices.Repositories
 {
     public class ChatMessageRepository : RepositoryBase, IChatMessageRepository
     {
-        public async Task<bool> TrySaveMessageAsync(int id, MessageDto message)
+        public async Task<bool> TrySaveMessageAsync(MessageDto message)
         {
             return await Task.Run(() =>
             {
                 return WriteData(db =>
                     {
-                        var room = db.ChatRooms.FirstOrDefault(x => x.Id == id);
+                        var room = db.Chats.FirstOrDefault(x => x.Id == message.Id);
                         var author = db.Users.FirstOrDefault(x => x.Id == message.Author.Id);
                         if (author != null)
                         {

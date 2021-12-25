@@ -12,8 +12,8 @@ namespace ChatApp.ChatAppServices
         }
         
         public static ILogger Logger { get; }
-        
-        public static IServiceProvider Locator { get; set; }
+
+        public static IServiceProvider Locator { get; set; } = default!;
         
         public static string GetConnectionString(bool isDev)
         {

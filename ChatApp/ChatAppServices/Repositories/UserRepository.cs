@@ -5,13 +5,13 @@ using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Base;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
-using ChatApp.ChatAppServices.Repositories.Models;
+
 
 namespace ChatApp.ChatAppServices.Repositories
 {
     public sealed class AccountRepository : RepositoryBase, IUserRepository
     {
-        public async Task<QueryResult<User>> SignUpAsync(SignUpDto signUpDto)
+        public async Task<User?> SignUpAsync(SignUpDto signUpDto)
         {
             return await Task.Run(() =>
             {
@@ -20,16 +20,17 @@ namespace ChatApp.ChatAppServices.Repositories
                     var user = new User
                     {
                         UserName = signUpDto.UserName,
-                        Password = signUpDto.Password,
+                        Password = signUpDto.Password
                     };
                     db.Users.Add(user);
 
                     return user;
+                    
                 }, "Error while writing user in database");
             });
         }
 
-        public async Task<QueryResult<User>> SignInAsync(SignInDto signIn)
+        public async Task<User?> SignInAsync(SignInDto signIn)
         {
             return await Task.Run(() =>
             {
@@ -42,7 +43,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public QueryResult<User> SignInUser(SignInDto signIn)
+        public User? SignInUser(SignInDto signIn)
         {
             return LoadData(db =>
             {
@@ -52,7 +53,7 @@ namespace ChatApp.ChatAppServices.Repositories
             }, "Error while loading user from database");
         }
 
-        public async Task<QueryResult<User[]>> GetUsersAsync()
+        public async Task<User[]?> GetUsersAsync()
         {
             return await Task.Run(() =>
             {
@@ -61,13 +62,13 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public QueryResult<User> GetUserById(int userId)
+        public User? GetUserById(int userId)
         {
             return LoadData(db => db.Users.First(x => x.Id == userId),
                 $"Error while searching user with {userId}");
         }
 
-        public async Task<QueryResult<User>> GetUserByIdAsync(int userId)
+        public async Task<User?> GetUserByIdAsync(int userId)
         {
             return await Task.Run(() =>
             {
@@ -76,7 +77,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<QueryResult<bool>> IsUsernameUnused(string userName)
+        public async Task<bool> IsUsernameUnused(string? userName)
         {
             return await Task.Run(() =>
             {

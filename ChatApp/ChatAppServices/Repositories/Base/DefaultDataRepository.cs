@@ -11,22 +11,21 @@ namespace ChatApp.ChatAppServices.Repositories.Base
         {
             return WriteData(db =>
             {
-                if (!db.Users.Any() && !db.ChatRooms.Any())
+                if (!db.Users.Any() && !db.Chats.Any())
                 {
                     var defaultUser = new User
                     {
-                        Password = "admin",
-                        UserName = "admin"
+                        UserName = "admin",
+                        Password = "admin"
                     };
-
                     db.Users.Add(defaultUser);
                     
-                    var room = new Room()
+                    var chat = new Chat()
                     {
-                        Admin = defaultUser
+                        Creator = defaultUser
                     };
 
-                    db.ChatRooms.Add(room);
+                    db.Chats.Add(chat);
                 }
             }, "Error while initializing default data");
         }

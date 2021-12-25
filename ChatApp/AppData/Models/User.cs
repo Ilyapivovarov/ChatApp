@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ChatApp.AppData.Models.Base;
 
@@ -7,9 +6,9 @@ namespace ChatApp.AppData.Models
     public class User : DbModelBase
     {
         [Required]
-        public string UserName { get; set; }
-        
+        public string UserName { get; set; } = default!;
+
         [Required]
-        public string Password { get; set; }
+        public string Password { get; set; } = default!;
     }
 }

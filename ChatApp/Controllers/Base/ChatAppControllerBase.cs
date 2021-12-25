@@ -1,12 +1,9 @@
 using System.Linq;
-using System.Security.Claims;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
-using ChatApp.Common.ActionResults;
 using ChatApp.Common.CustomClaims;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatApp.Controllers.Base
@@ -14,7 +11,7 @@ namespace ChatApp.Controllers.Base
     public class ChatAppControllerBase : ControllerBase
     {
         private int _userId;
-        private User _currentUser;
+        private User? _currentUser;
         
         protected int UserId
         {
@@ -27,7 +24,7 @@ namespace ChatApp.Controllers.Base
             }
         }
 
-        protected User CurrentUser
+        protected User? CurrentUser
         {
             get
             {
@@ -35,10 +32,9 @@ namespace ChatApp.Controllers.Base
                 {
                     var queryResult = Services.Locator.GetRequiredService<IUserRepository>()
                         .GetUserById(_userId);
-                    _currentUser = queryResult.Value;
+                    _currentUser = queryResult ?? null;
                 }
                     
-
                 return _currentUser;
             }
         }
