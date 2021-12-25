@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChatApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211122121608_AddLazyLoading")]
-    partial class AddLazyLoading
+    [Migration("20211225115832_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace ChatApp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ChatApp.AppData.Models.ChatMessage", b =>
+            modelBuilder.Entity("ChatApp.AppData.Models.Chat", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,40 +32,41 @@ namespace ChatApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
+                    b.Property<int?>("CreatorId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ChatRoomId")
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("Chats");
+                });
+
+            modelBuilder.Entity("ChatApp.AppData.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    b.Property<string>("Message")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("ChatId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("ChatRoomId");
+                    b.HasIndex("ChatId");
 
-                    b.ToTable("ChatMessages");
-                });
-
-            modelBuilder.Entity("ChatApp.AppData.Models.ChatRoom", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AdminId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdminId");
-
-                    b.ToTable("ChatRooms");
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("ChatApp.AppData.Models.User", b =>
@@ -76,7 +77,10 @@ namespace ChatApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ChatRoomId")
+                    b.Property<int?>("ChatId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ChatId1")
                         .HasColumnType("integer");
 
                     b.Property<string>("Password")
@@ -89,44 +93,54 @@ namespace ChatApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChatRoomId");
+                    b.HasIndex("ChatId");
+
+                    b.HasIndex("ChatId1");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ChatApp.AppData.Models.ChatMessage", b =>
+            modelBuilder.Entity("ChatApp.AppData.Models.Chat", b =>
+                {
+                    b.HasOne("ChatApp.AppData.Models.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
+
+                    b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("ChatApp.AppData.Models.Message", b =>
                 {
                     b.HasOne("ChatApp.AppData.Models.User", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("ChatApp.AppData.Models.ChatRoom", null)
+                    b.HasOne("ChatApp.AppData.Models.Chat", null)
                         .WithMany("Messages")
-                        .HasForeignKey("ChatRoomId");
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("ChatApp.AppData.Models.ChatRoom", b =>
-                {
-                    b.HasOne("ChatApp.AppData.Models.User", "Admin")
-                        .WithMany()
-                        .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Admin");
-                });
-
             modelBuilder.Entity("ChatApp.AppData.Models.User", b =>
                 {
-                    b.HasOne("ChatApp.AppData.Models.ChatRoom", null)
+                    b.HasOne("ChatApp.AppData.Models.Chat", null)
+                        .WithMany("Admins")
+                        .HasForeignKey("ChatId");
+
+                    b.HasOne("ChatApp.AppData.Models.Chat", null)
                         .WithMany("Members")
-                        .HasForeignKey("ChatRoomId");
+                        .HasForeignKey("ChatId1");
                 });
 
-            modelBuilder.Entity("ChatApp.AppData.Models.ChatRoom", b =>
+            modelBuilder.Entity("ChatApp.AppData.Models.Chat", b =>
                 {
+                    b.Navigation("Admins");
+
                     b.Navigation("Members");
 
                     b.Navigation("Messages");

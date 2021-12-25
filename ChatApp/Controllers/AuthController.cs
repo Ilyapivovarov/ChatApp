@@ -21,21 +21,21 @@ namespace ChatApp.Controllers
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
             var result = await userRepository.IsUsernameUnused(signUpDto.UserName);
             
-            if (result.Value)
+            if (result)
             {
                 return BadRequest("User already exist");
             }
 
             var signUpResult = await userRepository.SignUpAsync(signUpDto);
-            if (signUpResult.HasValue)
+            if (signUpResult != null)
             {
                 Services.Locator.GetRequiredService<IAuthService>()
-                    .TryAuthUser(new SignInDto {UserName = signUpDto.UserName, Password = signUpDto.Password}, out var token);
+                    .TryAuthUser(new SignInDto( signUpDto.UserName, signUpDto.Password), out var token);
 
                 return Ok(new {access_token = token});
             }
 
-            return BadRequest(signUpResult.ErrorMessage);
+            return BadRequest("Error auth user ");
         }
 
         [HttpPost]

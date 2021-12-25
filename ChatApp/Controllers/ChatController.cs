@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
+using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Controllers.Base;
@@ -13,66 +14,35 @@ namespace ChatApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ChatController : ChatAppControllerBase
     {
-        private readonly IHubContext<ChatHub, IChatClient> _chatHub;
-
-        public ChatController(IHubContext<ChatHub, IChatClient> chatHub)
+        [HttpGet]
+        public async Task<ActionResult> GetChats()
         {
-            _chatHub = chatHub;
-        }
+            var chats = await Services.Locator.GetRequiredService<IChatRepository>()
+                .GetRoomsThatHasUser(UserId);
 
-        [HttpGet("{chatRoomId:int}")]
-        [Authorize]
-        [Route("join-to-room/{chatRoomId:int}")]
-        public async Task<ActionResult> JoinUserToChatRoom(int chatRoomId)
-        {
-            var chatRoomRepository = Services.Locator.GetRequiredService<IChatRoomRepository>();
-            var chatRoom = await chatRoomRepository.GetChatRoomById(chatRoomId);
-
-            if (chatRoom.HasValue)
+            if (chats != null)
             {
-                if (await chatRoomRepository.TryAddUserInRoomAsync(chatRoom.Value, UserId))
-                {
-                    return Ok();
-                }
+                return Ok(chats);
             }
 
-            return BadRequest(chatRoom.ErrorMessage);
-        } 
-
-        [HttpPost]
-        [Route("send-message/{roomId:int}")]
-        [Authorize]
-        public async Task<ActionResult> SendMessage(int roomId, [FromBody]MessageDto message)
-        {
-            await _chatHub.Clients.Group(roomId.ToString())
-                .ReceiveMessage(message);
-
-            await Services.Locator.GetRequiredService<IChatMessageRepository>()
-                .TrySaveMessageAsync(roomId, message);
-            
-            return Ok();
+            return BadRequest("");
         }
-
-        [HttpPost("{chatRoomName}")]
-        [Route("create-chat-room/{chatRoomName}")]
-        [Authorize]
-        public async Task<ActionResult> CreateChatRoom(string chatRoomName)
+        
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult> GetChat(int id)
         {
-            var user = await Services.Locator.GetRequiredService<IUserRepository>()
-                .GetUserByIdAsync(UserId);
-            if (user.HasValue)
+            var chats = await Services.Locator.GetRequiredService<IChatRepository>()
+                .GetRoomsThatHasUser(UserId);
+
+            if (chats != null)
             {
-                var chatRoom = await Services.Locator.GetRequiredService<IChatRoomRepository>()
-                    .CreateChatRoom(user.Value);
-                if (chatRoom.HasValue)
-                {
-                    return Ok(chatRoom);
-                }
+                return Ok(chats);
             }
-            
-            return BadRequest(user.ErrorMessage);
+
+            return BadRequest("");
         }
     }
 }

@@ -42,7 +42,7 @@ namespace ChatApp.Extensions
         {
             service.AddTransient<IUserRepository, AccountRepository>();
             service.AddTransient<IChatMessageRepository, ChatMessageRepository>();
-            service.AddTransient<IChatRoomRepository, ChatRoomRepository>();
+            service.AddTransient<IChatRepository, ChatRoomRepository>();
             service.AddTransient<IDefaultDataRepository, DefaultDataRepository>();
         }
         
