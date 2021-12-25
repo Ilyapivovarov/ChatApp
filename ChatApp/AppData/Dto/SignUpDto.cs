@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ChatApp.AppData.Dto
 {
-    public record SignUp
+    public record SignUpDto
     {
         [Required]
         public string UserName { get; set; }

@@ -9,7 +9,7 @@ namespace ChatApp.ChatAppServices.Repositories
 {
     public class ChatRoomRepository : RepositoryBase, IChatRoomRepository
     {
-        public async Task<QueryResult<ChatRoom>> GetChatRoomById(int id)
+        public async Task<QueryResult<Room>> GetChatRoomById(int id)
         {
             return await Task.Run(() =>
             {
@@ -22,7 +22,7 @@ namespace ChatApp.ChatAppServices.Repositories
         {
             return await Task.Run(() =>
             {
-                var chatRoom = new ChatRoom()
+                var chatRoom = new Room()
                 {
                     Admin = creator
                 };
@@ -32,13 +32,13 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<QueryResult<ChatRoom>> CreateChatRoom(User creator)
+        public async Task<QueryResult<Room>> CreateChatRoom(User creator)
         {
             return await Task.Run(() =>
             {
                 return WriteAndReturnData(db =>
                 {
-                    var chatRoom = new ChatRoom
+                    var chatRoom = new Room
                     {
                         Admin = creator
                     };
@@ -50,7 +50,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<bool> TryAddUserInRoomAsync(ChatRoom chatRoom, int userId)
+        public async Task<bool> TryAddUserInRoomAsync(Room chatRoom, int userId)
         {
             return await Task.Run(() =>
             {
@@ -67,7 +67,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<QueryResult<ChatRoom[]>> GetRoomsThatHasUser(int userId)
+        public async Task<QueryResult<Room[]>> GetRoomsThatHasUser(int userId)
         {
             return await Task.Run(() =>
             {

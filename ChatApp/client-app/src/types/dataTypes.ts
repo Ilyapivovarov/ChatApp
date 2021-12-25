@@ -38,5 +38,4 @@ export interface Chat {
     sender: Account,
     recipient : Account,
     messages: Message[]
-    
 }

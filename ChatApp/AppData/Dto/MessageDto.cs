@@ -1,10 +1,10 @@
 namespace ChatApp.AppData.Dto
 {
-    public record Message
+    public record MessageDto
     {
         public int Id { get; set; }
         
-        public Account Author { get; set; }
+        public UserDto Author { get; set; }
         
         public string Body { get; set; }
     }

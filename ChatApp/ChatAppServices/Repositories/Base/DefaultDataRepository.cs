@@ -21,7 +21,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
 
                     db.Users.Add(defaultUser);
                     
-                    var room = new ChatRoom()
+                    var room = new Room()
                     {
                         Admin = defaultUser
                     };

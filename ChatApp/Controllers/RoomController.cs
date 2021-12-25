@@ -34,7 +34,7 @@ namespace ChatApp.Controllers
             if (rooms.HasValue)
             {
                 var roomsDto = Services.Locator.GetRequiredService<IMapperService>()
-                    .Map<ChatRoom[], Room[]>(rooms.Value);
+                    .Map<Room[], RoomDto[]>(rooms.Value);
 
                 return Ok(roomsDto);
             }
@@ -51,7 +51,7 @@ namespace ChatApp.Controllers
             if (result.HasValue)
             {
                 var room = Services.Locator.GetRequiredService<IMapperService>()
-                    .Map<ChatRoom, Room>(result.Value);
+                    .Map<Room, RoomDto>(result.Value);
                 return Ok(room);
             }
             
@@ -61,7 +61,7 @@ namespace ChatApp.Controllers
 
         [HttpPost]
         [Route("send-message/{id:int}")]
-        public async Task<ActionResult> SendMessage(int id, [FromBody] Message message)
+        public async Task<ActionResult> SendMessage(int id, [FromBody] MessageDto message)
         {
             await _chatHub.Clients.All
                 .ReceiveMessage(message);
@@ -74,7 +74,7 @@ namespace ChatApp.Controllers
 
         [HttpPost]
         [Route("join-to-room/{chatRoomId:int}")]
-        public async Task<ActionResult> JoinUserToChatRoom(int chatRoomId, [FromBody] Account account)
+        public async Task<ActionResult> JoinUserToChatRoom(int chatRoomId, [FromBody] UserDto account)
         {
             var chatRoomRepository = Services.Locator.GetRequiredService<IChatRoomRepository>();
             var chatRoom = await chatRoomRepository.GetChatRoomById(chatRoomId);

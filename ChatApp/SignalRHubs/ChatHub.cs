@@ -9,13 +9,13 @@ namespace ChatApp.SignalRHubs
 {
     public interface IChatClient
     {
-        Task ReceiveMessage(Message message);
+        Task ReceiveMessage(MessageDto message);
     }
 
     
     public class ChatHub : Hub<IChatClient>
     {
-        public async Task Send(Message message)
+        public async Task Send(MessageDto message)
         {
             await Clients.All.ReceiveMessage(message);
         }

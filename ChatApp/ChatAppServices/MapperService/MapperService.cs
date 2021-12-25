@@ -14,17 +14,17 @@ namespace ChatApp.ChatAppServices.MapperService
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<User, Account>();
-                cfg.CreateMap<ChatRoom, Room>()
-                    .ForMember(dest => dest.Admin,
+                cfg.CreateMap<User, UserDto>();
+                cfg.CreateMap<Chat, RoomDto>()
+                    .ForMember(dest => dest.AdAdminmin,
                         opt => opt.MapFrom(src => src.Admin))
                     .ForMember(dest => dest.Members,
                         opt => opt.MapFrom(src => src.Members))
                     .ForMember(dst => dst.Messages,
                         opt => opt.MapFrom(src => src.Messages));
-                cfg.CreateMap<ChatMessage, Message>()
+                cfg.CreateMap<Message, MessageDto>()
                     .ForMember(dest => dest.Body,
-                        opt => opt.MapFrom(src => src.Message));
+                        opt => opt.MapFrom(src => src.Body));
             });
             _mapper = new Mapper(config);
         }

@@ -11,7 +11,7 @@ namespace ChatApp.ChatAppServices.Repositories
 {
     public sealed class AccountRepository : RepositoryBase, IUserRepository
     {
-        public async Task<QueryResult<User>> SignUpAsync(SignUp signUp)
+        public async Task<QueryResult<User>> SignUpAsync(SignUpDto signUpDto)
         {
             return await Task.Run(() =>
             {
@@ -19,8 +19,8 @@ namespace ChatApp.ChatAppServices.Repositories
                 {
                     var user = new User
                     {
-                        UserName = signUp.UserName,
-                        Password = signUp.Password,
+                        UserName = signUpDto.UserName,
+                        Password = signUpDto.Password,
                     };
                     db.Users.Add(user);
 
@@ -29,7 +29,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<QueryResult<User>> SignInAsync(SignIn signIn)
+        public async Task<QueryResult<User>> SignInAsync(SignInDto signIn)
         {
             return await Task.Run(() =>
             {
@@ -42,7 +42,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public QueryResult<User> SignInUser(SignIn signIn)
+        public QueryResult<User> SignInUser(SignInDto signIn)
         {
             return LoadData(db =>
             {

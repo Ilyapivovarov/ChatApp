@@ -9,7 +9,7 @@ namespace ChatApp.ChatAppServices.Repositories
 {
     public class ChatMessageRepository : RepositoryBase, IChatMessageRepository
     {
-        public async Task<bool> TrySaveMessageAsync(int id, Message message)
+        public async Task<bool> TrySaveMessageAsync(int id, MessageDto message)
         {
             return await Task.Run(() =>
             {
@@ -19,9 +19,9 @@ namespace ChatApp.ChatAppServices.Repositories
                         var author = db.Users.FirstOrDefault(x => x.Id == message.Author.Id);
                         if (author != null)
                         {
-                            var chatMessage = new ChatMessage
+                            var chatMessage = new Message
                             {
-                                Message = message.Body,
+                                Body = message.Body,
                                 Author = author
                             };
 

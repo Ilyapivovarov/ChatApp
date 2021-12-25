@@ -5,6 +5,6 @@ namespace ChatApp.ChatAppServices.AuthService
 {
     public interface IAuthService
     {
-        public bool TryAuthUser(SignIn signIn, out string token);
+        public bool TryAuthUser(SignInDto signIn, out string token);
     }
 }

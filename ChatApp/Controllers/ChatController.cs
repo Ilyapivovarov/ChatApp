@@ -44,7 +44,7 @@ namespace ChatApp.Controllers
         [HttpPost]
         [Route("send-message/{roomId:int}")]
         [Authorize]
-        public async Task<ActionResult> SendMessage(int roomId, [FromBody]Message message)
+        public async Task<ActionResult> SendMessage(int roomId, [FromBody]MessageDto message)
         {
             await _chatHub.Clients.Group(roomId.ToString())
                 .ReceiveMessage(message);

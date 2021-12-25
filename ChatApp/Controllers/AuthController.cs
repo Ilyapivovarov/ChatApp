@@ -16,21 +16,21 @@ namespace ChatApp.Controllers
     {
         [HttpPost]
         [Route("sign-up")]
-        public async Task<ActionResult> SignUpUser([FromBody] SignUp signUp)
+        public async Task<ActionResult> SignUpUser([FromBody] SignUpDto signUpDto)
         {
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
-            var result = await userRepository.IsUsernameUnused(signUp.UserName);
+            var result = await userRepository.IsUsernameUnused(signUpDto.UserName);
             
             if (result.Value)
             {
                 return BadRequest("User already exist");
             }
 
-            var signUpResult = await userRepository.SignUpAsync(signUp);
+            var signUpResult = await userRepository.SignUpAsync(signUpDto);
             if (signUpResult.HasValue)
             {
                 Services.Locator.GetRequiredService<IAuthService>()
-                    .TryAuthUser(new SignIn {UserName = signUp.UserName, Password = signUp.Password}, out var token);
+                    .TryAuthUser(new SignInDto {UserName = signUpDto.UserName, Password = signUpDto.Password}, out var token);
 
                 return Ok(new {access_token = token});
             }
@@ -40,7 +40,7 @@ namespace ChatApp.Controllers
 
         [HttpPost]
         [Route("sign-in")]
-        public ActionResult SignInUser([FromBody] SignIn signIn)
+        public ActionResult SignInUser([FromBody] SignInDto signIn)
         {
             if (Services.Locator.GetRequiredService<IAuthService>()
                 .TryAuthUser(signIn, out var token))

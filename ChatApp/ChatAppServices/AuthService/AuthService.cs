@@ -16,7 +16,7 @@ namespace ChatApp.ChatAppServices.AuthService
 {
     public class AuthService : IAuthService
     {
-        public bool TryAuthUser(SignIn signIn, out string token)
+        public bool TryAuthUser(SignInDto signIn, out string token)
         {
             var queryResult = Services.Locator.GetRequiredService<IUserRepository>()
                 .SignInUser(signIn);

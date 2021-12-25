@@ -32,7 +32,7 @@ namespace ChatApp.Controllers
             {
                 var accounts = await Services.Locator.GetRequiredService<IUserRepository>()
                     .GetUsersAsync();
-                return Ok(_mapper.Map<Account[]>(accounts.Value));
+                return Ok(_mapper.Map<UserDto[]>(accounts.Value));
             }
             catch (Exception e)
             {
@@ -51,7 +51,7 @@ namespace ChatApp.Controllers
                 var queryResult = await Services.Locator.GetRequiredService<IUserRepository>()
                     .GetUserByIdAsync(id);
                 if (queryResult.HasValue)
-                    return Ok(_mapper.Map<User, Account>(queryResult.Value));
+                    return Ok(_mapper.Map<User, UserDto>(queryResult.Value));
 
                 return BadRequest(queryResult.ErrorMessage);
             }

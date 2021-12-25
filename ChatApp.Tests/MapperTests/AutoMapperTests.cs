@@ -24,7 +24,7 @@ namespace ChatApp.Tests.MapperTests
                 UserName = "admin"
             };
 
-            var account = Services.GetRequiredService<IMapperService>().Map<User, Account>(user);
+            var account = Services.GetRequiredService<IMapperService>().Map<User, UserDto>(user);
 
             Assert.True(account.Id == user.Id && account.UserName == user.UserName);
         }
@@ -38,7 +38,7 @@ namespace ChatApp.Tests.MapperTests
                 Password = "admin",
                 UserName = "admin"
             };
-            var chatRoom = new ChatRoom
+            var chatRoom = new Room
             {
                 Admin = admin,
                 Members = new List<User>
@@ -62,18 +62,18 @@ namespace ChatApp.Tests.MapperTests
                         UserName = "guest2"
                     },
                 },
-                Messages = new List<ChatMessage>
+                Messages = new List<Message>
                 {
-                    new ChatMessage
+                    new Message
                     {
                         Id = 1,
-                        Message = "message",
+                        Body = "message",
                         Author = admin
                     }
                 }
             };
 
-            var room = Services.GetRequiredService<IMapperService>().Map<ChatRoom, Room>(chatRoom);
+            var room = Services.GetRequiredService<IMapperService>().Map<Room, RoomDto>(chatRoom);
             
             Assert.True(room.Admin.UserName == chatRoom.Admin.UserName);
         }

@@ -7,11 +7,11 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        public Task<QueryResult<User>> SignUpAsync(SignUp signOn);
+        public Task<QueryResult<User>> SignUpAsync(SignUpDto signOn);
         
-        public Task<QueryResult<User>> SignInAsync(SignIn signIn);
+        public Task<QueryResult<User>> SignInAsync(SignInDto signIn);
         
-        public QueryResult<User> SignInUser(SignIn signIn);
+        public QueryResult<User> SignInUser(SignInDto signIn);
 
         public Task<QueryResult<User[]>> GetUsersAsync();
 
