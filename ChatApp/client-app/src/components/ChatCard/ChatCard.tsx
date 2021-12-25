@@ -4,7 +4,6 @@ import {Chat} from "../../common/types";
 
 import "./ChatCard.css"
 
-
 interface ChatCardProp {
     chatName: string,
     chat: Chat
@@ -19,15 +18,13 @@ const ChatCard: React.FC<ChatCardProp> = (props) => {
         console.log(`remove chat with id ${props.chat.id}`)
     }
     
-    const lastMessage = props.chat.messages[props.chat.messages.length - 1].body;
-    
     return (
         <div className={"chat-card shadow br5"}>
             <div onClick={onClickHandler} className={"chat-card-header pd10"}>
                 {props.chatName}
             </div>
             <div onClick={onClickHandler} className={"chat-card-body pd10"}>
-                {lastMessage}
+                Last message
             </div>
             <div onClick={removeChatHandler} className={"chat-card-footer pd10"} >
                 Remove chat

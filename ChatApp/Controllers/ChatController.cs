@@ -26,7 +26,7 @@ namespace ChatApp.Controllers
             var chats = await Services.Locator.GetRequiredService<IChatRepository>()
                 .GetChatsThatHasUser(CurrentUser);
 
-            if (chats != null)
+            if (chats == null)
                 return BadRequest("");
             
             return Ok(chats);

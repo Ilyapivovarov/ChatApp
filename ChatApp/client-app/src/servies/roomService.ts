@@ -16,12 +16,12 @@ export const roomAPI = createApi({
     endpoints: (build) => ({
         fetchRooms: build.query<Chat[], void>({
             query: () => ({
-                url: "room/"
+                url: "chat/"
             })
         }),
         fetchRoom: build.query<Chat, number | string>({
             query: (id) => ({
-                url: `room/${id}`
+                url: `chat/${id}`
             })
         })
     })

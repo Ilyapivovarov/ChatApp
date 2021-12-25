@@ -31,7 +31,7 @@ namespace ChatApp.Controllers.Base
                 if (_currentUser == null)
                 {
                     var queryResult = Services.Locator.GetRequiredService<IUserRepository>()
-                        .GetUserById(_userId);
+                        .GetUserById(UserId);
                     _currentUser = queryResult ?? null;
                 }
                     

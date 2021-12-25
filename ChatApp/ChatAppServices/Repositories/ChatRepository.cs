@@ -72,7 +72,8 @@ namespace ChatApp.ChatAppServices.Repositories
                 return LoadData(db =>
                 {
                     var query = db.Chats.Where(chat => chat.Members
-                        .Contains(user));
+                        .Contains(user) || chat.Admins.Contains(user)
+                        || chat.Creator == user);
 
                     if (chatId != 0)
                         query = query.Where(x => x.Id == chatId);

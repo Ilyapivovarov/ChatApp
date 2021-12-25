@@ -33,7 +33,7 @@ namespace ChatApp
                 builder.UseNpgsql(Services.GetConnectionString(_env.IsDevelopment()));
                 builder.UseLazyLoadingProxies();
             });
-
+            
             services.AddSignalR();
             services.AddControllersWithViews();
 
@@ -57,7 +57,6 @@ namespace ChatApp
             }
             else
             {
-                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
@@ -72,7 +71,7 @@ namespace ChatApp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<ChatHub>("hub/chat");
                 endpoints.MapControllers();
             });
 

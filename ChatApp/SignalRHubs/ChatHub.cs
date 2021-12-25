@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
-using ChatApp.AppData.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace ChatApp.SignalRHubs
@@ -11,7 +9,6 @@ namespace ChatApp.SignalRHubs
     {
         Task ReceiveMessage(MessageDto message);
     }
-
     
     public class ChatHub : Hub<IChatClient>
     {

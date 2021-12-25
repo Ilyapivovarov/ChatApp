@@ -4,6 +4,7 @@ using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Controllers.Base;
 using ChatApp.SignalRHubs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ namespace ChatApp.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class MessageController : ChatAppControllerBase
 {
     private readonly IHubContext<ChatHub, IChatClient> _chatHub;
