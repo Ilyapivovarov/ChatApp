@@ -6,13 +6,14 @@ namespace ChatApp.AppData.Models;
 
 public class Chat : DbModelBase
 {
-    public virtual User Creator { get; set; } = default!;
-
-    [ForeignKey("AdminId")]
-    public virtual List<User> Admins { get; set; } = default!;
-
-    [ForeignKey("MessageId")]
-    public virtual List<Message> Messages { get; set; } =  default!;
+    [ForeignKey("CreatorId")]
+    public virtual User Creator { get; set; }
     
-    public virtual List<User> Members { get; set; } =  default!;
+    [ForeignKey("AdminId")]
+    public virtual List<User> Admins { get; set; }
+    
+    public virtual List<Message> Messages { get; set; }
+    
+    [ForeignKey("MemberId")]
+    public virtual List<User> Members { get; set; }
 }

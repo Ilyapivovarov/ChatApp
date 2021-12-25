@@ -10,11 +10,11 @@ namespace ChatApp.AppData
         {
             Database.Migrate();
         }
-
-        public DbSet<Message> Messages { get; set; } = default!;
-
-        public DbSet<Chat> Chats { get; set; } = default!;
         
-        public DbSet<User> Users { get; set; }= default!;
+        public DbSet<Message> Messages { get; set; } 
+
+        public DbSet<Chat> Chats { get; set; }
+        
+        public DbSet<User> Users { get; set; }
     }
 }

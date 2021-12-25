@@ -4,10 +4,10 @@ namespace ChatApp.AppData.Models
 {
     public class Message : DbModelBase
     {
-        public string Body { get; set; } = default!;
+        public string Body { get; set; } 
 
-        public virtual User Author { get; set; } = default!;
+        public virtual User Author { get; set; }
 
-        public int ChatId { get; set; } = default!;
+        public int ChatId { get; set; } 
     }
 }

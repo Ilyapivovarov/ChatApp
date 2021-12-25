@@ -22,8 +22,10 @@ namespace ChatApp.ChatAppServices.Repositories.Base
                     
                     var chat = new Chat()
                     {
-                        Creator = defaultUser
+                        Creator = defaultUser,
                     };
+
+                    chat.Admins.Add(defaultUser);
 
                     db.Chats.Add(chat);
                 }

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChatApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211225121326_init1")]
+    [Migration("20211225160729_init1")]
     partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,10 +77,10 @@ namespace ChatApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ChatId")
+                    b.Property<int?>("AdminId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ChatId1")
+                    b.Property<int?>("MemberId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Password")
@@ -93,9 +93,9 @@ namespace ChatApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChatId");
+                    b.HasIndex("AdminId");
 
-                    b.HasIndex("ChatId1");
+                    b.HasIndex("MemberId");
 
                     b.ToTable("Users");
                 });
@@ -132,11 +132,11 @@ namespace ChatApp.Migrations
                 {
                     b.HasOne("ChatApp.AppData.Models.Chat", null)
                         .WithMany("Admins")
-                        .HasForeignKey("ChatId");
+                        .HasForeignKey("AdminId");
 
                     b.HasOne("ChatApp.AppData.Models.Chat", null)
                         .WithMany("Members")
-                        .HasForeignKey("ChatId1");
+                        .HasForeignKey("MemberId");
                 });
 
             modelBuilder.Entity("ChatApp.AppData.Models.Chat", b =>
