@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Message, Room} from "../../types/dataTypes";
 import MessageView from "../MessageView/MessageView";
 import * as signalR from "@microsoft/signalr";
 import InputMessage from "../InputMessage/InputMessage";
 
 import "./RoomView.css"
+import {Chat, Message} from "../../common/types";
 
 
 const hubConnection = new signalR.HubConnectionBuilder()
@@ -14,12 +14,12 @@ const hubConnection = new signalR.HubConnectionBuilder()
 hubConnection.start();
 
 interface RoomViewProps {
-    room: Room
+    chat: Chat
 }
 
 const RoomView: React.FC<RoomViewProps> = (props) => {
-    
-    const [messages, setMessages] = useState<Message[]>(props.room.messages);
+
+    const [messages, setMessages] = useState<Message[]>(props.chat.messages);
     useEffect(() => {
         hubConnection.on("receiveMessage", (message: Message) => {
             return setMessages(x => [...x, message])
@@ -36,4 +36,4 @@ const RoomView: React.FC<RoomViewProps> = (props) => {
 
 };
 
-export default RoomView;
+export {RoomView};

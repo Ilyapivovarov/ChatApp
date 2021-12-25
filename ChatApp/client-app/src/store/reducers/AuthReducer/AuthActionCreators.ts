@@ -1,8 +1,8 @@
 import Axios from "../../../common/axios";
-import {Account, JwtToken, SignIn, SignUp} from "../../../types/dataTypes";
 import jwtDecode from "jwt-decode";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {AccessTokenKey} from "../../../common/global";
+import {JwtTokenDecode, JwtTokenResponse, SignIn, SignUp, User} from "../../../common/types";
 
 export const resetAuthState = createAsyncThunk(
     'authSlice/reset-auth-state',
@@ -13,10 +13,10 @@ export const resetAuthState = createAsyncThunk(
 export const signIn = createAsyncThunk(
     'authSlice/sing-in',
     async (authModel: SignIn, thunkAPI) => {
-        const response = await Axios.post<JwtToken>("auth/sign-in", authModel)
+        const response = await Axios.post<JwtTokenResponse>("auth/sign-in", authModel)
         if (response.status == 200) {
             if (response.data) {
-                const account = jwtDecode<Account>(response.data.access_token)
+                const account = jwtDecode<JwtTokenDecode>(response.data.access_token)
                 if (account) {
                     localStorage.setItem(AccessTokenKey, response.data.access_token)
                     return account;
@@ -31,9 +31,9 @@ export const signIn = createAsyncThunk(
 export const signUp = createAsyncThunk(
     'authSlice/sign-up',
     async (authModel: SignUp, thunkAPI) => {
-        const response = await Axios.post<JwtToken>("auth/sign-up", authModel)
+        const response = await Axios.post<JwtTokenResponse>("auth/sign-up", authModel)
         if (response.status == 200) {
-            const account = jwtDecode<Account>(response.data.access_token)
+            const account = jwtDecode<JwtTokenDecode>(response.data.access_token)
             if (account) {
                 localStorage.setItem(AccessTokenKey, response.data.access_token)
                 return account;
@@ -50,12 +50,12 @@ export const validateToken = createAsyncThunk(
         try {
             const token = localStorage.getItem(AccessTokenKey);
             if (token) {
-                const account = jwtDecode<Account>(token);
+                const account = jwtDecode<JwtTokenDecode>(token);
                 if (account && IsTokenExpValid(account.exp)) {
                     return account;
                 }
             }
-            return thunkAPI.rejectWithValue("New auth again");
+            return thunkAPI.rejectWithValue("Update auth");
         } catch {
             return thunkAPI.rejectWithValue("Unknown error while validate token");
         }

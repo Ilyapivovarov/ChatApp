@@ -1,8 +1,9 @@
 import React from 'react';
-import {Chat} from "../../types/dataTypes";
 import {useNavigate} from "react-router-dom";
+import {Chat} from "../../common/types";
 
 import "./ChatCard.css"
+
 
 interface ChatCardProp {
     chatName: string,

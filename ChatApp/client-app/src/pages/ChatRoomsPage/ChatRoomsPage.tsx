@@ -10,7 +10,8 @@ const ChatRoomsPage: React.FC = () => {
     return (
         <div className={"page"}>
             {isLoading && <Loader/>}
-            {chats && chats.length > 0 && chats.map(chat => <ChatCard key={chat.id} chatName={chat.recipient.userName} chat={chat}/>)}
+            {chats && chats.length > 0 && 
+                chats.map(chat => <ChatCard key={chat.id} chatName={"afsfas"} chat={chat}/>)}
         </div>
     );
 };

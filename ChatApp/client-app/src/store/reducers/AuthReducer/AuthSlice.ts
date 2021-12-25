@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AuthState} from "./AuthTypes";
-import {Account} from "../../../types/dataTypes";
 import {resetAuthState, signIn, signOut, signUp, validateToken} from "./AuthActionCreators";
+import {User} from "../../../common/types";
 
 const initialState: AuthState = {
     currentUser: null,
@@ -13,7 +13,7 @@ export const authSlice = createSlice({
     name: "authSlice",
     initialState,
     reducers: {
-        authSuccess(state, action: PayloadAction<Account>) {
+        authSuccess(state, action: PayloadAction<User>) {
             state.isAuth = true;
             state.currentUser = action.payload
         },
@@ -28,7 +28,7 @@ export const authSlice = createSlice({
             state.isAuth = false;
             state.currentUser = null
         },
-        [signIn.fulfilled.type](state, action: PayloadAction<Account>) {
+        [signIn.fulfilled.type](state, action: PayloadAction<User>) {
             state.isAuth = true;
             state.currentUser = action.payload
             state.error = null;
@@ -38,7 +38,7 @@ export const authSlice = createSlice({
             state.isAuth = false;
             state.error = action.payload;
         },
-        [signUp.fulfilled.type](state, action: PayloadAction<Account>) {
+        [signUp.fulfilled.type](state, action: PayloadAction<User>) {
             state.isAuth = true;
             state.currentUser = action.payload;
             state.error = null;
@@ -48,7 +48,7 @@ export const authSlice = createSlice({
             state.currentUser = null;
             state.error = action.payload;
         },
-        [validateToken.fulfilled.type](state, action: PayloadAction<Account>) {
+        [validateToken.fulfilled.type](state, action: PayloadAction<User>) {
             state.currentUser = action.payload;
             state.isAuth = true;
             state.error = null;

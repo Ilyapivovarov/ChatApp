@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {AccessTokenKey, BaseUrl} from "../common/global";
-import {Chat, Room} from "../types/dataTypes";
+import {Chat} from "../common/types";
 
 export const roomAPI = createApi({
     reducerPath: 'roomApi',

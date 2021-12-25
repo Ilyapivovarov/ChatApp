@@ -2,12 +2,10 @@ import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Form, FormGroup, Input} from "reactstrap";
 import {useParams} from "react-router-dom";
 import Axios from "../../common/axios";
-import {Message} from "../../types/dataTypes";
 import {useAppSelector} from "../../hooks/redux";
+import {Message} from "../../common/types";
 
 import "./InputMessage.css"
-
-
 
 const InputMessage: React.FC = () => {
     const {currentUser} = useAppSelector(x => x.authReducer)
@@ -30,7 +28,8 @@ const InputMessage: React.FC = () => {
         }
 
         if (currentUser != null && body.length > 0) {
-            sendMessage({author: currentUser, body: body});
+            // TODO ДОДЕЛАТЬ
+            sendMessage({author: currentUser, body: body, chatId: 1});
 
             setBody("");
         }

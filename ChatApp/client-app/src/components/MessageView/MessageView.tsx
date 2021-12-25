@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {Message} from "../../types/dataTypes";
 import {useAppSelector} from "../../hooks/redux";
 
 import "./MessageView.css"
+import {Message} from "../../common/types";
 
 interface DialogProps {
     messages: Message[]
@@ -43,10 +43,21 @@ const MessageView: React.FC<DialogProps> = (props: DialogProps) => {
                 {
                     props.messages.map((item, i) => {
                         if (item.author.id == currentUser?.id) {
-                            return <MyMessage author={item.author} body={item.body} id={item.id} key={i}/>
+                            return <MyMessage 
+                                chatId={item.chatId} 
+                                author={item.author}
+                                body={item.body} 
+                                id={item.id} key={i}
+                            />
 
                         } else
-                            return <InputMessage author={item.author} body={item.body} id={item.id} key={i}/>
+                            return <InputMessage 
+                                chatId={item.chatId} 
+                                author={item.author} 
+                                body={item.body} 
+                                id={item.id} 
+                                key={i}
+                            />
 
                     })
                 }

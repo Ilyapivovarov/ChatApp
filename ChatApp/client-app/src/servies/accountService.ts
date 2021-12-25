@@ -1,6 +1,6 @@
-import {Account} from "../types/dataTypes";
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {AccessTokenKey, BaseUrl} from "../common/global";
+import {User} from "../common/types";
 
 export const accountAPI = createApi({
     reducerPath: 'accountAPI',
@@ -14,12 +14,12 @@ export const accountAPI = createApi({
         },
     }),
     endpoints: (build) => ({
-        fetchAccounts: build.query<Account[], void>({
+        fetchAccounts: build.query<User[], void>({
             query: () => ({
                 url: "account/",
             })
         }),
-        fetchAccount: build.query<Account, number | string>({
+        fetchAccount: build.query<User, number | string>({
             query: (id) => ({
                 url: `account/${id}`
             })

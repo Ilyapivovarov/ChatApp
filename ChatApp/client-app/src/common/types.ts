@@ -1,22 +1,29 @@
-export interface Account {
+export interface JwtTokenDecode {
     id: number,
     userName: string,
     exp: number
 }
 
-export interface Message {
-    id?: number
-    author: Account
-    body: string,
+export interface User {
+    id: number,
+    userName: string
 }
 
-export interface Room {
-    admin: Account,
-    members: Account[],
+export interface Message {
+    id?: number | null,
+    author: User
+    body: string,
+    chatId: number
+}
+
+export interface Chat {
+    id: number
+    admins: User[],
+    members: User[],
     messages: Message[]
 }
 
-export interface JwtToken {
+export interface JwtTokenResponse {
     access_token: string
 }
 
@@ -29,13 +36,4 @@ export interface SignUp {
 export interface SignIn {
     userName: string,
     password: string,
-}
-
-export type AuthType = SignIn | SignUp
-
-export interface Chat {
-    id: number,
-    sender: Account,
-    recipient : Account,
-    messages: Message[]
 }

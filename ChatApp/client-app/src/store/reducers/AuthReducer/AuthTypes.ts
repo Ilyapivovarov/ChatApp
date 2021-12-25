@@ -1,7 +1,7 @@
-import {Account} from "../../../types/dataTypes";
+import {User} from "../../../common/types";
 
 export interface AuthState {
-    currentUser: Account | null ,
+    currentUser: User | null ,
     isAuth: boolean,
     error: string | null
 }
