@@ -12,37 +12,39 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatApp.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class ChatController : ChatAppControllerBase
     {
         [HttpGet]
         public async Task<ActionResult> GetChats()
         {
+            if (CurrentUser == null)
+                return BadRequest("");
+            
             var chats = await Services.Locator.GetRequiredService<IChatRepository>()
-                .GetRoomsThatHasUser(UserId);
+                .GetChatsThatHasUser(CurrentUser);
 
             if (chats != null)
-            {
-                return Ok(chats);
-            }
-
-            return BadRequest("");
+                return BadRequest("");
+            
+            return Ok(chats);
         }
-        
+
         [HttpGet("{id:int}")]
         public async Task<ActionResult> GetChat(int id)
         {
+            if (CurrentUser == null)
+                return BadRequest("");
+
             var chats = await Services.Locator.GetRequiredService<IChatRepository>()
-                .GetRoomsThatHasUser(UserId);
+                .GetChatsThatHasUser(CurrentUser);
 
-            if (chats != null)
-            {
-                return Ok(chats);
-            }
-
-            return BadRequest("");
+            if (chats == null)
+                return BadRequest("");
+            
+            return Ok(chats);
         }
     }
 }

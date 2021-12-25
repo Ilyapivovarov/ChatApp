@@ -7,7 +7,7 @@ using ChatApp.ChatAppServices.Repositories.Interfaces;
 
 namespace ChatApp.ChatAppServices.Repositories
 {
-    public class ChatMessageRepository : RepositoryBase, IChatMessageRepository
+    public class MessageRepository : RepositoryBase, IMessageRepository
     {
         public async Task<bool> TrySaveMessageAsync(MessageDto message)
         {

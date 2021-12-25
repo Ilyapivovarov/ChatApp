@@ -4,7 +4,7 @@ using ChatApp.AppData.Models;
 
 namespace ChatApp.ChatAppServices.Repositories.Interfaces
 {
-    public interface IChatMessageRepository
+    public interface IMessageRepository
     {
         public Task<bool> TrySaveMessageAsync(MessageDto message);
     }

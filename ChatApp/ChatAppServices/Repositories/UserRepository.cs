@@ -9,7 +9,7 @@ using ChatApp.ChatAppServices.Repositories.Interfaces;
 
 namespace ChatApp.ChatAppServices.Repositories
 {
-    public sealed class AccountRepository : RepositoryBase, IUserRepository
+    public sealed class UserRepository : RepositoryBase, IUserRepository
     {
         public async Task<User?> SignUpAsync(SignUpDto signUpDto)
         {

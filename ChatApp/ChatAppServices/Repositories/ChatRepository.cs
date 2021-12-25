@@ -6,9 +6,9 @@ using ChatApp.ChatAppServices.Repositories.Interfaces;
 
 namespace ChatApp.ChatAppServices.Repositories
 {
-    public class ChatRoomRepository : RepositoryBase, IChatRepository
+    public class ChatRepository : RepositoryBase, IChatRepository
     {
-        public async Task<Chat?> GetChatRoomById(int id)
+        public async Task<Chat?> GetChatById(int id)
         {
             return await Task.Run(() =>
             {
@@ -17,7 +17,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<bool> TryCreateChatRoomAsync(User creator)
+        public async Task<bool> TryCreateChatAsync(User creator)
         {
             return await Task.Run(() =>
             {
@@ -31,7 +31,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<Chat?> CreateChatRoom(User creator)
+        public async Task<Chat?> CreateChat(User creator)
         {
             return await Task.Run(() =>
             {
@@ -49,7 +49,7 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<bool> TryAddUserInRoomAsync(Chat chat, int userId)
+        public async Task<bool> TryAddUserInChatAsync(Chat chat, int userId)
         {
             return await Task.Run(() =>
             {
@@ -65,21 +65,21 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<Chat[]?> GetRoomsThatHasUser(int userId, int chatId = 0)
+        public async Task<Chat[]?> GetChatsThatHasUser(User user, int chatId = 0)
         {
             return await Task.Run(() =>
             {
                 return LoadData(db =>
                 {
-                    var query = db.Chats.Where(chat => chat.Members.Select(user => user.Id)
-                        .Contains(userId));
+                    var query = db.Chats.Where(chat => chat.Members
+                        .Contains(user));
 
                     if (chatId != 0)
                         query = query.Where(x => x.Id == chatId);
 
                     return query.ToArray();
                     
-                }, $"Error while getting room that has user with id {userId}");
+                }, $"Error while getting room that has user with id {user.Id}");
             });
         }
     }

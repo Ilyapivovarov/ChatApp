@@ -4,7 +4,6 @@ using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.AuthService;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Controllers.Base;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,22 +19,19 @@ namespace ChatApp.Controllers
         {
             var userRepository = Services.Locator.GetRequiredService<IUserRepository>();
             var result = await userRepository.IsUsernameUnused(signUpDto.UserName);
-            
+
             if (result)
-            {
                 return BadRequest("User already exist");
-            }
 
             var signUpResult = await userRepository.SignUpAsync(signUpDto);
-            if (signUpResult != null)
-            {
-                Services.Locator.GetRequiredService<IAuthService>()
-                    .TryAuthUser(new SignInDto( signUpDto.UserName, signUpDto.Password), out var token);
+            if (signUpResult == null)
+                return BadRequest("Error auth user");
 
-                return Ok(new {access_token = token});
-            }
+            Services.Locator.GetRequiredService<IAuthService>()
+                .TryAuthUser(new SignInDto(signUpDto.UserName, signUpDto.Password), out var token);
 
-            return BadRequest("Error auth user ");
+            return Ok(new {access_token = token});
+           
         }
 
         [HttpPost]

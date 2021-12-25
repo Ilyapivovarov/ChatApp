@@ -26,7 +26,7 @@ public class MessageController : ChatAppControllerBase
         await _chatHub.Clients.Group(messageDto.ChatId.ToString())
             .ReceiveMessage(messageDto);
 
-        await Services.Locator.GetRequiredService<IChatMessageRepository>()
+        await Services.Locator.GetRequiredService<IMessageRepository>()
             .TrySaveMessageAsync(messageDto);
 
         return Ok();
