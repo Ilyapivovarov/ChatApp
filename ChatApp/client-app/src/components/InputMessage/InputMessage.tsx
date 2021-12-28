@@ -10,7 +10,7 @@ import "./InputMessage.css"
 const InputMessage: React.FC = () => {
     const {currentUser} = useAppSelector(x => x.authReducer)
     const [body, setBody] = useState<string>("");
-    const {id} = useParams();
+    const {id} = useParams<string>();
 
     const sendMessage = (message: Message) => {
         Axios.post("Message/send", message)
@@ -28,7 +28,7 @@ const InputMessage: React.FC = () => {
         }
 
         if (currentUser != null && body.length > 0) {
-            sendMessage({author: currentUser, body: body, chatId: 1, });
+            sendMessage({author: currentUser, body: body, chatId: +!id, });
             setBody("");
         }
     }

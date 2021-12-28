@@ -1,5 +1,6 @@
 using ChatApp.AppData.Models;
 using Microsoft.EntityFrameworkCore;
+#pragma warning disable CS8618
 
 namespace ChatApp.AppData
 {

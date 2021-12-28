@@ -9,7 +9,9 @@ const ChatListPage : React.FC = () => {
         <div className={"page"}>
             {isLoading && <Loader/>}
             {chats && chats.length > 0 &&
-                chats.map(chat => <ChatCard key={chat.id} chatName={"afsfas"} chat={chat}/>)}
+                chats.map(chat => <ChatCard key={chat.id} 
+                                            chatName={"Chat name"} 
+                                            chat={chat}/>)}
         </div>
     );
 };
