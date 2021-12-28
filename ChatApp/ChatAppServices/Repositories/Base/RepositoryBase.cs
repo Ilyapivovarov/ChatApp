@@ -16,7 +16,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             }
             catch(Exception e)
             {
-                Services.Logger.LogError(error, e.Message);
+                Services.Logger.LogError(error, e);
                 return default;
             }
         }
@@ -33,7 +33,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             }
             catch (Exception e)
             {
-                Services.Logger.LogError(error, e.Message);
+                Services.Logger.LogError(error, e);
                 return false;
             }
         }
@@ -50,7 +50,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             }
             catch (Exception e)
             {
-                Services.Logger.LogError(e, error);
+                Services.Logger.LogError(error, e);
                 return default;
             }
         }
