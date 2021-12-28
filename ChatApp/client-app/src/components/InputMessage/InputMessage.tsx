@@ -13,7 +13,7 @@ const InputMessage: React.FC = () => {
     const {id} = useParams();
 
     const sendMessage = (message: Message) => {
-        Axios.post("room/send-message/" + id, message)
+        Axios.post("Message/send", message)
     }
 
     const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -28,9 +28,7 @@ const InputMessage: React.FC = () => {
         }
 
         if (currentUser != null && body.length > 0) {
-            // TODO ДОДЕЛАТЬ
-            sendMessage({author: currentUser, body: body, chatId: 1});
-
+            sendMessage({author: currentUser, body: body, chatId: 1, });
             setBody("");
         }
     }

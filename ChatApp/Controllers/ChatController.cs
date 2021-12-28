@@ -38,13 +38,13 @@ namespace ChatApp.Controllers
             if (CurrentUser == null)
                 return BadRequest("");
 
-            var chats = await Services.Locator.GetRequiredService<IChatRepository>()
-                .GetChatsThatHasUser(CurrentUser);
+            var chat = await Services.Locator.GetRequiredService<IChatRepository>()
+                .GetChatById(id);
 
-            if (chats == null)
+            if (chat == null)
                 return BadRequest("");
             
-            return Ok(chats);
+            return Ok(chat);
         }
     }
 }

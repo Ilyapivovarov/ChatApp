@@ -23,9 +23,11 @@ public class MessageController : ChatAppControllerBase
         _chatHub = chatHub;
     }
 
+    [HttpPost]
+    [Route("send")]
     public async Task<ActionResult> SendMessage(MessageDto messageDto)
     {
-        await _chatHub.Clients.Group(messageDto.ChatId.ToString())
+        await _chatHub.Clients.All
             .ReceiveMessage(messageDto);
 
         await Services.Locator.GetRequiredService<IMessageRepository>()

@@ -1,11 +1,11 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import authReducer from "./reducers/AuthReducer/AuthSlice"
-import {roomAPI} from "../servies/roomService";
 import {accountAPI} from "../servies/accountService";
+import {chatAPI} from "../servies/chatService";
 
 const rootReducers = combineReducers({
     authReducer,
-    [roomAPI.reducerPath]: roomAPI.reducer,
+    [chatAPI.reducerPath]: chatAPI.reducer,
     [accountAPI.reducerPath]: accountAPI.reducer
 })
 
@@ -14,7 +14,7 @@ export const setupStore = () => {
         reducer: rootReducers,
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
-                .concat(roomAPI.middleware)
+                .concat(chatAPI.middleware)
                 .concat(accountAPI.middleware)
     })
 }

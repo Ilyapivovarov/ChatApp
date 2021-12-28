@@ -12,6 +12,16 @@ namespace ChatApp.SignalRHubs
     
     public class ChatHub : Hub<IChatClient>
     {
+        public Task JoinRoom(string roomName)
+        {
+            return Groups.AddToGroupAsync(Context.ConnectionId, roomName);
+        }
+
+        public Task LeaveRoom(string roomName)
+        {
+            return Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
+        }
+        
         public async Task Send(MessageDto message)
         {
             await Clients.All.ReceiveMessage(message);

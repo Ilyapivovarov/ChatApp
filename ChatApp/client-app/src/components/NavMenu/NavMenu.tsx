@@ -79,11 +79,6 @@ const NavMenu: React.FC = () => {
                                 Chats
                             </NavLink>
                         </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} to={RouteTemplates.ChatRooms}>
-                                Chat rooms
-                            </NavLink>
-                        </NavItem>
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
                             <AuthItem isAuthorized={isAuth}/>
                         </Collapse>

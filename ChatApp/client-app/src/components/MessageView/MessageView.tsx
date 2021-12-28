@@ -36,7 +36,8 @@ const MessageView: React.FC<DialogProps> = (props: DialogProps) => {
         }
     }, [props]);
 
-
+    console.log(props.messages)
+    
     return (
         <div className="wrap_scroll_bottom">
             <div className="container_scroll_bottom" id="containerScroll">
