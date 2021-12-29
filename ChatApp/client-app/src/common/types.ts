@@ -13,7 +13,7 @@ export interface Message {
     id?: number | null,
     author: User
     body: string,
-    chatId: number
+    chatId: number | string
 }
 
 export interface Chat {

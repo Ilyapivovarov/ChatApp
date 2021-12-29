@@ -7,13 +7,16 @@ import {Message} from "../../common/types";
 
 import "./InputMessage.css"
 
-const InputMessage: React.FC = () => {
+interface InputMessageProps {
+    chatId: number
+}
+
+const InputMessage: React.FC<InputMessageProps> = (props) => {
     const {currentUser} = useAppSelector(x => x.authReducer)
     const [body, setBody] = useState<string>("");
-    const {id} = useParams<string>();
 
     const sendMessage = (message: Message) => {
-        Axios.post("Message/send", message)
+        Axios.post("message/send", message)
     }
 
     const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +31,7 @@ const InputMessage: React.FC = () => {
         }
 
         if (currentUser != null && body.length > 0) {
-            sendMessage({author: currentUser, body: body, chatId: +!id, });
+            sendMessage({author: currentUser, body: body, chatId: props.chatId, });
             setBody("");
         }
     }

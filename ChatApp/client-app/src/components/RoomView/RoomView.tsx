@@ -32,7 +32,7 @@ const RoomView: React.FC<RoomViewProps> = (props) => {
     return (
         <div className={"room_view_main"}>
             <MessageView messages={messages}/>
-            <InputMessage/>
+            <InputMessage chatId={props.chat.id}/>
         </div>
     )
 };
