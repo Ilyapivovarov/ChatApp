@@ -15,17 +15,16 @@ namespace ChatApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AccountController : ChatAppControllerBase
+    public class UserController : ChatAppControllerBase
     {
         private readonly IMapperService _mapper;
 
-        public AccountController(IMapperService mapper)
+        public UserController(IMapperService mapper)
         {
             _mapper = mapper;
         }
 
         [HttpGet]
-        [Route("")]
         public async Task<ActionResult> GetAccounts()
         {
             var users = await Services.Locator.GetRequiredService<IUserRepository>()

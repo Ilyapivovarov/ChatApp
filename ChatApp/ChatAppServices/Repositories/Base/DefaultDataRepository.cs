@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 
@@ -19,14 +19,20 @@ namespace ChatApp.ChatAppServices.Repositories.Base
                         Password = "admin"
                     };
                     db.Users.Add(defaultUser);
-                    
+                    db.SaveChanges();
                     var chat = new Chat
                     {
                         Creator = defaultUser,
                     };
 
-                    chat.Admins.Add(defaultUser);
-
+                    chat.Admins = new List<User>()
+                    {
+                        defaultUser
+                    };
+                    chat.Members = new List<User>()
+                    {
+                        defaultUser
+                    };
                     db.Chats.Add(chat);
                 }
             }, "Error while initializing default data");
