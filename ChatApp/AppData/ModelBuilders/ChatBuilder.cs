@@ -1,9 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using ChatApp.AppData.ModelBuilders.Interfaces;
 using ChatApp.AppData.Models;
-using ChatApp.ChatAppServices;
-using Microsoft.Extensions.Logging;
 
 namespace ChatApp.AppData.ModelBuilders;
 
@@ -16,16 +12,16 @@ public class ChatBuilder : IChatBuilder
         _chat = new Chat();
     }
 
+    /// <summary>
+    /// Reset builder
+    /// </summary>
+    /// <returns></returns>
     public IChatBuilder Reset()
     {
         return new ChatBuilder();
     }
 
-    /// <summary>
-    /// Sets creator for chat. And add creator to members and admins lists 
-    /// </summary>
-    /// <param name="user"></param>
-    /// <returns></returns>
+  
     public IChatBuilder SetCreator(User user)
     {
         _chat.Creator = user;
@@ -35,6 +31,11 @@ public class ChatBuilder : IChatBuilder
         return this;
     }
 
+    /// <summary>
+    /// Set chat name
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public IChatBuilder SetName(string name)
     {
         _chat.Name = name;
@@ -42,6 +43,10 @@ public class ChatBuilder : IChatBuilder
         return this;
     }
 
+    /// <summary>
+    /// Build class
+    /// </summary>
+    /// <returns></returns>
     public Chat Build()
     {
         return _chat;

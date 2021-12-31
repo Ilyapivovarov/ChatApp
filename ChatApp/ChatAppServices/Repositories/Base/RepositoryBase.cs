@@ -7,7 +7,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
 {
     public class RepositoryBase
     {
-        protected T? LoadData<T>(Func<AppDbContext, T> loaFunc, string error)
+        protected T? LoadData<T>(Func<AppDbContext, T?> loaFunc, string error)
         {
             try
             {
@@ -16,7 +16,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             }
             catch(Exception e)
             {
-                Services.Logger.LogError(error, e);
+                Services.Logger.LogError(error, e.Message);
                 return default;
             }
         }
@@ -33,7 +33,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             }
             catch (Exception e)
             {
-                Services.Logger.LogError(error, e);
+                Services.Logger.LogError(error, e.Message);
                 return false;
             }
         }
@@ -50,7 +50,7 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             }
             catch (Exception e)
             {
-                Services.Logger.LogError(error, e);
+                Services.Logger.LogError(error, e.Message);
                 return default;
             }
         }

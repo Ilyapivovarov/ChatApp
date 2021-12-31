@@ -48,8 +48,11 @@ namespace ChatApp
                 { configuration.RootPath = "client-app/build"; });
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app,
+            ILogger<Program> logger)
         {
+            Services.SetLogger(logger);
+            
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -83,10 +86,11 @@ namespace ChatApp
                     spa.UseReactDevelopmentServer("start");
                 }
             });
-
+            
             Services.Locator = app.ApplicationServices.CreateScope().ServiceProvider;
-            if (!Services.Locator.GetRequiredService<IDefaultDataRepository>().InitDefaultDataAsync())
-                Services.Logger.LogTrace("Error while init default data");
+            if (!Services.Locator.GetRequiredService<IDefaultDataRepository>()
+                    .InitDefaultDataAsync())
+                Services.Logger.LogInformation("Error while init default data");
         }
     }
 }

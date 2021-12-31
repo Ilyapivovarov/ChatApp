@@ -11,9 +11,14 @@ namespace ChatApp.ChatAppServices
             Logger = new DefaultLogger();
         }
         
-        public static ILogger Logger { get; }
+        public static ILogger Logger { get; set; }
 
         public static IServiceProvider Locator { get; set; } = default!;
+
+        public static void SetLogger(ILogger<Program> logger)
+        {
+            Logger = logger;
+        }
         
         public static string GetConnectionString(bool isDev)
         {
