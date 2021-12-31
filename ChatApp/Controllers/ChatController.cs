@@ -14,7 +14,7 @@ namespace ChatApp.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ChatController : ChatAppControllerBase
     {
         [HttpGet]

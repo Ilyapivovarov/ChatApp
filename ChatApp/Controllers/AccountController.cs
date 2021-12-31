@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 namespace ChatApp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ChatAppControllerBase
     {
         private readonly IMapperService _mapper;

@@ -1,11 +1,11 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
-import {AccessTokenKey, BaseUrl} from "../common/global";
+import {AccessTokenKey, BaseUrl, BaseUrlApi} from "../common/global";
 import {Chat} from "../common/types";
 
 export const chatAPI = createApi({
     reducerPath: 'chatApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: BaseUrl,
+        baseUrl: BaseUrlApi,
         prepareHeaders: (headers) => {
             const token = localStorage.getItem(AccessTokenKey);
             if (token)

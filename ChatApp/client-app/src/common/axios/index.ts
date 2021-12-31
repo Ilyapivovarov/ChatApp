@@ -1,8 +1,9 @@
 import axios from "axios";
+import {BaseUrlApi} from "../global";
 
 const token = localStorage.getItem("accessToken");
 const Axios = axios.create({
-    baseURL: "https://localhost:5001/",
+    baseURL: BaseUrlApi,
     headers: {
         "Content-type": "application/json",
         "Authorization" : "Bearer " + token

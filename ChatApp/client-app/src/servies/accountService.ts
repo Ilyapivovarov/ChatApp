@@ -1,11 +1,11 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
-import {AccessTokenKey, BaseUrl} from "../common/global";
+import {AccessTokenKey, BaseUrl, BaseUrlApi} from "../common/global";
 import {User} from "../common/types";
 
 export const accountAPI = createApi({
     reducerPath: 'accountAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: BaseUrl,
+        baseUrl: BaseUrlApi,
         prepareHeaders: (headers) => {
             const token = localStorage.getItem(AccessTokenKey);
             if (token)

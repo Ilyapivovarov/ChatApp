@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ChatApp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AuthController : ChatAppControllerBase
     {
         [HttpPost]

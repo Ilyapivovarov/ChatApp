@@ -11,9 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatApp.Controllers;
 
-[ApiController]
-[Route("[controller]")]
 [Authorize]
+[ApiController]
+[Route("api/[controller]")]
 public class MessageController : ChatAppControllerBase
 {
     private readonly IHubContext<ChatHub, IChatClient> _chatHub;
