@@ -75,6 +75,11 @@ const NavMenu: React.FC = () => {
                     <Nav pills>
                         <NavbarBrand tag={Link} to="/">Chat App</NavbarBrand>
                         <NavItem>
+                            <NavLink tag={Link} to={RouteTemplates.UserList}>
+                                Users
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
                             <NavLink tag={Link} to={RouteTemplates.Chats}>
                                 Chats
                             </NavLink>

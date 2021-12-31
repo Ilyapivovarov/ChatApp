@@ -14,6 +14,7 @@ import ChatListPage from "./pages/ChatListPage/ChatsPage";
 
 import './App.css';
 import ChatPage from "./pages/ChatPage/ChatPage";
+import UserListPage from "./pages/UserListPage/UserListPage";
 
 
 const App: React.FC = () => {
@@ -32,6 +33,7 @@ const App: React.FC = () => {
                 <Route path={RouteTemplates.ProfilePage} element={<RequireAuth isAuth={isAuth} children={<AccountPage/>}/>}/>
                 <Route path={RouteTemplates.Chats} element={<RequireAuth isAuth={isAuth} children={<ChatListPage/>}/>}/>
                 <Route path={RouteTemplates.Chat} element={<RequireAuth isAuth={isAuth} children={<ChatPage/>}/>}/>
+                <Route path={RouteTemplates.UserList} element={<RequireAuth isAuth={isAuth} children={<UserListPage/>}/>}/>
             </Route>
         </Routes>
 

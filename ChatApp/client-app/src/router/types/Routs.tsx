@@ -4,5 +4,6 @@ export enum RouteTemplates {
     SignOn = "/sign-on",
     ProfilePage = "/profile/:id",
     Chats = "/chats",
-    Chat = "/chats/:id",
+    Chat = "/chat/:id",
+    UserList = "/users"
 }
