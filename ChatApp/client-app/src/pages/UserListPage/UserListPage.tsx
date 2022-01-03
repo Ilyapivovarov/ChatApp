@@ -13,7 +13,7 @@ const UserPageList: React.FC = () => {
             </div>
             <div className={"page-body"}>
                 {isLoading && <Loader/>}
-                {error && <Alert color="danger" title={"Error"}/>}
+                {error && <Alert color="danger">Error while fetching user</Alert>}
                 {data && <Table
                     hover
                     responsive
