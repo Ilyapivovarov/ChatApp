@@ -32,7 +32,7 @@ namespace ChatApp.Controllers
             if (users == null)
                 return BadRequest("Error");
 
-            return Ok(_mapper.Map<UserDto[]>(users));
+            return Ok(_mapper.Map<User, UserDto>(users));
         }
 
 

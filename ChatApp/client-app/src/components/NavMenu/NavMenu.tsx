@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Button, Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
+import {Badge, Button, Collapse, Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {RouteTemplates} from "../../router/types/Routs";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
@@ -75,13 +75,16 @@ const NavMenu: React.FC = () => {
                     <Nav pills>
                         <NavbarBrand tag={Link} to="/">Chat App</NavbarBrand>
                         <NavItem>
-                            <NavLink tag={Link} to={RouteTemplates.UserList}>
-                                Users
+                            <NavLink tag={Link} to={RouteTemplates.Chats}>
+                                Messages
+                                <Badge style={{"margin": "4px"}} pill>
+                                    14
+                                </Badge>
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to={RouteTemplates.Chats}>
-                                Chats
+                            <NavLink tag={Link} to={RouteTemplates.UserList}>
+                                All Users
                             </NavLink>
                         </NavItem>
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>

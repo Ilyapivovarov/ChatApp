@@ -7,6 +7,6 @@ namespace ChatApp.ChatAppServices.MapperService
     {
         public TValue Map<TSource, TValue>(TSource value);
 
-        IEnumerable<TValue> Map<TValue>(IEnumerable value);
+        IEnumerable<TValue> Map<TSource,TValue>(IEnumerable<TSource> value);
     }
 }

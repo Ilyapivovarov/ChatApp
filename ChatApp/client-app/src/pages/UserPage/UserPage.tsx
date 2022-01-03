@@ -1,11 +1,11 @@
 import React from 'react';
-import {useFetchAccountQuery} from "../../servies/accountService";
+import {useFetchUserQuery} from "../../servies/userService";
 import {useParams} from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 
-const ProfilePage : React.FC = () => {
+const UserPage : React.FC = () => {
     const {id} = useParams<string>();
-    const {error, isLoading, data} = useFetchAccountQuery(id!)
+    const {error, isLoading, data} = useFetchUserQuery(id!)
     return (
         <div>
             {data && <h1>Hi {data.userName}</h1>}
@@ -15,4 +15,4 @@ const ProfilePage : React.FC = () => {
     );
 };
 
-export default ProfilePage;
+export default UserPage;

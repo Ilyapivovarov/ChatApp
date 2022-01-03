@@ -34,9 +34,9 @@ namespace ChatApp.ChatAppServices.MapperService
             return _mapper.Map<TSource, TValue>(value);
         }
 
-        public IEnumerable<TValue> Map<TValue>(IEnumerable value)
+        public IEnumerable<TValue> Map<TSource, TValue>(IEnumerable<TSource> value)
         {
-            return _mapper.Map<IEnumerable, IEnumerable<TValue>>(value);
+            return _mapper.Map<IEnumerable<TSource>, IEnumerable<TValue>>(value);
         }
     }
 }

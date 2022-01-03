@@ -6,7 +6,9 @@ export interface JwtTokenDecode {
 
 export interface User {
     id: number,
-    userName: string
+    userName: string,
+    firstName: string,
+    lastName: string
 }
 
 export interface Message {

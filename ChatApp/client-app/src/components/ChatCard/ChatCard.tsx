@@ -12,7 +12,7 @@ interface ChatCardProp {
 const ChatCard: React.FC<ChatCardProp> = (props) => {
     const navigate = useNavigate();
     const onClickHandler = () => {
-        navigate( `/chats/${props.chat.id}`)
+        navigate( `/chat/${props.chat.id}`)
     }
     const removeChatHandler = () => {
         console.log(`remove chat with id ${props.chat.id}`)
