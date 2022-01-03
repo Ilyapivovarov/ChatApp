@@ -7,7 +7,6 @@ import {signOut, validateToken} from "../../store/reducers/AuthReducer/AuthActio
 
 import './NavMenu.css';
 
-
 interface AuthItemProps {
     isAuthorized: boolean;
 }
