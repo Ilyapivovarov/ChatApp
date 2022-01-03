@@ -5,5 +5,6 @@ export enum RouteTemplates {
     UserPage = "/user/:id",
     Chats = "/chats",
     Chat = "/chat/:id",
-    UserList = "/users"
+    UserList = "/users",
+    FriendsPage = "/friends"
 }

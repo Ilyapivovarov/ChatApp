@@ -76,7 +76,15 @@ const NavMenu: React.FC = () => {
                         <NavItem>
                             <NavLink tag={Link} to={RouteTemplates.Chats}>
                                 Messages
-                                <Badge style={{"margin": "4px"}} pill>
+                                <Badge color={"primary"} style={{"margin": "4px"}} pill>
+                                    14
+                                </Badge>
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to={RouteTemplates.FriendsPage}>
+                                Friends 
+                                <Badge color={"primary"} style={{"margin": "4px"}} pill>
                                     14
                                 </Badge>
                             </NavLink>
