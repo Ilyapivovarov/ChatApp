@@ -1,11 +1,18 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using ChatApp.AppData.Models.Base;
-#pragma warning disable CS8618
 
 namespace ChatApp.AppData.Models
 {
     public class Message : DbModelBase
     {
+        public Message()
+        {
+            Body = string.Empty;
+            Author = new User();
+            ChatId = default;
+        }
+
         [Required]
         public string Body { get; set; } 
 

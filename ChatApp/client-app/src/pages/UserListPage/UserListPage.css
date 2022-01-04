@@ -1,0 +1,10 @@
+.user-list{
+    height: 450px;
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 1000px;
+}
+
+tr, td {
+    padding: 7px;
+}

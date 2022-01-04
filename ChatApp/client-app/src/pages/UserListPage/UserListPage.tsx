@@ -20,6 +20,7 @@ const UserPageList: React.FC = () => {
         setPage(x => x - 1);
     }
 
+    console.log(data)
     return (
         <div className={"page"}>
             <div className={"page-content"}>
@@ -32,22 +33,9 @@ const UserPageList: React.FC = () => {
                     {data &&
                         <>
                             <Table
+                                className={"user-list"}
                                 size="sm"
-                                style={{height: "450px"}}
                             >
-                                <thead>
-                                <tr style={{textAlign: "center"}}>
-                                    <th>
-                                        BIO
-                                    </th>
-                                    <th>
-                                        Username
-                                    </th>
-                                    <th>
-
-                                    </th>
-                                </tr>
-                                </thead>
                                 <tbody>
                                 {data.map(item =>
                                     <tr key={item.id}>
@@ -67,6 +55,7 @@ const UserPageList: React.FC = () => {
                                 </tbody>
                             </Table>
                             <Pagination
+                                hidden={data.length < 10}
                                 nextPageHandler={nextPageHandler}
                                 prevPageHandler={prevPageHandler}
                                 pageNumber={page}/>

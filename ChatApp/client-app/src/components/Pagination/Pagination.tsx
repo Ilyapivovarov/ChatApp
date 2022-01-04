@@ -3,13 +3,17 @@ import {Button} from "reactstrap";
 
 import "./Pagination.css"
 
-interface PaginationProp {
+interface PaginationProp{
+    hidden?: boolean,
     pageNumber: number,
     nextPageHandler: MouseEventHandler<HTMLButtonElement>
     prevPageHandler: MouseEventHandler<HTMLButtonElement>
 }
 
 const Pagination : React.FC<PaginationProp> = (props) => {
+    if (props.hidden)
+        return (<></>)
+    
     return (
         <div className={"pagination"}>
             <div className={"pag-button"}>
