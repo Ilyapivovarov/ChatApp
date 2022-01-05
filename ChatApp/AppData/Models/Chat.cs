@@ -7,13 +7,20 @@ namespace ChatApp.AppData.Models;
 
 public class Chat : DbModelBase
 {
+    /// <summary>
+    /// Пользователь по-умолчанию
+    /// </summary>
+    /// <returns></returns>
+    public static Chat Default() => default!;
+    
     public Chat()
     {
-        Creator = new User();
+        Creator = User.Default();
         Admins = new List<User>();
         Messages = new List<Message>();
         Members = new List<User>();
         Name = string.Empty;
+        Type = default!;
     }
     
     [ForeignKey("CreatorId")]
@@ -33,4 +40,6 @@ public class Chat : DbModelBase
 
     [Required] 
     public string Name { get; set; }
+    
+    public ChatType Type { get; set; }
 }

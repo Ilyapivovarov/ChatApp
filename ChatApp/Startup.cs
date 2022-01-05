@@ -43,6 +43,7 @@ namespace ChatApp
             services.UseChatAppModules();
             services.UseChatAppRepositories();
             services.UseChatAppServices();
+            services.UseChatAppBuilders();
 
             services.AddSpaStaticFiles(configuration => 
                 { configuration.RootPath = "client-app/build"; });

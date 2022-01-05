@@ -1,3 +1,5 @@
+using ChatApp.AppData.ModelBuilders;
+using ChatApp.AppData.ModelBuilders.Interfaces;
 using ChatApp.ChatAppServices.AuthService;
 using ChatApp.ChatAppServices.MapperService;
 using ChatApp.ChatAppServices.Repositories;
@@ -49,6 +51,13 @@ namespace ChatApp.Extensions
         public static void UseChatAppServices(this IServiceCollection service)
         {
             service.AddTransient<IMapperService, MapperService>();
+        }
+
+        public static void UseChatAppBuilders(this IServiceCollection services)
+        {
+            services.AddTransient<IUserBuilder, UserBuilder>();
+            services.AddTransient<IChatBuilder, ChatBuilder>();
+            services.AddTransient<IMessageBuilder, MessageBuilder>();
         }
     }
 }

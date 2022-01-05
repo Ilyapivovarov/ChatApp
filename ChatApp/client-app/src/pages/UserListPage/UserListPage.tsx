@@ -10,8 +10,7 @@ import "./UserListPage.css"
 const UserPageList: React.FC = () => {
     const {data, isLoading, error} = useFetchUsersQuery();
     const [page, setPage] = React.useState(1);
-
-
+    
     const nextPageHandler: MouseEventHandler<HTMLButtonElement> = (e) => {
         setPage(x => x + 1);
     }
@@ -20,7 +19,6 @@ const UserPageList: React.FC = () => {
         setPage(x => x - 1);
     }
 
-    console.log(data)
     return (
         <div className={"page"}>
             <div className={"page-content"}>
@@ -31,11 +29,8 @@ const UserPageList: React.FC = () => {
                     {isLoading && <Loader/>}
                     {error && <Alert color="danger">Error while fetching user</Alert>}
                     {data &&
-                        <>
-                            <Table
-                                className={"user-list"}
-                                size="sm"
-                            >
+                        <div className={"user-list"}>
+                            <Table size="sm">
                                 <tbody>
                                 {data.map(item =>
                                     <tr key={item.id}>
@@ -59,7 +54,7 @@ const UserPageList: React.FC = () => {
                                 nextPageHandler={nextPageHandler}
                                 prevPageHandler={prevPageHandler}
                                 pageNumber={page}/>
-                        </>
+                        </div>
                     }
 
                 </div>

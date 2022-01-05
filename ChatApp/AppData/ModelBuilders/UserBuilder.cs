@@ -12,7 +12,7 @@ public class UserBuilder : IUserBuilder
         _newUser = new User();
     }
     
-    public IUserBuilder Rest()
+    public IUserBuilder Reset()
     {
         return new UserBuilder();
     }
@@ -26,6 +26,36 @@ public class UserBuilder : IUserBuilder
     public IUserBuilder SetPassword(string password)
     {
         _newUser.Password = password;
+        return this;
+    }
+
+    public IUserBuilder SetFirstName(string firstName)
+    {
+        _newUser.FirstName = firstName;
+        return this;
+    }
+
+    public IUserBuilder SetLastName(string lastName)
+    {
+        _newUser.LastName = lastName;
+        return this;
+    }
+
+    public IUserBuilder SetFriendList(params User[] users)
+    {
+        _newUser.Friends.AddRange(users);
+        return this;
+    }
+
+    public IUserBuilder SetUserRole(UserRole role)
+    {
+        _newUser.Role = role;
+        return this;
+    }
+
+    public IUserBuilder SetUserStatus(UserStatus status)
+    {
+        _newUser.Status = status;
         return this;
     }
 

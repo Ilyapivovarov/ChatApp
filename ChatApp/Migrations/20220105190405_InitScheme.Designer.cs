@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChatApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211229141226_add_chat_name_property")]
-    partial class add_chat_name_property
+    [Migration("20220105190405_InitScheme")]
+    partial class InitScheme
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,9 @@ namespace ChatApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -84,12 +87,29 @@ namespace ChatApp.Migrations
                     b.Property<int?>("AdminId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("FriendId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int?>("MemberId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -98,6 +118,8 @@ namespace ChatApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdminId");
+
+                    b.HasIndex("FriendId");
 
                     b.HasIndex("MemberId");
 
@@ -138,6 +160,10 @@ namespace ChatApp.Migrations
                         .WithMany("Admins")
                         .HasForeignKey("AdminId");
 
+                    b.HasOne("ChatApp.AppData.Models.User", null)
+                        .WithMany("Friends")
+                        .HasForeignKey("FriendId");
+
                     b.HasOne("ChatApp.AppData.Models.Chat", null)
                         .WithMany("Members")
                         .HasForeignKey("MemberId");
@@ -150,6 +176,11 @@ namespace ChatApp.Migrations
                     b.Navigation("Members");
 
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("ChatApp.AppData.Models.User", b =>
+                {
+                    b.Navigation("Friends");
                 });
 #pragma warning restore 612, 618
         }

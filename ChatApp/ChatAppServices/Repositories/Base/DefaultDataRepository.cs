@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using ChatApp.AppData.ModelBuilders.Interfaces;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatApp.ChatAppServices.Repositories.Base
 {
@@ -13,27 +15,27 @@ namespace ChatApp.ChatAppServices.Repositories.Base
             {
                 if (!db.Users.Any() && !db.Chats.Any())
                 {
-                    var defaultUser = new User
-                    {
-                        UserName = "admin",
-                        Password = "admin"
-                    };
-                    db.Users.Add(defaultUser);
-                    db.SaveChanges();
-                    var chat = new Chat
-                    {
-                        Creator = defaultUser,
-                    };
+                    var userBuilder = Services.Locator.GetRequiredService<IUserBuilder>();
 
-                    chat.Admins = new List<User>()
-                    {
-                        defaultUser
-                    };
-                    chat.Members = new List<User>()
-                    {
-                        defaultUser
-                    };
-                    db.Chats.Add(chat);
+                    var adminUser = userBuilder.SetUserName("admin")
+                        .SetPassword("admin")
+                        .SetFirstName("Admin")
+                        .SetLastName("Admin")
+                        .SetUserRole(UserRole.Admin)
+                        .SetUserStatus(UserStatus.Active)
+                        .Build();
+
+                    var simpleUser = userBuilder
+                        .Reset()
+                        .SetUserName("ilya_pivovarov")
+                        .SetPassword("pivo")
+                        .SetFirstName("Ilya")
+                        .SetLastName("Pivovarov")
+                        .SetUserRole(UserRole.Member)
+                        .SetUserStatus(UserStatus.Active)
+                        .Build();
+                    
+                    db.Users.AddRange(adminUser, simpleUser);
                 }
             }, "Error while initializing default data");
         }

@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ChatApp.Migrations
 {
-    public partial class init : Migration
+    public partial class InitScheme : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,9 @@ namespace ChatApp.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreatorId = table.Column<int>(type: "integer", nullable: false)
+                    CreatorId = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,7 +32,12 @@ namespace ChatApp.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserName = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<int>(type: "integer", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
                     AdminId = table.Column<int>(type: "integer", nullable: true),
+                    FriendId = table.Column<int>(type: "integer", nullable: true),
                     MemberId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -45,6 +52,11 @@ namespace ChatApp.Migrations
                         name: "FK_Users_Chats_MemberId",
                         column: x => x.MemberId,
                         principalTable: "Chats",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Users_Users_FriendId",
+                        column: x => x.FriendId,
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
@@ -94,6 +106,11 @@ namespace ChatApp.Migrations
                 name: "IX_Users_AdminId",
                 table: "Users",
                 column: "AdminId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_FriendId",
+                table: "Users",
+                column: "FriendId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_MemberId",
