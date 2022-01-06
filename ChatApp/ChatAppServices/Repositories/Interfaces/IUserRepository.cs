@@ -19,5 +19,13 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
         public Task<User?> GetUserByIdAsync(int accountId);
 
         public Task<bool> IsUsernameUnused(string userName);
+
+        /// <summary>
+        /// Добавить друзей пользователю
+        /// </summary>
+        /// <param name="user">Пользователь</param>
+        /// <param name="friendIds">Идентификаторы пользователей, которых нужно добавить в друзья</param>
+        /// <returns>True - если метод правильно отработал, False - если произошло исключение</returns>
+        public Task<bool> TryUpdateFriendList(User user, params int[] friendIds);
     }
 }

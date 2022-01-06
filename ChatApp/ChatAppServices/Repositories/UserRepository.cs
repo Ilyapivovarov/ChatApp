@@ -85,5 +85,16 @@ namespace ChatApp.ChatAppServices.Repositories
                     $"Error while founding user with username {userName}");
             });
         }
+
+        public async Task<bool> TryUpdateFriendList(User user, params int[] friendIds)
+        {
+            return await Task.Run(() =>
+            {
+                return WriteData(db =>
+                {
+                    user.Friends.AddRange(db.Users.Where(x => friendIds.Contains(x.Id)));
+                }, "Error while adding new friends");
+            });
+        }
     }
 }
