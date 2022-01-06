@@ -1,13 +1,10 @@
 using System.Threading.Tasks;
-using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
 using ChatApp.Controllers.Base;
-using ChatApp.SignalRHubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatApp.Controllers
@@ -45,6 +42,26 @@ namespace ChatApp.Controllers
                 return BadRequest("");
             
             return Ok(chat);
+        }
+
+        /// <summary>
+        /// Создать новый чат
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("create-chat")]
+        public async Task<ActionResult> GetOrCreateChat(User[] members)
+        {
+            if (CurrentUser == null)
+                return Unauthorized();
+
+            var newChat = await Services.Locator.GetRequiredService<IChatRepository>()
+                .CreateAndReturnNewChatAsync(CurrentUser, members);
+
+            if (newChat == null)
+                return BadRequest("Ошибка при создании чата");
+            
+            return Ok(newChat);
         }
     }
 }

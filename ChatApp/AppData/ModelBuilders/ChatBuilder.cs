@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using ChatApp.AppData.ModelBuilders.Interfaces;
 using ChatApp.AppData.Models;
 
@@ -11,11 +13,7 @@ public class ChatBuilder : IChatBuilder
     {
         _chat = new Chat();
     }
-
-    /// <summary>
-    /// Reset builder
-    /// </summary>
-    /// <returns></returns>
+    
     public IChatBuilder Reset()
     {
         return new ChatBuilder();
@@ -30,12 +28,7 @@ public class ChatBuilder : IChatBuilder
         
         return this;
     }
-
-    /// <summary>
-    /// Set chat name
-    /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
+    
     public IChatBuilder SetName(string name)
     {
         _chat.Name = name;
@@ -43,10 +36,24 @@ public class ChatBuilder : IChatBuilder
         return this;
     }
 
-    /// <summary>
-    /// Build class
-    /// </summary>
-    /// <returns></returns>
+    public IChatBuilder SetMembers(params User[] users)
+    {
+        _chat.Members.AddRange(_chat.Members.Union(users));
+        return this;
+    }
+
+    public IChatBuilder SetType(ChatType type)
+    {
+        _chat.Type = type;
+        return this;
+    }
+
+    public IChatBuilder SetGuid(Guid guid)
+    {
+        _chat.Guid = guid;
+        return this;
+    }
+
     public Chat Build()
     {
         return _chat;

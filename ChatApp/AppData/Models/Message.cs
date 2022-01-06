@@ -5,13 +5,11 @@ namespace ChatApp.AppData.Models
 {
     public class Message : DbModelBase
     {
-        public Message Default() => default!;
-        
         public Message()
         {
             Body = string.Empty;
-            Author = User.Default();
-            ChatId = default;
+            Author = default!;
+            ChatId = default!;
         }
 
         /// <summary>

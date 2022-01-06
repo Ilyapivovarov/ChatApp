@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,21 +8,19 @@ namespace ChatApp.AppData.Models;
 
 public class Chat : DbModelBase
 {
-    /// <summary>
-    /// Пользователь по-умолчанию
-    /// </summary>
-    /// <returns></returns>
-    public static Chat Default() => default!;
-    
     public Chat()
     {
-        Creator = User.Default();
+        Creator = default!;
         Admins = new List<User>();
         Messages = new List<Message>();
         Members = new List<User>();
         Name = string.Empty;
         Type = default!;
+        Guid = Guid.Empty;
     }
+    
+    [Required]
+    public Guid Guid { get; set; }
     
     [ForeignKey("CreatorId")]
     [Required]

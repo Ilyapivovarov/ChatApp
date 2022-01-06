@@ -7,12 +7,6 @@ namespace ChatApp.AppData.Models
 {
     public class User : DbModelBase
     {
-        /// <summary>
-        /// Пользователь по умолчанию
-        /// </summary>
-        /// <returns></returns>
-        public static User Default() => default!;
-        
         public User()
         {
             UserName = default!;

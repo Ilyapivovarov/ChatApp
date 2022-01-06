@@ -1,8 +1,12 @@
+using System;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using ChatApp.AppData.ModelBuilders.Interfaces;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Base;
 using ChatApp.ChatAppServices.Repositories.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatApp.ChatAppServices.Repositories
 {
@@ -72,16 +76,37 @@ namespace ChatApp.ChatAppServices.Repositories
                 return LoadData(db =>
                 {
                     var query = db.Chats.Where(chat => chat.Members
-                        .Contains(user) || chat.Admins.Contains(user)
-                        || chat.Creator == user);
+                            .Contains(user) || chat.Admins.Contains(user)
+                                            || chat.Creator == user);
 
                     if (chatId != 0)
                         query = query.Where(x => x.Id == chatId);
 
                     return query.ToArray();
-                    
                 }, $"Error while getting room that has user with id {user.Id}");
             });
         }
+
+        public async Task<Chat?> CreateAndReturnNewChatAsync(User creator, params User[] users)
+        {
+            return (await Task.Run(() =>
+            {
+                return WriteAndReturnData(db =>
+                {
+                    var chatBuilder = Services.Locator.GetRequiredService<IChatBuilder>();
+
+                    var chat = chatBuilder.SetCreator(creator)
+                        .SetName("Чат")
+                        .SetType(ChatType.Dialog)
+                        .SetMembers(users)
+                        .SetGuid(Guid.NewGuid())
+                        .Build();
+                    
+                    db.Chats.Add(chat);
+                    return chat;
+                }, "Error while creating chat");
+            }))!;
+        }
+
     }
 }
