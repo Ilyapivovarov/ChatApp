@@ -8,7 +8,10 @@ export interface User {
     id: number,
     userName: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    status: number,
+    role: number,
+    friends: User[] | null,
 }
 
 export interface Message {

@@ -35,7 +35,7 @@ public class UserBuilderTests : ChatAppTestBase
         Assert.True(CheckProperty(result));
     }
 
-    private bool CheckProperty(User user)
+    private static bool CheckProperty(User user)
     {
         foreach (var property in user.GetType().GetProperties())
         {
