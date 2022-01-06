@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
 using ChatApp.AppData.Models;
@@ -15,6 +17,13 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
         public Task<User[]?> GetUsersAsync();
 
         public User? GetUserById(int userId);
+
+        /// <summary>
+        /// Get users by ids 
+        /// </summary>
+        /// <param name="userIds">User ids</param>
+        /// <returns></returns>
+        public Task<User?[]> GetUsersByIds(IEnumerable<int> userIds);
         
         public Task<User?> GetUserByIdAsync(int accountId);
 

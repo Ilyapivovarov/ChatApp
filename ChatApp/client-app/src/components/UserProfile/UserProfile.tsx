@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {MouseEventHandler} from 'react';
 import {User} from "../../common/types";
+import {Button, Col, Container, Row} from "reactstrap";
+import {useAppSelector} from "../../hooks/redux";
 
 import "./UserProfile.css"
-import {Button, Col, Container, Row} from "reactstrap";
 
 interface UserProfileProps {
     user: User
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({user, children}) => {
+    const {currentUser} = useAppSelector(x => x.authReducer);
+    
+    const addToFriendsHandler : MouseEventHandler<HTMLButtonElement> = event => {
+        console.log("add to friend")
+    };
+    
+    const writeMessageHandler : MouseEventHandler<HTMLButtonElement> = event => {
+        console.log("Write message")
+    };
+    
     return (
         <div className={"user-profile"}>
             <div className={"main-content"}>
@@ -16,14 +27,14 @@ const UserProfile: React.FC<UserProfileProps> = ({user, children}) => {
                     <div className={"user-img column-content"}>
                         IMG
                     </div>
-                    <div className={"user-action column-content"}>
+                    <div hidden={currentUser != null && currentUser.id == user.id} className={"user-action column-content"}>
                         <div className={"button-wrapper"}>
-                            <Button block color={"success"} size={"sm"}>
+                            <Button block color={"success"} size={"sm"} onClick={addToFriendsHandler}>
                                 Добавить в друзья
                             </Button>
                         </div>
                         <div className={"button-wrapper"}>
-                            <Button block color={"primary"} size={"sm"}>
+                            <Button block color={"primary"} size={"sm"} onClick={writeMessageHandler}>
                                 Написать
                             </Button>
                         </div>
@@ -46,7 +57,6 @@ const UserProfile: React.FC<UserProfileProps> = ({user, children}) => {
                                     <Col>{user.friends.length}</Col>
                                     : <Col>Список друзей пуст</Col>}
                             </Row>
-
                         </Container>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ChatApp.AppData.Dto;
@@ -66,6 +67,18 @@ namespace ChatApp.ChatAppServices.Repositories
         {
             return LoadData(db => db.Users.First(x => x.Id == userId),
                 $"Error while searching user with {userId}");
+        }
+
+        public async Task<User?[]> GetUsersByIds(IEnumerable<int> userIds)
+        {
+            var userList = new List<User?>();
+            foreach (var userId in userIds)
+            {
+                var user = await GetUserByIdAsync(userId);
+                userList.Add(user);
+            }
+
+            return userList.ToArray();
         }
 
         public async Task<User?> GetUserByIdAsync(int userId)

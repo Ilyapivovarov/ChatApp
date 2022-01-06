@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using ChatApp.AppData.Models;
 
@@ -12,11 +13,25 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
         public Task<Chat[]?> GetChatsThatHasUser(User user, int chatId = 0);
 
         /// <summary>
-        /// Создать и вернуть чат
+        /// Create and return chat 
         /// </summary>
-        /// <param name="creator">Создатель чата</param>
-        /// <param name="users">Участники чата</param>
-        /// <returns>Созданный чат</returns>
+        /// <param name="creator">Chat creator</param>
+        /// <param name="users">Chat members</param>
+        /// <returns>Created chat</returns>
         public Task<Chat?> CreateAndReturnNewChatAsync(User creator, params User[] users);
+
+        /// <summary>
+        /// Get chat by existing members
+        /// </summary>
+        /// <param name="members">Existing members</param>
+        /// <returns>Chat</returns>
+        public Task<Chat?> GetChatByExistingMembers(params User?[] members);
+
+        /// <summary>
+        /// Getting chat by guid
+        /// </summary>
+        /// <param name="guid">Chat guid</param>
+        /// <returns></returns>
+        public Task<Chat?> GetChatByGuidAsync(Guid? guid);
     }
 }

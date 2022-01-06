@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using ChatApp.AppData.Dto;
 using ChatApp.AppData.ModelBuilders.Interfaces;
 using ChatApp.AppData.Models;
 using ChatApp.ChatAppServices.Repositories.Base;
@@ -89,7 +90,7 @@ namespace ChatApp.ChatAppServices.Repositories
 
         public async Task<Chat?> CreateAndReturnNewChatAsync(User creator, params User[] users)
         {
-            return (await Task.Run(() =>
+            return await Task.Run(() =>
             {
                 return WriteAndReturnData(db =>
                 {
@@ -101,12 +102,30 @@ namespace ChatApp.ChatAppServices.Repositories
                         .SetMembers(users)
                         .SetGuid(Guid.NewGuid())
                         .Build();
-                    
+
                     db.Chats.Add(chat);
                     return chat;
                 }, "Error while creating chat");
-            }))!;
+            });
         }
 
+        public async Task<Chat?> GetChatByExistingMembers(params User?[] members)
+        {
+            return await Task.Run(
+                () =>
+                {
+                    return LoadData(db => db.Chats.FirstOrDefault(x => x.Members.SequenceEqual(members)),
+                        "Error while searching chat");
+                });
+        }
+
+        public async Task<Chat?> GetChatByGuidAsync(Guid? guid)
+        {
+            return await Task.Run(() =>
+            {
+                return LoadData(db => db.Chats.FirstOrDefault(x => x.Guid == guid),
+                    $"Error while searching chat by guid {guid}");
+            });
+        }
     }
 }
