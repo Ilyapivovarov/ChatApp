@@ -8,7 +8,6 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
     {
         public Task<Chat?> GetChatById(int id);
         public Task<bool> TryCreateChatAsync(User creator);
-        public Task<Chat?> CreateChat(User creator);
         public Task<bool> TryAddUserInChatAsync(Chat chatRoom, int userId);
         public Task<Chat[]?> GetChatsThatHasUser(User user, int chatId = 0);
 
@@ -25,7 +24,7 @@ namespace ChatApp.ChatAppServices.Repositories.Interfaces
         /// </summary>
         /// <param name="members">Existing members</param>
         /// <returns>Chat</returns>
-        public Task<Chat?> GetChatByExistingMembers(params User?[] members);
+        public Task<Chat?> GetChatByExistingMembers(params User[] members);
 
         /// <summary>
         /// Getting chat by guid

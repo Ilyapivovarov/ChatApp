@@ -71,11 +71,11 @@ namespace ChatApp.Controllers
         }
 
         /// <summary>
-        /// Создать новый чат
+        /// Create and return new Chat
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        [Route("create-chat")]
+        [HttpPut]
+        [Route("get-or-create-chat")]
         public async Task<ActionResult> GetOrCreateChat(UserDto[] members)
         {
             if (CurrentUser == null)
@@ -86,16 +86,22 @@ namespace ChatApp.Controllers
 
             if (users.Contains(null))
                 return BadRequest("Error while searching user");
+
+            var existingChat = await Services.Locator.GetRequiredService<IChatRepository>()
+                .GetChatByExistingMembers(users);
+
+            if (existingChat != null)
+                return Ok(existingChat);
             
             var newChat = await Services.Locator.GetRequiredService<IChatRepository>()
                 .CreateAndReturnNewChatAsync(CurrentUser, users);
 
             var chat = await Services.Locator.GetRequiredService<IChatRepository>()
                 .GetChatByGuidAsync(newChat?.Guid);
-            
+
             if (chat == null)
                 return BadRequest("Error while creating chat");
-            
+
             return Ok(newChat);
         }
     }

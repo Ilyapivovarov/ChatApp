@@ -35,25 +35,6 @@ namespace ChatApp.ChatAppServices.Repositories
                     "Error while creating chat room");
             });
         }
-
-        public async Task<Chat?> CreateChat(User creator)
-        {
-            return await Task.Run(() =>
-            {
-                return WriteAndReturnData(db =>
-                {
-                    var chatRoom = new Chat()
-                    {
-                        Creator = creator
-                    };
-
-                    db.Chats.Add(chatRoom);
-
-                    return chatRoom;
-                }, "Error while creating chat room");
-            });
-        }
-
         public async Task<bool> TryAddUserInChatAsync(Chat chat, int userId)
         {
             return await Task.Run(() =>
@@ -109,12 +90,15 @@ namespace ChatApp.ChatAppServices.Repositories
             });
         }
 
-        public async Task<Chat?> GetChatByExistingMembers(params User?[] members)
+        public async Task<Chat?> GetChatByExistingMembers(params User[] members)
         {
             return await Task.Run(
                 () =>
                 {
-                    return LoadData(db => db.Chats.FirstOrDefault(x => x.Members.SequenceEqual(members)),
+                    return LoadData(db => db.Chats
+                            .ToList()
+                            .FirstOrDefault(x => x.Members
+                            .SequenceEqual(members)),
                         "Error while searching chat");
                 });
         }
