@@ -28,14 +28,14 @@ public interface IChatBuilder
     /// <summary>
     /// Add members
     /// </summary>
-    /// <param name="users">Members chat</param>
+    /// <param name="users">Участники чата</param>
     /// <returns>Chat builder</returns>
     public IChatBuilder AddMembers(params User[] users);
 
     /// <summary>
     /// Set chat type
     /// </summary>
-    /// <param name="type">Chat type</param>
+    /// <param name="type">Тип чата</param>
     /// <returns>Chat builder</returns>
     public IChatBuilder SetType(ChatType type);
 
