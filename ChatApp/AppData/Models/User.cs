@@ -14,6 +14,8 @@ namespace ChatApp.AppData.Models
             Friends = new List<User>();
             FirstName = default!;
             LastName = default!;
+            Status = default!;
+            Role = default!;
         }
 
         /// <summary>

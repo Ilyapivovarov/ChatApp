@@ -80,7 +80,7 @@ namespace ChatApp.ChatAppServices.Repositories
                     var chat = chatBuilder.SetCreator(creator)
                         .SetName("Чат")
                         .SetType(ChatType.Dialog)
-                        .SetMembers(users)
+                        .AddMembers(users)
                         .SetGuid(Guid.NewGuid())
                         .Build();
 

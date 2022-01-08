@@ -36,7 +36,7 @@ public class ChatBuilder : IChatBuilder
         return this;
     }
 
-    public IChatBuilder SetMembers(params User[] users)
+    public IChatBuilder AddMembers(params User[] users)
     {
         _chat.Members = _chat.Members.Union(users).ToList();
         return this;

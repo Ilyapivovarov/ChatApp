@@ -14,41 +14,41 @@ public interface IChatBuilder
     /// <summary>
     /// Sets creator for chat. And add creator to members and admins lists 
     /// </summary>
-    /// <param name="user"></param>
-    /// <returns></returns>
+    /// <param name="user">Chat creator</param>
+    /// <returns>Chat builder</returns>
     public IChatBuilder SetCreator(User user);
     
     /// <summary>
     /// Set chat name
     /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
+    /// <param name="name">Chat name</param>
+    /// <returns>Chat builder</returns>
     public IChatBuilder SetName(string name);
 
     /// <summary>
-    /// Добавить участников чата
+    /// Add members
     /// </summary>
-    /// <param name="users">Участники чата</param>
-    /// <returns>Чат билдер</returns>
-    public IChatBuilder SetMembers(params User[] users);
+    /// <param name="users">Members chat</param>
+    /// <returns>Chat builder</returns>
+    public IChatBuilder AddMembers(params User[] users);
 
     /// <summary>
-    /// Установить тип чата
+    /// Set chat type
     /// </summary>
-    /// <param name="type">Тип чата</param>
-    /// <returns>Чат билдер</returns>
+    /// <param name="type">Chat type</param>
+    /// <returns>Chat builder</returns>
     public IChatBuilder SetType(ChatType type);
 
     /// <summary>
-    /// Установить guid
+    /// Set guid
     /// </summary>
     /// <param name="guid">Guid</param>
-    /// <returns>Чат билдер</returns>
+    /// <returns>Chat builder</returns>
     public IChatBuilder SetGuid(Guid guid);
 
     /// <summary>
     /// Build chat model
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Chat builder</returns>
     public Chat Build();
 }
