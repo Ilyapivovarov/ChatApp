@@ -4,11 +4,9 @@ import {useFetchChatQuery} from "../../servies/chatService";
 import {RoomView} from "../../components/RoomView/RoomView";
 import Loader from "../../components/Loader/Loader";
 
-const ChatPage = () => {
+const ChatPage : React.FC = () => {
     const {id} = useParams<string>();
-    
     const {isLoading, error, data: chat} = useFetchChatQuery(id!);
-    console.log(error)
     return (
         <div className={"page"}>
             {isLoading && <Loader/>}

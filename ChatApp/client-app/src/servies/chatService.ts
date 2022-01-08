@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {AccessTokenKey, BaseUrl, BaseUrlApi} from "../common/global";
-import {Chat} from "../common/types";
+import {Chat, User} from "../common/types";
 
 export const chatAPI = createApi({
     reducerPath: 'chatApi',
@@ -23,8 +23,15 @@ export const chatAPI = createApi({
             query: (id) => ({
                 url: `chat/${id}`
             })
+        }),
+        getOrCreateChat: build.mutation<Chat, User[]>({
+            query: (users : User[]) => ({
+                url: "chat/get-or-create-chat",
+                body: users,
+                method: "PUT"
+            })
         })
     })
 })
 
-export const {useFetchChatQuery, useFetchChatsQuery} = chatAPI
+export const {useFetchChatQuery, useFetchChatsQuery, useGetOrCreateChatMutation} = chatAPI

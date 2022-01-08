@@ -6,12 +6,12 @@ import UserProfile from "../../components/UserProfile/UserProfile";
 
 const UserPage : React.FC = () => {
     const {id} = useParams<string>();
-    const {error, isLoading, data} = useFetchUserQuery(id!)
+    const {error, isLoading, data:user} = useFetchUserQuery(id!)
     return (
         <div>
             {isLoading && <Loader/>}
             {error && <h1>{JSON.parse(JSON.stringify(error)).data}</h1>}
-            {data && <UserProfile user={data}/>}
+            {user && <UserProfile user={user}/>}
         </div>
     );
 };

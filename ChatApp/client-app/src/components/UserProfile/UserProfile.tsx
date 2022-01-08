@@ -1,9 +1,12 @@
-import React, {MouseEventHandler} from 'react';
+import React, {MouseEventHandler, useEffect} from 'react';
 import {User} from "../../common/types";
 import {Button, Col, Container, Row} from "reactstrap";
 import {useAppSelector} from "../../hooks/redux";
+import {useGetOrCreateChatMutation} from "../../servies/chatService";
+
 
 import "./UserProfile.css"
+import {useNavigate} from "react-router-dom";
 
 interface UserProfileProps {
     user: User
@@ -11,15 +14,22 @@ interface UserProfileProps {
 
 const UserProfile: React.FC<UserProfileProps> = ({user, children}) => {
     const {currentUser} = useAppSelector(x => x.authReducer);
+    const [getOrCreateChat, {isError, data, isSuccess}] = useGetOrCreateChatMutation();
+    const navigation = useNavigate();
+    useEffect(() => {
+    }, [isSuccess]);
     
-    const addToFriendsHandler : MouseEventHandler<HTMLButtonElement> = event => {
+
+    const addToFriendsHandler: MouseEventHandler<HTMLButtonElement> = event => {
         console.log("add to friend")
     };
-    
-    const writeMessageHandler : MouseEventHandler<HTMLButtonElement> = event => {
-        console.log("Write message")
-    };
-    
+
+    const writeMessageHandler = async () => {
+        await getOrCreateChat([user]);
+        if (data)
+           navigation(`/chat/${data.id}`)
+    }
+
     return (
         <div className={"user-profile"}>
             <div className={"main-content"}>
@@ -27,7 +37,8 @@ const UserProfile: React.FC<UserProfileProps> = ({user, children}) => {
                     <div className={"user-img column-content"}>
                         IMG
                     </div>
-                    <div hidden={currentUser != null && currentUser.id == user.id} className={"user-action column-content"}>
+                    <div hidden={currentUser != null && currentUser.id == user.id}
+                         className={"user-action column-content"}>
                         <div className={"button-wrapper"}>
                             <Button block color={"success"} size={"sm"} onClick={addToFriendsHandler}>
                                 Добавить в друзья

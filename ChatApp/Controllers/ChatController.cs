@@ -49,17 +49,17 @@ namespace ChatApp.Controllers
         /// <summary>
         /// Get chat by existing members
         /// </summary>
-        /// <param name="userDtos"></param>
+        /// <param name="userDto"></param>
         /// <returns>Chat</returns>
         [HttpGet]
         [Route("get/chat-by-members")]
-        public async Task<ActionResult> GetChatByMembers(UserDto[] userDtos)
+        public async Task<ActionResult> GetChatByMembers(UserDto[] userDto)
         {
             if (CurrentUser == null)
                 return Unauthorized();
 
             var users = await Services.Locator.GetRequiredService<IUserRepository>()
-                .GetUsersByIds(userDtos.Select(x => x.Id));
+                .GetUsersByIds(userDto.Select(x => x.Id));
 
             var chat = await Services.Locator.GetRequiredService<IChatRepository>()
                 .GetChatByExistingMembers(users);
@@ -71,7 +71,7 @@ namespace ChatApp.Controllers
         }
 
         /// <summary>
-        /// Create and return new Chat
+        /// Get or create chat
         /// </summary>
         /// <returns></returns>
         [HttpPut]
@@ -81,20 +81,23 @@ namespace ChatApp.Controllers
             if (CurrentUser == null)
                 return Unauthorized();
 
+            var a = members.Select(x => x.Id).ToList();
+            a.Add(CurrentUser.Id);
             var users = await Services.Locator.GetRequiredService<IUserRepository>()
-                .GetUsersByIds(members.Select(x => x.Id));
+                .GetUsersByIds(a);
 
             if (users.Contains(null))
                 return BadRequest("Error while searching user");
 
+            var notNullUsers = (User[]) users;
             var existingChat = await Services.Locator.GetRequiredService<IChatRepository>()
-                .GetChatByExistingMembers(users);
+                .GetChatByExistingMembers(notNullUsers);
 
             if (existingChat != null)
                 return Ok(existingChat);
             
             var newChat = await Services.Locator.GetRequiredService<IChatRepository>()
-                .CreateAndReturnNewChatAsync(CurrentUser, users);
+                .CreateAndReturnNewChatAsync(CurrentUser, notNullUsers);
 
             var chat = await Services.Locator.GetRequiredService<IChatRepository>()
                 .GetChatByGuidAsync(newChat?.Guid);
