@@ -12,22 +12,25 @@ interface UserProfileProps {
     user: User
 }
 
-const UserProfile: React.FC<UserProfileProps> = ({user, children}) => {
+const UserProfile: React.FC<UserProfileProps> = ({user}) => {
     const {currentUser} = useAppSelector(x => x.authReducer);
-    const [getOrCreateChat, {isError, data, isSuccess}] = useGetOrCreateChatMutation();
+    const [getOrCreateChat, {data, isLoading}] = useGetOrCreateChatMutation();
     const navigation = useNavigate();
     useEffect(() => {
-    }, [isSuccess]);
-    
+        if (data)
+            navigation(`/chat/${data.id}`)
+    }, [isLoading]);
+
 
     const addToFriendsHandler: MouseEventHandler<HTMLButtonElement> = event => {
         console.log("add to friend")
     };
 
     const writeMessageHandler = async () => {
-        await getOrCreateChat([user]);
+        const result = await getOrCreateChat([user]);
+        console.log(result)
         if (data)
-           navigation(`/chat/${data.id}`)
+            navigation(`/chat/${data.id}`)
     }
 
     return (
