@@ -13,19 +13,19 @@ namespace ChatApp.AppData.Models
         }
 
         /// <summary>
-        /// Тело сообщения
+        /// Message body
         /// </summary>
         [Required]
         public string Body { get; set; } 
 
         /// <summary>
-        /// Автор
+        /// Message author
         /// </summary>
         [Required]
         public User Author { get; set; }
 
         /// <summary>
-        /// Индентификатор чата
+        /// Chat id
         /// </summary>
         [Required]
         public int ChatId { get; set; } 

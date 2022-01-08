@@ -22,9 +22,9 @@ public class ChatBuilder : IChatBuilder
   
     public IChatBuilder SetCreator(User user)
     {
-        _chat.Creator = user;
-        _chat.Admins.Add(user);
-        _chat.Members.Add(user);
+        _chat.CreatorId = user.Id;
+        _chat.IdAdmins.Add(user.Id);
+        _chat.IdMembers.Add(user.Id);
         
         return this;
     }
@@ -38,7 +38,7 @@ public class ChatBuilder : IChatBuilder
 
     public IChatBuilder AddMembers(params User[] users)
     {
-        _chat.Members = _chat.Members.Union(users).ToList();
+        _chat.IdMembers = _chat.IdMembers.Union(users.Select(x => x.Id)).ToList();
         return this;
     }
 

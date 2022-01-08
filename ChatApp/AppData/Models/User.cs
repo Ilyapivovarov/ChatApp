@@ -33,7 +33,6 @@ namespace ChatApp.AppData.Models
         /// <summary>
         /// Список друзей 
         /// </summary>
-        [Required]
         [ForeignKey("FriendId")]
         public List<User> Friends { get; set; }
         
@@ -58,6 +57,7 @@ namespace ChatApp.AppData.Models
         /// <summary>
         /// Статус
         /// </summary>
+        [Required]
         public UserStatus Status { get; set; }
     }
 }

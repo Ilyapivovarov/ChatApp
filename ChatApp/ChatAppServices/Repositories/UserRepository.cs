@@ -78,7 +78,7 @@ namespace ChatApp.ChatAppServices.Repositories
                 userList.Add(user);
             }
 
-            return userList.ToArray();
+            return userList.OrderBy(x => x.Id).ToArray();
         }
 
         public async Task<User?> GetUserByIdAsync(int userId)

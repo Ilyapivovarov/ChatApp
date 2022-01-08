@@ -1,6 +1,5 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Form, FormGroup, Input} from "reactstrap";
-import {useParams} from "react-router-dom";
 import Axios from "../../common/axios";
 import {useAppSelector} from "../../hooks/redux";
 import {Message} from "../../common/types";

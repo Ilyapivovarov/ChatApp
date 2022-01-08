@@ -28,7 +28,7 @@ namespace ChatApp.ChatAppServices.Repositories
             {
                 var chatRoom = new Chat()
                 {
-                    Creator = creator
+                    CreatorId = creator.Id
                 };
 
                 return WriteData(db => db.Chats.Add(chatRoom),
@@ -44,7 +44,7 @@ namespace ChatApp.ChatAppServices.Repositories
                     var user = db.Users.FirstOrDefault(x => x.Id == userId);
                     if (user != null)
                     {
-                        chat.Members.Add(user);
+                        chat.IdMembers.Add(user.Id);
                         db.Update(chat);
                     }
                 }, "Error while adding user in chat room");
@@ -57,9 +57,9 @@ namespace ChatApp.ChatAppServices.Repositories
             {
                 return LoadData(db =>
                 {
-                    var query = db.Chats.Where(chat => chat.Members
-                            .Contains(user) || chat.Admins.Contains(user)
-                                            || chat.Creator == user);
+                    var query = db.Chats.Where(chat => chat.IdMembers
+                            .Contains(user.Id) || chat.IdAdmins.Contains(user.Id)
+                                            || chat.CreatorId == user.Id);
 
                     if (chatId != 0)
                         query = query.Where(x => x.Id == chatId);
@@ -97,8 +97,9 @@ namespace ChatApp.ChatAppServices.Repositories
                 {
                     return LoadData(db => db.Chats
                             .ToList()
-                            .FirstOrDefault(x => x.Members
-                            .SequenceEqual(members)),
+                            .FirstOrDefault(chat => chat.IdMembers
+                            .SequenceEqual(members.Select(user => user.Id)
+                                .OrderBy(x => x))),
                         "Error while searching chat");
                 });
         }

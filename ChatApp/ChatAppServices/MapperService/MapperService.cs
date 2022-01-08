@@ -17,9 +17,9 @@ namespace ChatApp.ChatAppServices.MapperService
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<Chat, ChatDto>()
                     .ForMember(dest => dest.Admins,
-                        opt => opt.MapFrom(src => src.Admins))
+                        opt => opt.MapFrom(src => src.IdAdmins))
                     .ForMember(dest => dest.Members,
-                        opt => opt.MapFrom(src => src.Members))
+                        opt => opt.MapFrom(src => src.IdMembers))
                     .ForMember(dst => dst.Messages,
                         opt => opt.MapFrom(src => src.Messages));
                 cfg.CreateMap<Message, MessageDto>()

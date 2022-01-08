@@ -10,10 +10,10 @@ public class Chat : DbModelBase
 {
     public Chat()
     {
-        Creator = default!;
-        Admins = new List<User>();
+        CreatorId = default!;
+        IdAdmins = new List<int>();
         Messages = new List<Message>();
-        Members = new List<User>();
+        IdMembers = new List<int>();
         Name = string.Empty;
         Type = default!;
         Guid = Guid.Empty;
@@ -23,23 +23,18 @@ public class Chat : DbModelBase
     public Guid Guid { get; set; }
     
     [ForeignKey("CreatorId")]
-    [Required]
-    public User Creator { get; set; }
+    public int CreatorId { get; set; }
     
     [ForeignKey("AdminId")]
-    [Required]
-    public List<User> Admins { get; set; }
+    public List<int> IdAdmins { get; set; }
     
     [Required]
     public List<Message> Messages { get; set; }
     
     [ForeignKey("MemberId")]
-    [Required]
-    public List<User> Members { get; set; }
-
-    [Required] 
+    public List<int> IdMembers { get; set; }
+    
     public string Name { get; set; }
     
-    [Required]
     public ChatType Type { get; set; }
 }

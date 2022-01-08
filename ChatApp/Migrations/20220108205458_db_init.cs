@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace ChatApp.Migrations
 {
-    public partial class InitScheme : Migration
+    public partial class db_init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +17,10 @@ namespace ChatApp.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Guid = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatorId = table.Column<int>(type: "integer", nullable: false),
+                    IdAdmins = table.Column<List<int>>(type: "integer[]", nullable: false),
+                    IdMembers = table.Column<List<int>>(type: "integer[]", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -36,23 +41,11 @@ namespace ChatApp.Migrations
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Role = table.Column<int>(type: "integer", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    AdminId = table.Column<int>(type: "integer", nullable: true),
-                    FriendId = table.Column<int>(type: "integer", nullable: true),
-                    MemberId = table.Column<int>(type: "integer", nullable: true)
+                    FriendId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Chats_AdminId",
-                        column: x => x.AdminId,
-                        principalTable: "Chats",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Users_Chats_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "Chats",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Users_Users_FriendId",
                         column: x => x.FriendId,
@@ -88,11 +81,6 @@ namespace ChatApp.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chats_CreatorId",
-                table: "Chats",
-                column: "CreatorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Messages_AuthorId",
                 table: "Messages",
                 column: "AuthorId");
@@ -103,43 +91,21 @@ namespace ChatApp.Migrations
                 column: "ChatId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_AdminId",
-                table: "Users",
-                column: "AdminId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_FriendId",
                 table: "Users",
                 column: "FriendId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_MemberId",
-                table: "Users",
-                column: "MemberId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Chats_Users_CreatorId",
-                table: "Chats",
-                column: "CreatorId",
-                principalTable: "Users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Chats_Users_CreatorId",
-                table: "Chats");
-
             migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Chats");
 
             migrationBuilder.DropTable(
-                name: "Chats");
+                name: "Users");
         }
     }
 }
