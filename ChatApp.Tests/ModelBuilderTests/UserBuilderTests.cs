@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using ChatApp.AppData.ModelBuilders;
 using ChatApp.AppData.ModelBuilders.Interfaces;
 using ChatApp.AppData.Models;
@@ -28,22 +31,12 @@ public class UserBuilderTests : ChatAppTestBase
         var result = builder.SetPassword("sad")
             .SetUserName("sda")
             .SetFirstName("Admin")
-            .SetFriendList(friend)
+            .AddUsersInFriendsList(friend)
             .SetLastName("Admin")
+            .SetUserRole(UserRole.Member)
+            .SetUserStatus(UserStatus.Active)
             .Build();
 
-        Assert.True(CheckProperty(result));
-    }
-
-    private static bool CheckProperty(User user)
-    {
-        foreach (var property in user.GetType().GetProperties())
-        {
-            var value = property.GetValue(user);
-            if (value == default || string.IsNullOrWhiteSpace(value.ToString()))
-                return false;
-        }
-
-        return true;
+        Assert.IsTrue(IsAnyNull(result));
     }
 }

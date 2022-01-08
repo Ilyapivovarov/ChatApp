@@ -40,5 +40,6 @@ public class Chat : DbModelBase
     [Required] 
     public string Name { get; set; }
     
+    [Required]
     public ChatType Type { get; set; }
 }

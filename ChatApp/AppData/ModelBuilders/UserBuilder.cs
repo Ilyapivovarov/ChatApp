@@ -41,7 +41,7 @@ public class UserBuilder : IUserBuilder
         return this;
     }
 
-    public IUserBuilder SetFriendList(params User[] users)
+    public IUserBuilder AddUsersInFriendsList(params User[] users)
     {
         _newUser.Friends.AddRange(users);
         return this;

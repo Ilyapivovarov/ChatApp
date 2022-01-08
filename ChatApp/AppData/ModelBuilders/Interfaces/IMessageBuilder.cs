@@ -7,33 +7,26 @@ public interface IMessageBuilder
     /// <summary>
     /// Reset builder
     /// </summary>
-    /// <returns></returns>
+    /// <returns>New message builder</returns>
     public IMessageBuilder Reset();
 
     /// <summary>
     /// Sets author for message
     /// </summary>
-    /// <param name="user"></param>
-    /// <returns></returns>
+    /// <param name="user">Author</param>
+    /// <returns>Message builder</returns>
     public IMessageBuilder SetAuthor(User user);
 
     /// <summary>
     /// Set message body
     /// </summary>
-    /// <param name="body"></param>
-    /// <returns></returns>
+    /// <param name="body">Message builder</param>
+    /// <returns>Message builder</returns>
     public IMessageBuilder SetBody(string body);
-
-    /// <summary>
-    /// Sets chat id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public IMessageBuilder SetChatId(int id);
 
     /// <summary>
     /// Build
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Message model</returns>
     public Message Build();
 }

@@ -13,6 +13,11 @@ namespace ChatApp.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Use JWT
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="authOpt"></param>
         public static void UseJwt(this IServiceCollection services, AuthOptions authOpt)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -35,11 +40,19 @@ namespace ChatApp.Extensions
                 });
         }
 
+        /// <summary>
+        /// Register application modules
+        /// </summary>
+        /// <param name="service"></param>
         public static void UseChatAppModules(this IServiceCollection service)
         {
             service.AddTransient<IAuthService, AuthService>();
         }
         
+        /// <summary>
+        /// Register repositories
+        /// </summary>
+        /// <param name="service"></param>
         public static void UseChatAppRepositories(this IServiceCollection service)
         {
             service.AddTransient<IUserRepository, UserRepository>();
@@ -48,11 +61,19 @@ namespace ChatApp.Extensions
             service.AddTransient<IDefaultDataRepository, DefaultDataRepository>();
         }
         
+        /// <summary>
+        /// Register application services
+        /// </summary>
+        /// <param name="service"></param>
         public static void UseChatAppServices(this IServiceCollection service)
         {
             service.AddTransient<IMapperService, MapperService>();
         }
 
+        /// <summary>
+        /// Register builders
+        /// </summary>
+        /// <param name="services"></param>
         public static void UseChatAppBuilders(this IServiceCollection services)
         {
             services.AddTransient<IUserBuilder, UserBuilder>();

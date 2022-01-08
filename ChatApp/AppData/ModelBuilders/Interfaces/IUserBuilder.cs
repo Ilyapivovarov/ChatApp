@@ -5,63 +5,63 @@ namespace ChatApp.AppData.ModelBuilders.Interfaces;
 public interface IUserBuilder
 {
     /// <summary>
-    /// Обновить билдер 
+    /// Reset builder
     /// </summary>
     /// <returns></returns>
     public IUserBuilder Reset();
 
     /// <summary>
-    /// Установить имя пользователя
+    /// Set username
     /// </summary>
-    /// <param name="userName">Имя пользователя</param>
+    /// <param name="userName">Username</param>
     /// <returns></returns>
     public IUserBuilder SetUserName(string userName);
 
     /// <summary>
-    /// Установить пароль
+    /// Set password
     /// </summary>
-    /// <param name="password">Пароль</param>
-    /// <returns></returns>
+    /// <param name="password">Password</param>
+    /// <returns>User builder</returns>
     public IUserBuilder SetPassword(string password);
 
     /// <summary>
-    /// Установить имя
+    /// Set first name
     /// </summary>
     /// <param name="firstName">Имя</param>
     /// <returns></returns>
     public IUserBuilder SetFirstName(string firstName);
     
     /// <summary>
-    /// Установить фамилию
+    /// Set last name
     /// </summary>
     /// <param name="lastName">Фамилия</param>
-    /// <returns></returns>
+    /// <returns>User builder</returns>
     public IUserBuilder SetLastName(string lastName);
 
     /// <summary>
-    /// Установить список друзей 
+    /// Add users in friends list
     /// </summary>
-    /// <param name="users">Список пользователя</param>
-    /// <returns></returns>
-    public IUserBuilder SetFriendList(params User[] users);
+    /// <param name="users">User</param>
+    /// <returns>User builder</returns>
+    public IUserBuilder AddUsersInFriendsList(params User[] users);
 
     /// <summary>
-    /// Утановить роль для пользователя
+    /// Set user role
     /// </summary>
-    /// <param name="role">Роль пользователя</param>
-    /// <returns></returns>
+    /// <param name="role">User role</param>
+    /// <returns>AddUsersInFriendsList</returns>
     public IUserBuilder SetUserRole(UserRole role);
 
     /// <summary>
-    /// Установить статус для пользователя
+    /// Set user status
     /// </summary>
-    /// <param name="status">Статус пользователя</param>
-    /// <returns></returns>
+    /// <param name="status">User status</param>
+    /// <returns>User builder</returns>
     public IUserBuilder SetUserStatus(UserStatus status);
 
     /// <summary>
-    /// Собрать модель  
+    /// Build model 
     /// </summary>
-    /// <returns></returns>
+    /// <returns>User</returns>
     public User Build();
 }
